@@ -163,7 +163,7 @@ export default {
       if (this.$route.query && this.$route.query.from) {
         this.$router.push(String(this.$route.query.from));
       } else {
-        this.$router.push('/').catch(() => {
+        this.$router.push('index').catch(() => {
         });
       }
     },

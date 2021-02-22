@@ -1,13 +1,13 @@
 /**
  * 路由配置
  */
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import store from '@/store';
 import setting from '@/config/setting';
 import EleLayout from '@/layout';
-import {EleEmptyLayout} from 'ele-admin';
+import store from '@/store';
+import { EleEmptyLayout } from 'ele-admin';
 import NProgress from 'nprogress';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
@@ -17,6 +17,11 @@ const routes = [
     path: '/login',
     component: () => import('@/views/login/login'),
     meta: {title: '登录'}
+  },
+  {
+    path: '/index',
+    component: () => import('@/views/index/index'),
+    meta: {title: '主页'}
   },
   {
     path: '/forget',
@@ -38,7 +43,7 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   NProgress.start();
-  document.title = ((to.meta && to.meta.title) ? `${to.meta.title} - ` : '') + process.env.VUE_APP_NAME;
+  document.title = ((to.meta && to.meta.title) ? `${to.meta.title}` : '')
   // 判断是否登录
   if (store.state.user.token) {
     // 判断是否已经注册动态路由
