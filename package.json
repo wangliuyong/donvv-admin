@@ -1,0 +1,56 @@
+{
+  "name": "ele-admin-template",
+  "version": "1.1.3",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:preview": "vue-cli-service build --mode preview",
+    "build:report": "vue-cli-service build --report",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@amap/amap-jsapi-loader": "^0.0.7",
+    "@riophae/vue-treeselect": "^0.4.0",
+    "@tinymce/tinymce-vue": "^3.2.8",
+    "axios": "^0.21.1",
+    "core-js": "^3.8.3",
+    "countup.js": "^2.0.7",
+    "cropperjs": "^1.5.9",
+    "echarts": "^4.9.0",
+    "echarts-wordcloud": "^1.1.3",
+    "ele-admin": "^1.1.3",
+    "element-ui": "^2.15.0",
+    "nprogress": "^0.2.0",
+    "tinymce": "^5.7.0",
+    "vue": "^2.6.12",
+    "vue-axios": "^2.1.5",
+    "vue-clipboard2": "^0.3.1",
+    "vue-countup-v2": "^4.0.0",
+    "vue-qr": "^2.3.0",
+    "vue-router": "^3.5.1",
+    "vuedraggable": "^2.24.3",
+    "vuex": "^3.6.2",
+    "xgplayer-vue": "^1.1.5",
+    "xlsx": "^0.16.9"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-plugin-vuex": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "babel-eslint": "^10.1.0",
+    "compression-webpack-plugin": "^6.1.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^7.6.0",
+    "sass": "^1.3.0",
+    "sass-loader": "^10.1.1",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
