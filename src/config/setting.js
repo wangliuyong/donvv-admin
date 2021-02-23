@@ -7,7 +7,7 @@ export default {
   // 需要缓存的组件名称
   keepAliveList: [],
   // 菜单数据接口
-  menuUrl: '/main/menu',
+  menuUrl: 'system/permission/GetPermission',
   // 自定义解析接口菜单数据
   parseMenu: null,
   // 自定义解析接口菜单每一个数据格式
@@ -33,7 +33,7 @@ export default {
   // 首页tab显示标题, null会根据菜单自动获取
   homeTitle: '主页',
   // 首页路径, null会自动获取
-  homePath: null,
+  homePath: '/index',
   // 顶栏是否显示主题设置按钮
   showSetting: true,
   // 侧边栏风格: 0亮色, 1暗色

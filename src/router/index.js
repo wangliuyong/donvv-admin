@@ -36,9 +36,15 @@ const router = new VueRouter({
 });
 
 // 路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+
   NProgress.start();
   document.title = ((to.meta && to.meta.title) ? `${to.meta.title}` : '')
+  if(!store.state.app.urlConfig?.baseUrl){
+    await store.dispatch('app/getDomain')
+
+    console.log(11111, store.state.app.urlConfig?.baseUrl);
+  }
   // 判断是否登录
   if (store.state.user.token) {
     // 判断是否已经注册动态路由
@@ -120,7 +126,5 @@ function menuToRoutes(menus) {
       });
     }
   });
-
-  console.log(444,routes);
   return routes;
 }

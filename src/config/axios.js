@@ -1,13 +1,13 @@
 /**
  * axios配置
  */
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import store from '@/store';
 import router from '@/router';
+import store from '@/store';
+import axios from 'axios';
+import { MessageBox } from 'element-ui';
+import Vue from 'vue';
+import VueAxios from 'vue-axios';
 import setting from './setting';
-import {MessageBox} from 'element-ui';
 
 Vue.use(VueAxios, axios);
 
@@ -16,11 +16,53 @@ axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
 
 // 请求拦截器
 axios.interceptors.request.use((config) => {
+  
+  config.headers.Application = 'branch'
+  
   // 添加token到header
   if (store.state.user.token) {
     config.headers[setting.tokenHeaderName] = store.state.user.token;
   }
-  return config;
+
+  // system
+  if (config.url.indexOf('system/') === 0) {
+    const urlConfig = store.getters.urlConfig
+    config.baseURL = urlConfig.system
+    console.log('system',urlConfig);
+    config.url = config.url.replace('system/', '')
+  }
+  // commodity
+  if (config.url.indexOf('commodity/') === 0) {
+    const urlConfig = store.getters.urlConfig
+    config.baseURL = urlConfig.commodity
+    config.url = config.url.replace('commodity/', '')
+  }
+  // customer
+  if (config.url.indexOf('customer/') === 0) {
+    const urlConfig = store.getters.urlConfig
+    config.baseURL = urlConfig.customer
+    config.url = config.url.replace('customer/', '')
+  }
+  // order
+  if (config.url.indexOf('order/') === 0) {
+    const urlConfig = store.getters.urlConfig
+    config.baseURL = urlConfig.order
+    config.url = config.url.replace('order/', '')
+  }
+  // content
+  if (config.url.indexOf('content/') === 0) {
+    const urlConfig = store.getters.urlConfig
+    config.baseURL = urlConfig.content
+    config.url = config.url.replace('content/', '')
+  }
+  // content
+  if (config.url.indexOf('file/') === 0) {
+    const urlConfig = store.getters.urlConfig
+    config.baseURL = urlConfig.file
+    config.url = config.url.replace('file/', '')
+  }
+  return config
+
 }, function (error) {
   return Promise.reject(error);
 });
@@ -28,7 +70,7 @@ axios.interceptors.request.use((config) => {
 // 响应拦截器
 axios.interceptors.response.use((res) => {
   // 登录过期处理
-  if (res.data.code === 401) {
+  if (res.data.status === 401) {
     if (res.config.url === setting.menuUrl) {
       store.dispatch('user/setToken').then(() => {
         router.push('/login');
@@ -55,7 +97,9 @@ axios.interceptors.response.use((res) => {
   if (access_token) {
     store.dispatch('user/setToken', access_token);
   }
-  return res;
+
+  
+  return res.data;
 }, (error) => {
   return Promise.reject(error);
 });

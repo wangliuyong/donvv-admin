@@ -8,10 +8,10 @@
       size="large"
       @keyup.enter.native="doSubmit">
       <h4>用户登录</h4>
-      <el-form-item prop="username">
+      <el-form-item prop="identity">
         <el-input
           placeholder="请输入登录账号"
-          v-model="form.username"
+          v-model="form.identity"
           prefix-icon="el-icon-user"
           clearable/>
       </el-form-item>
@@ -22,7 +22,7 @@
           prefix-icon="el-icon-lock"
           show-password/>
       </el-form-item>
-      <el-form-item prop="code">
+      <!-- <el-form-item prop="code">
         <div class="login-input-group">
           <el-input
             placeholder="请输入验证码"
@@ -35,7 +35,7 @@
             class="login-captcha"
             alt=""/>
         </div>
-      </el-form-item>
+      </el-form-item> -->
       <div class="el-form-item">
         <el-checkbox
           v-model="form.remember">记住密码
@@ -99,61 +99,49 @@ export default {
       loading: false,
       // 表单数据
       form: {
-        username: 'admin',
+        identity: 'admin',
         password: 'admin',
-        code: '',
+        // code: '',
         remember: true
       },
       // 表单验证规则
       rules: {
-        username: [
+        identity: [
           {required: true, message: '请输入账号', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入密码', trigger: 'blur'}
         ],
-        code: [
-          {required: true, message: '请输入验证码', trigger: 'blur'}
-        ]
       },
-      captcha: '',
-      text: ''
     }
   },
   mounted() {
     if (this.$store.state.user.token) {
       this.goHome();
     }
-    this.changeCode();
+    // this.changeCode();
   },
   methods: {
     /* 提交 */
-    doSubmit() {
+    async doSubmit() {
       this.$refs['loginForm'].validate((valid) => {
         if (!valid) {
           return false;
         }
-        if (this.form.code.toLowerCase() !== this.text) {
-          this.$message.error('验证码错误');
-          return;
-        }
         this.loading = true;
-        let formData = new FormData();
-        for (let key in this.form) {
-          formData.append(key, this.form[key]);
-        }
-        this.$http.post('/login', formData).then((res) => {
+
+        this.$http.post('system/account/login', this.form).then((res) => {
           this.loading = false;
-          if (res.data.code === 0) {
+          if (res.isSucceed) {
             this.$message({type: 'success', message: '登录成功'});
             this.$store.dispatch('user/setToken', {
-              token: 'Bearer ' + res.data.access_token,
+              token: 'Bearer ' + res.data,
               remember: this.form.remember
             }).then(() => {
               this.goHome();
             });
           } else {
-            this.$message.error(res.data.msg);
+            this.$message.error(res.msg);
           }
         });
       });
@@ -166,23 +154,6 @@ export default {
         this.$router.push('index').catch(() => {
         });
       }
-    },
-    /* 更换图形验证码 */
-    changeCode() {
-      // 这里演示的验证码是后端返回base64格式的形式, 如果后端地址直接是图片请参考忘记密码页面
-      this.$http.get('/file/captcha').then(res => {
-        if (res.data.code === 0) {
-          this.captcha = res.data.data;
-          // 实际项目后端一般会返回验证码的key而不是直接返回验证码的内容, 登录用key去验证, 你可以根据自己后端接口修改
-          this.text = res.data.text;
-          // 自动回填验证码, 实际项目去掉这个
-          this.form.code = this.text;
-        } else {
-          this.$message.error(res.data.msg);
-        }
-      }).catch(e => {
-        this.$message.error(e.message);
-      });
     }
   }
 }
