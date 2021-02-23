@@ -78,6 +78,7 @@ export default {
   },
   mutations: {
     SET: (state, obj) => {
+      console.log(36366,obj);
       state[obj.key] = obj.value;
       // 开关色弱模式
       if ('weakMode' === obj.key) {

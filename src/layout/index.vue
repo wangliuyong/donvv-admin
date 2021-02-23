@@ -4,7 +4,7 @@
     :fixed-header="theme.fixedHeader"
     :fixed-sidebar="theme.fixedSidebar"
     :fixed-body="theme.fixedBody"
-    :layout-style="theme.layoutStyle"
+    :layout-style="$route.path == '/index' ? 1 : theme.layoutStyle"
     :head-style="theme.headStyle"
     :side-style="theme.sideStyle"
     :logo-auto-size="theme.logoAutoSize"
@@ -16,8 +16,8 @@
     :keep-alive-list="keepAliveList"
     :home-title="homeTitle"
     :project-name="projectName"
-    :tabs="user.tabs"
-    :menus="user.menus"
+    :tabs="$route.path == '/index' ? [] : user.tabs"
+    :menus="$route.path == '/index' ? [] : user.menus"
     :need-setting="needSetting"
     :show-setting.sync="showSetting"
     :color="theme.color"
@@ -36,7 +36,7 @@
     @change-style="changeStyle">
     <!-- logo图标 -->
     <template slot="logo">
-      <img src="@/assets/logo.svg" alt="logo"/>
+      <img @click="toIndex" src="@/assets/logo.svg" alt="logo"/>
     </template>
     <!-- 顶栏右侧区域 -->
     <template slot="right">
@@ -88,11 +88,26 @@ export default {
       showContent: true
     };
   },
+  created(){
+    if(this.$route.path == '/index'){
+      this.$store.dispatch('theme/set',{
+        showTabs:null,
+        layoutStyle:1
+      })
+      console.log(45445454);
+    }
+  },
   mounted() {
     // 获取用户信息
     this.getUserInfo();
   },
   methods: {
+    // 去首页
+    toIndex(){
+      if(this.$route.path !== '/index'){
+        this.$router.push('/index')
+      }
+    },
     /* 获取当前用户信息 */
     getUserInfo() {
       if (setting.userUrl) {

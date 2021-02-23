@@ -19,11 +19,6 @@ const routes = [
     meta: {title: '登录'}
   },
   {
-    path: '/index',
-    component: () => import('@/views/index/index'),
-    meta: {title: '主页'}
-  },
-  {
     path: '/forget',
     component: () => import('@/views/login/forget'),
     meta: {title: '忘记密码'}
@@ -95,7 +90,13 @@ function menuToRoutes(menus) {
   if (!menus) {
     return [];
   }
-  let routes = [];
+  let routes = [{
+    path: 'index',
+    name: 'index',
+    meta: {title: '主页'},
+    component: () => import('@/views/index/index'),
+  }];
+  
   menus.forEach(item => {
     const path = item.path;
     if (path && !(
@@ -119,5 +120,7 @@ function menuToRoutes(menus) {
       });
     }
   });
+
+  console.log(444,routes);
   return routes;
 }

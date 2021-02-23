@@ -1,7 +1,11 @@
 <template>
   <div class="ele-body">
     <div class="header-wrap">
-      header
+      <img src="" alt="" class="logo">
+      <div class="title">公司名称/商城名称</div>
+      <div class="avatar-wrap">
+        <img src="" alt="" class="avatar">
+      </div>
     </div>
 
     <div class="content-wrap">
