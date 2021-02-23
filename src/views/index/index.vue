@@ -1,16 +1,16 @@
 <template>
   <div class="ele-body">
-    <div class="header-wrap">
-      <img src="" alt="" class="logo">
-      <div class="title">公司名称/商城名称</div>
-      <div class="avatar-wrap">
-        <img src="" alt="" class="avatar">
-      </div>
-    </div>
-
-    <div class="content-wrap">
-      content
-    </div>
+   <el-row :gutter="24">
+  
+    <el-col :span="6">
+      <el-card shadow="hover">
+        <div class="enter-item">
+          鼠标悬浮时显示
+        </div>
+      </el-card>
+    </el-col>
+   
+  </el-row>
   </div>
 </template>
 
@@ -75,6 +75,12 @@ export default {
 </script>
 
 <style scoped>
+.enter-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vw;
+}
 .ele-body {
   padding-bottom: 0;
 }
