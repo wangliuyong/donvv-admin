@@ -17,7 +17,7 @@ axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
 // 请求拦截器
 axios.interceptors.request.use((config) => {
   
-  config.headers.Application = 'branch'
+  config.headers.Application = 'workTable'
   
   // 添加token到header
   if (store.state.user.token) {
@@ -27,8 +27,9 @@ axios.interceptors.request.use((config) => {
   // system
   if (config.url.indexOf('system/') === 0) {
     const urlConfig = store.getters.urlConfig
+    
     config.baseURL = urlConfig.system
-    console.log('system',urlConfig);
+
     config.url = config.url.replace('system/', '')
   }
   // commodity

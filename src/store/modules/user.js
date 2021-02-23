@@ -1,9 +1,10 @@
 /**
  * 登录状态管理
  */
-import axios from 'axios';
 import setting from '@/config/setting';
-import {util} from 'ele-admin';
+import { menueClass } from '@/utils/menuPermission';
+import axios from 'axios';
+import { util } from 'ele-admin';
 
 // 获取缓存的用户信息和token信息
 let loginUser = {},
@@ -117,10 +118,15 @@ export default {
           let menus = setting.menus || [];
           commit('SET', {key: 'menus', value: menus});
           return resolve({menus: menus});
-        }
+        }      
         axios.get(setting.menuUrl).then(res => {
+          
+          console.log(menueClass(res.data));
+
           let result = setting.parseMenu ? setting.parseMenu(res.data) : res.data;
-          let menus = result.data, home = null;
+          
+          let menus = menueClass(res.data), home = null;
+
           if (!menus) {
             return reject(new Error(result.msg));
           }

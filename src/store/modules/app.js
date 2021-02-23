@@ -66,26 +66,32 @@ const mutations = {
 
 const actions = {
   getDomain({ commit }) {
-    axios.get('api1/admin/1.0/domain?domain=' + process.env.VUE_APP_Branch).then((res) => {
-      if (res.isSucceed) {
-        const urlConfig = {
-          baseUrl: res.data,
-          system: `http://${res.data}/api1/admin/1.0/`,
-          commodity: `http://${res.data}/api2/api/1.0/`,
-          customer: `http://${res.data}/api3/admin/1.0/`,
-          order: `http://${res.data}/api4/admin/1.0/`,
-          file: `http://${res.data}/api5/admin/1.0/`,
-          lucene: `http://${res.data}/api6/admin/1.0/`,
-          content: `http://${res.data}/api7/admin/1.0/`,
-
-          upload: `http://${res.data}/admin/1/upload/upload`,
-          uploadPart: `http://${res.data}/admin/1/upload/uploadByWeb`,
-          mergeChunks: `http://${res.data}/admin/1/upload/merge-chunks`
+    return new Promise((resolve, reject) => {
+      axios.get('api1/admin/1.0/domain?domain=' + process.env.VUE_APP_Branch).then((res) => {
+        if (res.isSucceed) {
+          const urlConfig = {
+            baseUrl: res.data,
+            system: `http://${res.data}/api1/admin/1.0/`,
+            commodity: `http://${res.data}/api2/api/1.0/`,
+            customer: `http://${res.data}/api3/admin/1.0/`,
+            order: `http://${res.data}/api4/admin/1.0/`,
+            file: `http://${res.data}/api5/admin/1.0/`,
+            lucene: `http://${res.data}/api6/admin/1.0/`,
+            content: `http://${res.data}/api7/admin/1.0/`,
+  
+            upload: `http://${res.data}/admin/1/upload/upload`,
+            uploadPart: `http://${res.data}/admin/1/upload/uploadByWeb`,
+            mergeChunks: `http://${res.data}/admin/1/upload/merge-chunks`
+          }
+          commit('setUrl', urlConfig)
+          resolve(res)
+        } else {
+          reject(res)
         }
-        commit('setUrl', urlConfig)
-      }
-      
+        
+      })
     })
+    
   },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')

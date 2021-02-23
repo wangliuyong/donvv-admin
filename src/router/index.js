@@ -37,18 +37,16 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach(async (to, from, next) => {
-
   NProgress.start();
   document.title = ((to.meta && to.meta.title) ? `${to.meta.title}` : '')
+  // 获取域名配置
   if(!store.state.app.urlConfig?.baseUrl){
     await store.dispatch('app/getDomain')
-
-    console.log(11111, store.state.app.urlConfig?.baseUrl);
   }
   // 判断是否登录
   if (store.state.user.token) {
     // 判断是否已经注册动态路由
-    if (!store.state.user.menus) {
+    if (!store.state.user.menus) {          
       // 获取动态路由
       store.dispatch('user/getMenus').then(({menus, home}) => {
         if (menus) {
@@ -77,6 +75,7 @@ router.beforeEach(async (to, from, next) => {
       query: to.path === '/' ? {} : {from: to.path}
     });
   }
+  
 });
 
 router.afterEach(() => {

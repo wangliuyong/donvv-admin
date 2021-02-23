@@ -130,7 +130,7 @@ export default {
         }
         this.loading = true;
 
-        this.$http.post('system/account/login', this.form).then((res) => {
+        this.$http.post('system/account/loginWorkTable', this.form).then((res) => {
           this.loading = false;
           if (res.isSucceed) {
             this.$message({type: 'success', message: '登录成功'});
