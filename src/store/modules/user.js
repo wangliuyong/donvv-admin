@@ -127,6 +127,8 @@ export default {
           
           let menus = menueClass(res.data), home = null;
 
+          console.log(menus);
+
           if (!menus) {
             return reject(new Error(result.msg));
           }

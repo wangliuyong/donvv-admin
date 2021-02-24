@@ -73,7 +73,9 @@ export const menueClass  = (permission) => {
       menuList.forEach((item2) => {
         if(item1.code.length === (3 * i) && item2.code.length === (3 * 2 * i) &&  item2.pcode === item1.code){
           if(item1.children){
-            item1.children.push(item2)
+            if(!item1.children.find(menuItem => menuItem.code === item2.code)){
+              item1.children.push(item2)
+            }
           } else {
             item1.children = []
           }
