@@ -141,6 +141,7 @@ export default {
             item.component = item.path
             item.menuId = item.code
             item.parentId = item.pcode
+            item.checked = true
           })
           let result = setting.parseMenu ? setting.parseMenu(res.data) : res.data;
           let menus = util.toTreeData(res.data, 'menuId', 'parentId'), home = null;

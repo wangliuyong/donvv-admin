@@ -1,7 +1,7 @@
 <!-- 编辑弹窗 -->
 <template>
   <el-dialog
-      :title="isUpdate?'修改菜单':'添加菜单'"
+      :title="isUpdate?'修改权限':'添加权限'"
       :visible="visible"
       width="600px"
       :destroy-on-close="true"
@@ -17,27 +17,52 @@
         @submit.native.prevent>
       <el-row :gutter="15">
         <el-col :sm="12">
-          <el-form-item label="上级菜单:">
+          <el-form-item label="上级权限:">
             <treeselect
-                v-model="form.parentId"
+                v-model="form.pCode"
                 :options="menuList"
-                placeholder="请选择上级菜单"
+                placeholder="请选择上级权限"
                 :defaultExpandLevel="3"
                 :normalizer="normalizer"/>
           </el-form-item>
-          <el-form-item
-              label="菜单名称:"
-              prop="title">
+
+           <el-form-item
+              label="权限类型:"
+              prop="type">
             <el-input
-                v-model="form.title"
-                placeholder="请输入菜单名称"
+                v-model="form.type"
+                placeholder="权限类型"
                 clearable/>
           </el-form-item>
-          <el-form-item label="菜单图标:">
+
+          <el-form-item
+              label="权限名称:"
+              prop="name">
+            <el-input
+                v-model="form.name"
+                placeholder="请输入权限名称"
+                clearable/>
+          </el-form-item>
+
+          <el-form-item label="是否启用" prop="isEnabled">
+            <el-switch v-model="form.isEnabled" active-text="是" inactive-text="否" />
+          </el-form-item>
+
+           <el-form-item label="排序号:" prop="sortNumber">
+            <el-input-number
+                v-model="form.sortNumber"
+                controls-position="right"
+                :min="0"
+                placeholder="请输入排序号"
+                class="ele-fluid ele-text-left"/>
+          </el-form-item>
+
+          <el-form-item label="权限图标:">
             <ele-icon-picker
                 v-model="form.icon"
-                placeholder="请选择菜单图标"/>
+                placeholder="请选择权限图标"/>
           </el-form-item>
+
           <el-form-item label="路由地址:">
             <el-input
                 v-model="form.path"
@@ -50,7 +75,10 @@
                 placeholder="请输入组件路径"
                 clearable/>
           </el-form-item>
+          
         </el-col>
+
+
         <el-col :sm="12">
           <el-form-item label="权限标识:">
             <el-input
@@ -58,17 +86,10 @@
                 placeholder="请输入权限标识"
                 clearable/>
           </el-form-item>
-          <el-form-item label="排序号:" prop="sortNumber">
-            <el-input-number
-                v-model="form.sortNumber"
-                controls-position="right"
-                :min="0"
-                placeholder="请输入排序号"
-                class="ele-fluid ele-text-left"/>
-          </el-form-item>
-          <el-form-item label="菜单类型:">
+         
+          <el-form-item label="权限类型:">
             <el-radio-group v-model="form.menuType">
-              <el-radio :label="0">菜单</el-radio>
+              <el-radio :label="0">权限</el-radio>
               <el-radio :label="1">按钮</el-radio>
             </el-radio-group>
           </el-form-item>
@@ -107,19 +128,19 @@ export default {
     visible: Boolean,
     // 修改回显的数据
     data: Object,
-    // 全部菜单数据
+    // 全部权限数据
     menuList: Array
   },
   data() {
     return {
       // 表单数据
       form: Object.assign({}, this.data, {
-        parentId: this.data ? (this.data.parentId === 0 ? null : this.data.parentId) : null
+        pCode: this.data ? (this.data.pCode === 0 ? null : this.data.pCode) : null
       }),
       // 表单验证规则
       rules: {
-        title: [
-          {required: true, message: '请输入菜单名称', trigger: 'blur'}
+        name: [
+          {required: true, message: '请输入权限名称', trigger: 'blur'}
         ],
         sortNumber: [
           {required: true, message: '请输入排序号', trigger: 'blur'}
@@ -135,7 +156,7 @@ export default {
     data() {
       if (this.data) {
         this.form = Object.assign({}, this.data, {
-          parentId: this.data.parentId === 0 ? null : this.data.parentId
+          pCode: this.data.pCode === 0 ? null : this.data.pCode
         });
         this.isUpdate = !!this.data.menuId;
       } else {
@@ -160,7 +181,7 @@ export default {
           this.loading = true;
           this.$http[this.isUpdate ? 'put' : 'post']('/sys/menu',
               Object.assign({}, this.form, {
-                parentId: this.form.parentId || 0
+                pCode: this.form.pCode || 0
               })
           ).then(res => {
             this.loading = false;
