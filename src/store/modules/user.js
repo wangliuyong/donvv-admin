@@ -141,6 +141,10 @@ export default {
             item.menuId = item.code
             item.parentId = item.pcode
             item.checked = true
+            item.open = true
+            if (item.pcode === '0') {
+              item.path = null
+            }
           })
           const result = setting.parseMenu ? setting.parseMenu(res.data) : res.data
           const menus = util.toTreeData(res.data, 'menuId', 'parentId'); let home = null

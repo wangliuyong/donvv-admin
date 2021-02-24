@@ -152,7 +152,7 @@ export default {
           minWidth: 110
         },
         {
-          prop: 'component',
+          prop: 'code',
           label: '权限编号',
           showOverflowTooltip: true,
           minWidth: 90
