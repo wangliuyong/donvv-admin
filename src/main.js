@@ -1,13 +1,13 @@
 /** 主入口js */
+import permission from '@/utils/permission';
+import EleAdmin from 'ele-admin';
 import Vue from 'vue';
+import VueClipboard from 'vue-clipboard2';
 import App from './App.vue';
+import './config/axios';
+import setting from './config/setting';
 import router from './router';
 import store from './store';
-import setting from './config/setting';
-import permission from '@/utils/permission';
-import VueClipboard from 'vue-clipboard2';
-import './config/axios';
-import EleAdmin from 'ele-admin';
 import './styles/index.scss';
 
 Vue.config.productionTip = false;

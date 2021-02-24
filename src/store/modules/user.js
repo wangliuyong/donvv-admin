@@ -5,6 +5,7 @@ import setting from '@/config/setting';
 import { menueClass } from '@/utils/menuPermission';
 import axios from 'axios';
 import { util } from 'ele-admin';
+import { Base64 } from 'js-base64';
 
 // 获取缓存的用户信息和token信息
 let loginUser = {},
@@ -50,7 +51,7 @@ export default {
      * @param commit
      * @param token {String, {token: String, remember: String}}
      */
-    setToken({commit}, token) {
+    setToken({commit, dispatch}, token) {
       let remember = true;
       if (typeof token === 'object') {
         remember = token.remember;
@@ -69,19 +70,36 @@ export default {
         commit('SET', {key: 'tabs', value: []});
       }
       commit('SET', {key: 'token', value: token});
+      dispatch('setUser', token)
     },
     /**
      * 缓存用户信息
      * @param commit
      * @param user {Object} 用户信息
      */
-    setUser({commit}, user) {
-      if (user) {
-        localStorage.setItem(setting.userStoreName, JSON.stringify(user));
-      } else {
-        localStorage.removeItem(setting.userStoreName);
+    setUser({commit, dispatch, state}, token) {
+      try {
+        const token = token || state.token
+        // 解析playload
+        const playload = token.split('.')[1]
+        if (!playload) throw new Error('token不合法')
+        const base64 = Base64.decode(playload)
+        const model = JSON.parse(base64)
+        if (!model || !model.exp) throw new Error('token不合法')
+        if (model.exp * 1000 <= new Date().getTime()) throw new Error('token已过期')
+        
+        console.log(88888,model);
+
+        if (model) {
+          localStorage.setItem(setting.userStoreName, JSON.stringify(model));
+        } else {
+          localStorage.removeItem(setting.userStoreName);
+        }
+        commit('SET', {key: 'user', value: model});
+      } catch (error) {
+        dispatch('logout')
+        reject(error)
       }
-      commit('SET', {key: 'user', value: user});
     },
     /**
      * 设置用户权限
@@ -127,7 +145,6 @@ export default {
           
           let menus = menueClass(res.data), home = null;
 
-          console.log(menus);
 
           if (!menus) {
             return reject(new Error(result.msg));

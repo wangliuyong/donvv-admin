@@ -127,7 +127,7 @@ export default {
   data() {
     return {
       // 表格数据接口
-      url: '/sys/menu',
+      url: 'system/permission/GetPermission',
       // 表格列配置
       columns: [
         {
@@ -148,12 +148,6 @@ export default {
         {
           prop: 'path',
           label: '路由地址',
-          showOverflowTooltip: true,
-          minWidth: 110
-        },
-        {
-          prop: 'component',
-          label: '组件路径',
           showOverflowTooltip: true,
           minWidth: 110
         },
@@ -220,10 +214,15 @@ export default {
   },
   methods: {
     /* 解析接口返回数据 */
-    parseData(res) {
-      res.data = this.$util.toTreeData(res.data, 'menuId', 'parentId');
-      this.menuList = res.data;
-      return res;
+    parseData(data) {
+
+
+
+      res = this.$util.toTreeData(data, 'uid', 'pcode')
+   
+      this.menuList = data
+
+      return data;
     },
     /* 刷新表格 */
     reload() {
