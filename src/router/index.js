@@ -105,7 +105,7 @@ function menuToRoutes(menus) {
       path.startsWith('//')
     )) {
       let component;
-      if (item.component) {
+      if (item.type != 1) {
         component = () => import('@/views' + item.component);
       } else {
         component = EleEmptyLayout;

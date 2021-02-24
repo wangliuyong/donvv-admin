@@ -202,7 +202,8 @@ export default {
           width: 190,
           align: 'center',
           resizable: false,
-          slot: 'action'
+          slot: 'action',
+          fixed:"right"
         }
       ],
       // 表格搜索条件

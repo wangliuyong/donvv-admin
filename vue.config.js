@@ -1,6 +1,7 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 module.exports = {
+  lintOnSave: false,
   productionSourceMap: false,
   transpileDependencies: ['element-ui', 'ele-admin'],
   chainWebpack: config => {
