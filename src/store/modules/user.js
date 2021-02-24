@@ -140,8 +140,8 @@ export default {
             item.component = item.path
             item.menuId = item.code
             item.parentId = item.pcode
-            item.checked = true
-            item.open = true
+            item.checked = null
+            item.open = null
             if (item.pcode === '0') {
               item.path = null
             }
