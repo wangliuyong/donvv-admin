@@ -128,7 +128,7 @@ export default {
      * @param commit
      * @returns {Promise<Object>} {menus: Array, home: String}
      */
-    getMenus({ commit }) {
+    getMenus({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
         if (!setting.menuUrl) {
           const menus = setting.menus || []
@@ -146,6 +146,7 @@ export default {
               item.path = null
             }
           })
+          // dispatch('permission/permission', res.data)
           const result = setting.parseMenu ? setting.parseMenu(res.data) : res.data
           const menus = util.toTreeData(res.data, 'menuId', 'parentId'); let home = null
 
@@ -184,7 +185,7 @@ export default {
             }
           })
           commit('SET', { key: 'menus', value: menus })
-          resolve({ menus: menus, home: home })
+          resolve({ menus: menus, home: home, permission: res.data })
         }).catch(e => {
           reject(e)
         })

@@ -48,7 +48,8 @@ router.beforeEach(async(to, from, next) => {
     // 判断是否已经注册动态路由
     if (!store.state.user.menus) {
       // 获取动态路由
-      store.dispatch('user/getMenus').then(({ menus, home }) => {
+      store.dispatch('user/getMenus').then(({ menus, home, permission }) => {
+        store.dispatch('permission/permission', permission)
         if (menus) {
           router.addRoute({
             path: '/',
