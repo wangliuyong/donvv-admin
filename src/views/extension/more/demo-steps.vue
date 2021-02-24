@@ -50,16 +50,16 @@ export default {
   methods: {
     /* 下一步 */
     stepsNext() {
-      this.stepsActive++;
+      this.stepsActive++
       if (this.stepsActive > 4) {
-        this.stepsActive = 0;
+        this.stepsActive = 0
       }
     },
     /* 上一步 */
     stepsPrev() {
-      this.stepsActive--;
+      this.stepsActive--
       if (this.stepsActive < 0) {
-        this.stepsActive = 4;
+        this.stepsActive = 4
       }
     }
   }

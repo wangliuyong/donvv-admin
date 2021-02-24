@@ -19,7 +19,8 @@
           <el-alert
             title="Success Tips"
             type="success"
-            show-icon class="ele-alert-border"
+            show-icon
+class="ele-alert-border"
             description="Detailed description and advice about successful copywriting."/>
         </div>
       </el-col>
@@ -38,7 +39,8 @@
           <el-alert
             title="Informational Notes"
             type="info"
-            show-icon class="ele-alert-border"
+            show-icon
+class="ele-alert-border"
             description="Additional description and information about copywriting."/>
         </div>
       </el-col>
@@ -50,7 +52,8 @@
           <el-alert
             title="Warning"
             type="warning"
-            show-icon class="ele-alert-border"/>
+            show-icon
+class="ele-alert-border"/>
         </div>
         <div class="demo-alert-item">
           <el-alert

@@ -124,16 +124,16 @@ const defaultConfig = {
   ].join(' '),
   toolbar_drawer: 'sliding',
   images_upload_handler: (blobInfo, success) => {
-    success('data:image/jpeg;base64,' + blobInfo.base64());
+    success('data:image/jpeg;base64,' + blobInfo.base64())
   },
   file_picker_types: 'media',
   file_picker_callback: () => {
   }
-};
+}
 
 export default {
   name: 'TinymceEditor',
-  components: {Editor},
+  components: { Editor },
   props: {
     // 值
     value: String,
@@ -148,15 +148,15 @@ export default {
   },
   computed: {
     config() {
-      return Object.assign(defaultConfig, this.init);
+      return Object.assign(defaultConfig, this.init)
     }
   },
   mounted() {
-    tinymce.init({});
+    tinymce.init({})
   },
   methods: {
     updateValue(value) {
-      this.$emit('change', value);
+      this.$emit('change', value)
     }
   }
 }

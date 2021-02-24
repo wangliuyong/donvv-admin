@@ -134,16 +134,16 @@ export default {
       // 表单验证规则
       rules: {
         title: [
-          {required: true, message: '请输入实训名称', trigger: 'blur'}
+          { required: true, message: '请输入实训名称', trigger: 'blur' }
         ],
         datetime: [
-          {required: true, message: '请选择起止日期', trigger: 'blur'}
+          { required: true, message: '请选择起止日期', trigger: 'blur' }
         ],
         content: [
-          {required: true, message: '请输入实训内容', trigger: 'blur'}
+          { required: true, message: '请输入实训内容', trigger: 'blur' }
         ],
         address: [
-          {required: true, message: '请选择实训地点', trigger: 'blur'}
+          { required: true, message: '请选择实训地点', trigger: 'blur' }
         ]
       },
       // 全部实训班级
@@ -185,59 +185,59 @@ export default {
   computed: {
     /* 未选择的班级数据 */
     unChooseClass() {
-      return this.classes.filter(d => this.chooseClasses.indexOf(d) === -1);
+      return this.classes.filter(d => this.chooseClasses.indexOf(d) === -1)
     }
   },
   mounted() {
-    this.query();
+    this.query()
   },
   methods: {
     /* 获取全部实训班级 */
     query() {
       this.$http.get('https://cdn.eleadmin.com/20200610/classes.json').then(res => {
         if (res.data.code === 0) {
-          this.classes = res.data.data;
+          this.classes = res.data.data
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        this.$message.error(e.message);
-      });
+        this.$message.error(e.message)
+      })
     },
     /* 提交 */
     submit() {
       this.$refs['trainingForm'].validate((valid) => {
         if (valid) {
           if (!this.chooseClasses.length) {
-            return this.$message.error('请选择实训班级');
+            return this.$message.error('请选择实训班级')
           }
-          this.loading = true;
+          this.loading = true
           setTimeout(() => {
-            this.loading = false;
-            this.$message({type: 'success', message: '发布成功'});
-          }, 1500);
+            this.loading = false
+            this.$message({ type: 'success', message: '发布成功' })
+          }, 1500)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     /* 添加 */
     add(row) {
-      this.chooseClasses.push(row);
+      this.chooseClasses.push(row)
     },
     /* 移除 */
     remove(row) {
-      this.chooseClasses.splice(this.chooseClasses.indexOf(row), 1);
+      this.chooseClasses.splice(this.chooseClasses.indexOf(row), 1)
     },
     /* 添加全部 */
     addAll() {
       this.unChooseClass.forEach(d => {
-        this.chooseClasses.push(d);
+        this.chooseClasses.push(d)
       })
     },
     /* 移除所有 */
     removeAll() {
-      this.chooseClasses.splice(0, this.chooseClasses.length);
+      this.chooseClasses.splice(0, this.chooseClasses.length)
     }
   }
 }

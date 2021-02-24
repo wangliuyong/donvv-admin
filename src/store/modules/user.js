@@ -1,21 +1,21 @@
 /**
  * 登录状态管理
  */
-import setting from '@/config/setting';
-import axios from 'axios';
-import { util } from 'ele-admin';
-import { Base64 } from 'js-base64';
+import setting from '@/config/setting'
+import axios from 'axios'
+import { util } from 'ele-admin'
+import { Base64 } from 'js-base64'
 
 // 获取缓存的用户信息和token信息
-let loginUser = {},
-  loginToken = localStorage.getItem(setting.tokenStoreName);
+let loginUser = {}
+  let loginToken = localStorage.getItem(setting.tokenStoreName)
 if (!loginToken) {
-  loginToken = sessionStorage.getItem(setting.tokenStoreName);
+  loginToken = sessionStorage.getItem(setting.tokenStoreName)
 }
 try {
-  loginUser = JSON.parse(localStorage.getItem(setting.userStoreName) || '{}') || {};
+  loginUser = JSON.parse(localStorage.getItem(setting.userStoreName) || '{}') || {}
 } catch (e) {
-  console.error(e);
+  console.error(e)
 }
 
 export default {
@@ -36,11 +36,11 @@ export default {
   },
   mutations: {
     SET: (state, obj) => {
-      state[obj.key] = obj.value;
+      state[obj.key] = obj.value
     },
     TAB_PUSH(state, obj) {
       if (!state.tabs.some(r => r.path === obj.path)) {
-        state.tabs.push(obj);
+        state.tabs.push(obj)
       }
     }
   },
@@ -50,25 +50,25 @@ export default {
      * @param commit
      * @param token {String, {token: String, remember: String}}
      */
-    setToken({commit, dispatch}, token) {
-      let remember = true;
+    setToken({ commit, dispatch }, token) {
+      let remember = true
       if (typeof token === 'object') {
-        remember = token.remember;
-        token = token.token;
+        remember = token.remember
+        token = token.token
       }
-      localStorage.removeItem(setting.tokenStoreName);
-      sessionStorage.removeItem(setting.tokenStoreName);
+      localStorage.removeItem(setting.tokenStoreName)
+      sessionStorage.removeItem(setting.tokenStoreName)
       if (token) {
         if (remember) {
-          localStorage.setItem(setting.tokenStoreName, token);
+          localStorage.setItem(setting.tokenStoreName, token)
         } else {
-          sessionStorage.setItem(setting.tokenStoreName, token);
+          sessionStorage.setItem(setting.tokenStoreName, token)
         }
       } else {
-        commit('SET', {key: 'menus', value: null});
-        commit('SET', {key: 'tabs', value: []});
+        commit('SET', { key: 'menus', value: null })
+        commit('SET', { key: 'tabs', value: [] })
       }
-      commit('SET', {key: 'token', value: token});
+      commit('SET', { key: 'token', value: token })
       dispatch('setUser', token)
     },
     /**
@@ -76,7 +76,7 @@ export default {
      * @param commit
      * @param user {Object} 用户信息
      */
-    setUser({commit, dispatch, state}, token) {
+    setUser({ commit, dispatch, state }, token) {
       try {
         const token = token || state.token
         // 解析playload
@@ -86,18 +86,17 @@ export default {
         const model = JSON.parse(base64)
         if (!model || !model.exp) throw new Error('token不合法')
         if (model.exp * 1000 <= new Date().getTime()) throw new Error('token已过期')
-        
-        console.log(88888,model);
+
+        console.log(88888, model)
 
         if (model) {
-          localStorage.setItem(setting.userStoreName, JSON.stringify(model));
+          localStorage.setItem(setting.userStoreName, JSON.stringify(model))
         } else {
-          localStorage.removeItem(setting.userStoreName);
+          localStorage.removeItem(setting.userStoreName)
         }
-        commit('SET', {key: 'user', value: model});
+        commit('SET', { key: 'user', value: model })
       } catch (error) {
         dispatch('logout')
-        reject(error)
       }
     },
     /**
@@ -105,37 +104,37 @@ export default {
      * @param commit
      * @param authorities {Array<String>} 权限
      */
-    setAuthorities({commit}, authorities) {
-      commit('SET', {key: 'authorities', value: authorities});
+    setAuthorities({ commit }, authorities) {
+      commit('SET', { key: 'authorities', value: authorities })
     },
     /**
      * 设置用户角色
      * @param commit
      * @param roles {Array<String>} 角色
      */
-    setRoles({commit}, roles) {
-      commit('SET', {key: 'roles', value: roles});
+    setRoles({ commit }, roles) {
+      commit('SET', { key: 'roles', value: roles })
     },
     /**
      * 设置用户菜单
      * @param commit
      * @param menus {Array<Object>} 菜单
      */
-    setMenus({commit}, menus) {
-      commit('SET', {key: 'menus', value: menus});
+    setMenus({ commit }, menus) {
+      commit('SET', { key: 'menus', value: menus })
     },
     /**
      * 获取用户菜单路由
      * @param commit
      * @returns {Promise<Object>} {menus: Array, home: String}
      */
-    getMenus({commit}) {
+    getMenus({ commit }) {
       return new Promise((resolve, reject) => {
         if (!setting.menuUrl) {
-          let menus = setting.menus || [];
-          commit('SET', {key: 'menus', value: menus});
-          return resolve({menus: menus});
-        }      
+          const menus = setting.menus || []
+          commit('SET', { key: 'menus', value: menus })
+          return resolve({ menus: menus })
+        }
         axios.get(setting.menuUrl).then(res => {
           res.data.map((item) => {
             item.component = item.path
@@ -143,58 +142,57 @@ export default {
             item.parentId = item.pcode
             item.checked = true
           })
-          let result = setting.parseMenu ? setting.parseMenu(res.data) : res.data;
-          let menus = util.toTreeData(res.data, 'menuId', 'parentId'), home = null;
+          const result = setting.parseMenu ? setting.parseMenu(res.data) : res.data
+          const menus = util.toTreeData(res.data, 'menuId', 'parentId'); let home = null
 
-          
           if (!menus) {
-            return reject(new Error(result.msg));
+            return reject(new Error(result.msg))
           }
           util.eachTreeData(menus, item => {
             if (setting.parseMenuItem) {
-              item = setting.parseMenuItem(item);
+              item = setting.parseMenuItem(item)
             }
             item.meta = Object.assign({
               title: item.title,
               icon: item.icon,
               hide: item.hide,
               uid: item.uid
-            }, item.meta);
+            }, item.meta)
             if (!item.children || !item.children.length) {
               if (!home && item.path && !(
                 item.path.startsWith('http://') ||
                 item.path.startsWith('https://') ||
                 item.path.startsWith('//')
               )) {
-                home = item.path;
+                home = item.path
                 if (!setting.homeTitle) {
-                  setting.homeTitle = item.title;
+                  setting.homeTitle = item.title
                 }
               }
             } else if (item.children[0].path) {
               if (!item.redirect) {
-                item.redirect = item.children[0].path;
+                item.redirect = item.children[0].path
               }
               if (!item.path) {
-                const cp = item.children[0].path;
-                item.path = cp.substring(0, cp.lastIndexOf('/'));
+                const cp = item.children[0].path
+                item.path = cp.substring(0, cp.lastIndexOf('/'))
               }
             }
-          });
-          commit('SET', {key: 'menus', value: menus});
-          resolve({menus: menus, home: home});
+          })
+          commit('SET', { key: 'menus', value: menus })
+          resolve({ menus: menus, home: home })
         }).catch(e => {
-          reject(e);
-        });
-      });
+          reject(e)
+        })
+      })
     },
     /**
      * 添加新tab
      * @param commit
      * @param obj {{path: String, title: String}} tab信息
      */
-    tabAdd({commit}, obj) {
-      commit('TAB_PUSH', obj);
+    tabAdd({ commit }, obj) {
+      commit('TAB_PUSH', obj)
     },
     /**
      * 关闭指定tab
@@ -203,25 +201,25 @@ export default {
      * @param path {String} tab路由
      * @returns {Promise<Number>} 前一个tab位置
      */
-    tabRemove({commit, state}, path) {
+    tabRemove({ commit, state }, path) {
       return new Promise((resolve) => {
-        let last = -1;
+        let last = -1
         for (let i = 0; i < state.tabs.length; i++) {
           if (state.tabs[i].path === path) {
-            break;
+            break
           }
-          last = i;
+          last = i
         }
-        commit('SET', {key: 'tabs', value: state.tabs.filter(d => d.path !== path)});
-        resolve(last);
-      });
+        commit('SET', { key: 'tabs', value: state.tabs.filter(d => d.path !== path) })
+        resolve(last)
+      })
     },
     /**
      * 关闭所有tab
      * @param commit
      */
-    tabRemoveAll({commit}) {
-      commit('SET', {key: 'tabs', value: []});
+    tabRemoveAll({ commit }) {
+      commit('SET', { key: 'tabs', value: [] })
     },
     /**
      * 关闭左侧tab
@@ -229,11 +227,11 @@ export default {
      * @param state
      * @param path {String} tab路由
      */
-    tabRemoveLeft({commit, state}, path) {
+    tabRemoveLeft({ commit, state }, path) {
       for (let i = 0; i < state.tabs.length; i++) {
         if (state.tabs[i].path === path) {
-          commit('SET', {key: 'tabs', value: state.tabs.slice(i)});
-          break;
+          commit('SET', { key: 'tabs', value: state.tabs.slice(i) })
+          break
         }
       }
     },
@@ -243,11 +241,11 @@ export default {
      * @param state
      * @param path {String} tab路由
      */
-    tabRemoveRight({commit, state}, path) {
+    tabRemoveRight({ commit, state }, path) {
       for (let i = 0; i < state.tabs.length; i++) {
         if (state.tabs[i].path === path) {
-          commit('SET', {key: 'tabs', value: state.tabs.slice(0, i + 1)});
-          break;
+          commit('SET', { key: 'tabs', value: state.tabs.slice(0, i + 1) })
+          break
         }
       }
     },
@@ -257,8 +255,8 @@ export default {
      * @param state
      * @param path {String} tab路由
      */
-    tabRemoveOther({commit, state}, path) {
-      commit('SET', {key: 'tabs', value: state.tabs.filter(d => d.path === path)});
+    tabRemoveOther({ commit, state }, path) {
+      commit('SET', { key: 'tabs', value: state.tabs.filter(d => d.path === path) })
     },
     /**
      * 修改指定tab标题
@@ -266,14 +264,14 @@ export default {
      * @param state
      * @param obj {{path: String, title: String}}
      */
-    tabSetTitle({commit, state}, obj) {
-      let i = state.tabs.findIndex(d => d.path === obj.path);
-      let tabs = state.tabs.slice(0, i).concat([
+    tabSetTitle({ commit, state }, obj) {
+      const i = state.tabs.findIndex(d => d.path === obj.path)
+      const tabs = state.tabs.slice(0, i).concat([
         Object.assign({}, state.tabs[i], {
           title: obj.title
         })
-      ]).concat(state.tabs.slice(i + 1));
-      commit('SET', {key: 'tabs', value: tabs});
+      ]).concat(state.tabs.slice(i + 1))
+      commit('SET', { key: 'tabs', value: tabs })
     }
   }
 }

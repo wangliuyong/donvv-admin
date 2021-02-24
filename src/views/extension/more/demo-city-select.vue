@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import regions from 'ele-admin/packages/regions';
+import regions from 'ele-admin/packages/regions'
 
 export default {
   name: 'DemoCitySelect',
@@ -41,8 +41,8 @@ export default {
       // 选中的省市
       provinceCity: [],
       // 选中的省
-      province: [],
-    };
+      province: []
+    }
   }
 }
 </script>

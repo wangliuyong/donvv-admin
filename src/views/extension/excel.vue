@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import XLSX from 'xlsx';
+import XLSX from 'xlsx'
 
 export default {
   name: 'ExtensionExcel',
@@ -173,7 +173,7 @@ export default {
           city: '杭州',
           zone: '西湖区',
           street: '西溪街道',
-          address: '西溪花园30栋1单元',
+          address: '西溪花园30栋1单元'
         },
         {
           key: 2,
@@ -183,7 +183,7 @@ export default {
           city: '苏州',
           zone: '姑苏区',
           street: '丝绸路',
-          address: '天墅之城9幢2单元',
+          address: '天墅之城9幢2单元'
         },
         {
           key: 3,
@@ -193,7 +193,7 @@ export default {
           city: '南昌',
           zone: '青山湖区',
           street: '艾溪湖办事处',
-          address: '中兴和园1幢3单元',
+          address: '中兴和园1幢3单元'
         },
         {
           key: 4,
@@ -203,7 +203,7 @@ export default {
           city: '泉州',
           zone: '丰泽区',
           street: '南洋街道',
-          address: '南洋村6幢1单元',
+          address: '南洋村6幢1单元'
         },
         {
           key: 5,
@@ -213,7 +213,7 @@ export default {
           city: '武汉',
           zone: '武昌区',
           street: '武昌大道',
-          address: '两湖花园16幢2单元',
+          address: '两湖花园16幢2单元'
         },
         {
           key: 6,
@@ -223,7 +223,7 @@ export default {
           city: '黄山',
           zone: '黄山区',
           street: '汤口镇',
-          address: '温泉村21号',
+          address: '温泉村21号'
         }
       ],
       // 选中数据
@@ -239,180 +239,180 @@ export default {
   methods: {
     /* 导出excel */
     exportBas() {
-      let array = [['用户名', '省', '市', '区', '街道', '详细地址', '金额']];
+      const array = [['用户名', '省', '市', '区', '街道', '详细地址', '金额']]
       this.users.forEach(d => {
-        array.push([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount]);
-      });
-      this.$util.exportSheet(XLSX, array, '用户数据');
+        array.push([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount])
+      })
+      this.$util.exportSheet(XLSX, array, '用户数据')
     },
     /* 导出带单元格合并 */
     exportAdv() {
-      let array = [
+      const array = [
         ['用户名', '地址', null, null, null, null, '金额'],
         [null, '省', '市', '区', '街道', '详细地址', null]
-      ];
+      ]
       this.users.forEach(d => {
-        array.push([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount]);
-      });
-      let sheet = XLSX.utils.aoa_to_sheet(array);
+        array.push([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount])
+      })
+      const sheet = XLSX.utils.aoa_to_sheet(array)
       sheet['!merges'] = [
-        {s: {r: 0, c: 1}, e: {r: 0, c: 5}},  // 合并第0行第1列到第0行第5列
-        {s: {r: 0, c: 0}, e: {r: 1, c: 0}},  // 合并第0行第0列到第1行第0列
-        {s: {r: 0, c: 6}, e: {r: 1, c: 6}}  // 合并第0行第6列到第1行第6列
-      ];
-      this.$util.exportSheet(XLSX, sheet, '用户数据');
+        { s: { r: 0, c: 1 }, e: { r: 0, c: 5 }}, // 合并第0行第1列到第0行第5列
+        { s: { r: 0, c: 0 }, e: { r: 1, c: 0 }}, // 合并第0行第0列到第1行第0列
+        { s: { r: 0, c: 6 }, e: { r: 1, c: 6 }} // 合并第0行第6列到第1行第6列
+      ]
+      this.$util.exportSheet(XLSX, sheet, '用户数据')
     },
     /* 导出选中数据 */
     exportSel() {
       if (this.select.length === 0) {
-        return this.$message.error('请至少选择一条数据');
+        return this.$message.error('请至少选择一条数据')
       }
-      let array = [['用户名', '省', '市', '区', '街道', '详细地址', '金额']];
+      const array = [['用户名', '省', '市', '区', '街道', '详细地址', '金额']]
       this.select.forEach(d => {
-        array.push([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount]);
-      });
-      this.$util.exportSheet(XLSX, array, '用户数据');
+        array.push([d.username, d.province, d.city, d.zone, d.street, d.address, d.amount])
+      })
+      this.$util.exportSheet(XLSX, array, '用户数据')
     },
     /* 导入本地excel文件 */
     importFile(file) {
-      let reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = (e) => {
-        let data = new Uint8Array(e.target.result);
-        let workbook = XLSX.read(data, {type: 'array'});
-        let sheetNames = workbook.SheetNames;
-        let worksheet = workbook.Sheets[sheetNames[0]];
+        const data = new Uint8Array(e.target.result)
+        const workbook = XLSX.read(data, { type: 'array' })
+        const sheetNames = workbook.SheetNames
+        const worksheet = workbook.Sheets[sheetNames[0]]
         // 解析成二维数组
-        let aoa = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+        const aoa = XLSX.utils.sheet_to_json(worksheet, { header: 1 })
         // 生成表格需要的数据
-        let list = [], maxCols = 0, title = [];
+        const list = []; let maxCols = 0; const title = []
         aoa.forEach(d => {
           if (d.length > maxCols) {
-            maxCols = d.length;
+            maxCols = d.length
           }
-          let row = {};
+          const row = {}
           for (let i = 0; i < d.length; i++) {
-            row[this.getCharByIndex(i)] = d[i];
+            row[this.getCharByIndex(i)] = d[i]
           }
-          list.push(row);
-        });
+          list.push(row)
+        })
         for (let i = 0; i < maxCols; i++) {
-          title.push(this.getCharByIndex(i));
+          title.push(this.getCharByIndex(i))
         }
-        this.importTitle = title;
-        this.importData = list;
-        this.importDataAoa = aoa;
-      };
-      reader.readAsArrayBuffer(file);
-      return false;
+        this.importTitle = title
+        this.importData = list
+        this.importDataAoa = aoa
+      }
+      reader.readAsArrayBuffer(file)
+      return false
     },
     /* 导入本地excel文件 */
     importFile2(file) {
-      let reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = (e) => {
-        let data = new Uint8Array(e.target.result);
-        let workbook = XLSX.read(data, {type: 'array'});
-        let sheetNames = workbook.SheetNames;
-        let worksheet = workbook.Sheets[sheetNames[0]];
+        const data = new Uint8Array(e.target.result)
+        const workbook = XLSX.read(data, { type: 'array' })
+        const sheetNames = workbook.SheetNames
+        const worksheet = workbook.Sheets[sheetNames[0]]
         // 解析成二维数组
-        let aoa = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+        const aoa = XLSX.utils.sheet_to_json(worksheet, { header: 1 })
         // 拆分合并单元格
         if (worksheet['!merges']) {
           worksheet['!merges'].forEach(m => {
             for (let r = m.s.r; r <= m.e.r; r++) {
               for (let c = m.s.c; c <= m.e.c; c++) {
-                aoa[r][c] = aoa[m.s.r][m.s.c];
+                aoa[r][c] = aoa[m.s.r][m.s.c]
               }
             }
-          });
+          })
         }
         // 生成表格需要的数据
-        let list = [], maxCols = 0, title = [];
+        const list = []; let maxCols = 0; const title = []
         aoa.forEach(d => {
           if (d.length > maxCols) {
-            maxCols = d.length;
+            maxCols = d.length
           }
-          let row = {};
+          const row = {}
           for (let i = 0; i < d.length; i++) {
-            row[this.getCharByIndex(i)] = d[i];
+            row[this.getCharByIndex(i)] = d[i]
           }
-          list.push(row);
-        });
+          list.push(row)
+        })
         for (let i = 0; i < maxCols; i++) {
-          title.push(this.getCharByIndex(i));
+          title.push(this.getCharByIndex(i))
         }
-        this.importTitle = title;
-        this.importData = list;
-        this.importDataAoa = aoa;
-      };
-      reader.readAsArrayBuffer(file);
-      return false;
+        this.importTitle = title
+        this.importData = list
+        this.importDataAoa = aoa
+      }
+      reader.readAsArrayBuffer(file)
+      return false
     },
     /* 导入本地excel文件 */
     importFile3(file) {
-      let reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = (e) => {
-        let data = new Uint8Array(e.target.result);
-        let workbook = XLSX.read(data, {type: 'array'});
-        let sheetNames = workbook.SheetNames;
-        let worksheet = workbook.Sheets[sheetNames[0]];
+        const data = new Uint8Array(e.target.result)
+        const workbook = XLSX.read(data, { type: 'array' })
+        const sheetNames = workbook.SheetNames
+        const worksheet = workbook.Sheets[sheetNames[0]]
         // 解析成二维数组
-        let aoa = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+        const aoa = XLSX.utils.sheet_to_json(worksheet, { header: 1 })
         // 生成表格需要的数据
-        let list = [], maxCols = 0, title = [];
+        const list = []; let maxCols = 0; const title = []
         aoa.forEach(d => {
           if (d.length > maxCols) {
-            maxCols = d.length;
+            maxCols = d.length
           }
-          let row = {};
+          const row = {}
           for (let i = 0; i < d.length; i++) {
-            row[this.getCharByIndex(i)] = d[i];
+            row[this.getCharByIndex(i)] = d[i]
           }
-          list.push(row);
-        });
+          list.push(row)
+        })
         for (let i = 0; i < maxCols; i++) {
-          title.push(this.getCharByIndex(i));
+          title.push(this.getCharByIndex(i))
         }
         // 记录合并单元格
         if (worksheet['!merges']) {
           worksheet['!merges'].forEach(m => {
             for (let r = m.s.r; r <= m.e.r; r++) {
               for (let c = m.s.c; c <= m.e.c; c++) {
-                let cc = this.getCharByIndex(c);
-                list[r]['__colspan__' + cc] = 0;
-                list[r]['__rowspan__' + cc] = 0;
+                const cc = this.getCharByIndex(c)
+                list[r]['__colspan__' + cc] = 0
+                list[r]['__rowspan__' + cc] = 0
               }
             }
-            let char = this.getCharByIndex(m.s.c);
-            list[m.s.r]['__colspan__' + char] = m.e.c - m.s.c + 1;
-            list[m.s.r]['__rowspan__' + char] = m.e.r - m.s.r + 1;
-          });
+            const char = this.getCharByIndex(m.s.c)
+            list[m.s.r]['__colspan__' + char] = m.e.c - m.s.c + 1
+            list[m.s.r]['__rowspan__' + char] = m.e.r - m.s.r + 1
+          })
         }
-        this.importTitle = title;
-        this.importData = list;
-        this.importDataAoa = aoa;
-      };
-      reader.readAsArrayBuffer(file);
-      return false;
+        this.importTitle = title
+        this.importData = list
+        this.importDataAoa = aoa
+      }
+      reader.readAsArrayBuffer(file)
+      return false
     },
     /* 生成Excel列字母序号 */
     getCharByIndex(index) {
-      let chars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+      const chars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
       if (index < chars.length) {
-        return chars[index];
+        return chars[index]
       }
-      let n = parseInt(index / chars.length),
-        m = index % chars.length;
-      return chars[n] + chars[m];
+      const n = parseInt(index / chars.length)
+        const m = index % chars.length
+      return chars[n] + chars[m]
     },
     /* 合并表格单元格 */
-    spanMethod({row, column}) {
+    spanMethod({ row, column }) {
       if (!column.label) {
-        return [1, 1];
+        return [1, 1]
       }
-      let r = row['__rowspan__' + column.label],
-        c = row['__colspan__' + column.label];
-      return [r === undefined ? 1 : r, c === undefined ? 1 : c];
+      const r = row['__rowspan__' + column.label]
+        const c = row['__colspan__' + column.label]
+      return [r === undefined ? 1 : r, c === undefined ? 1 : c]
     }
   }
 }

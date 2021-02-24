@@ -41,7 +41,7 @@ export default {
         type: 'success',
         message: '这是一条成功的提示',
         customClass: border ? 'ele-message-border' : ''
-      });
+      })
     },
     showWarningMessage(border) {
       this.$message({
@@ -56,9 +56,9 @@ export default {
           type: 'error',
           message: '这是一条错误的提示',
           customClass: 'ele-message-border'
-        });
+        })
       } else {
-        this.$message.error('这是一条错误的提示');
+        this.$message.error('这是一条错误的提示')
       }
     },
     showInfoMessage(border) {
@@ -67,20 +67,20 @@ export default {
           type: 'info',
           message: '这是一条普通的提示',
           customClass: 'ele-message-border'
-        });
+        })
       } else {
-        this.$message('这是一条普通的提示');
+        this.$message('这是一条普通的提示')
       }
     },
     showLoadingMessage() {
-      let loading = this.$message({
+      const loading = this.$message({
         message: '正在加载中..',
         customClass: 'ele-message-loading',
         duration: 0
-      });
+      })
       setTimeout(() => {
-        loading.close();
-      }, 6000);
+        loading.close()
+      }, 6000)
     }
   }
 }

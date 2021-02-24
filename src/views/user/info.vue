@@ -181,11 +181,11 @@
 </template>
 
 <script>
-import EleCropperDialog from 'ele-admin/packages/ele-cropper-dialog';
+import EleCropperDialog from 'ele-admin/packages/ele-cropper-dialog'
 
 export default {
   name: 'UserInfo',
-  components: {EleCropperDialog},
+  components: { EleCropperDialog },
   data() {
     return {
       // tab页选中
@@ -201,13 +201,13 @@ export default {
       // 表单验证规则
       rules: {
         nickname: [
-          {required: true, message: '请输入昵称', trigger: 'blur'}
+          { required: true, message: '请输入昵称', trigger: 'blur' }
         ],
         sex: [
-          {required: true, message: '请选择性别', trigger: 'blur'}
+          { required: true, message: '请选择性别', trigger: 'blur' }
         ],
         email: [
-          {required: true, message: '请输入邮箱', trigger: 'blur'}
+          { required: true, message: '请输入邮箱', trigger: 'blur' }
         ]
       },
       // 保存按钮loading
@@ -221,20 +221,20 @@ export default {
     save() {
       this.$refs['infoForm'].validate((valid) => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           setTimeout(() => {
-            this.loading = false;
-            this.$message({type: 'success', message: '保存成功'});
-          }, 800);
+            this.loading = false
+            this.$message({ type: 'success', message: '保存成功' })
+          }, 800)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     /* 头像裁剪完成回调 */
     onCrop(res) {
-      this.form.avatar = res;
-      this.showCropper = false;
+      this.form.avatar = res
+      this.showCropper = false
     }
   }
 }

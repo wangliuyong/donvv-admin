@@ -104,15 +104,15 @@
 export default {
   name: 'Forget',
   data() {
-    let password2Validator = (rule, value, callback) => {
+    const password2Validator = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请再次输入登录密码'));
+        return callback(new Error('请再次输入登录密码'))
       }
       if (value !== this.form.password) {
-        return callback(new Error('两次密码输入不一致'));
+        return callback(new Error('两次密码输入不一致'))
       }
-      callback();
-    };
+      callback()
+    }
     return {
       // 登录框方向,0居中,1居右,2居左
       direction: 0,
@@ -128,16 +128,16 @@ export default {
       // 表单验证规则
       rules: {
         phone: [
-          {required: true, message: '请输入绑定手机号', trigger: 'blur'}
+          { required: true, message: '请输入绑定手机号', trigger: 'blur' }
         ],
         password: [
-          {required: true, message: '请输入新的登录密码', trigger: 'blur'}
+          { required: true, message: '请输入新的登录密码', trigger: 'blur' }
         ],
         password2: [
-          {validator: password2Validator, trigger: 'blur'}
+          { validator: password2Validator, trigger: 'blur' }
         ],
         code: [
-          {required: true, message: '请输入验证码', trigger: 'blur'}
+          { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
       },
       // 用于刷新验证码
@@ -161,40 +161,40 @@ export default {
     doSubmit() {
       this.$refs['regForm'].validate((valid) => {
         if (!valid) {
-          return false;
+          return false
         }
-        this.loading = true;
+        this.loading = true
         setTimeout(() => {
-          this.$message({type: 'success', message: '密码修改成功'});
-          this.$router.push('/login');
-        }, 1000);
-      });
+          this.$message({ type: 'success', message: '密码修改成功' })
+          this.$router.push('/login')
+        }, 1000)
+      })
     },
     /* 更换图形验证码 */
     changeImgCode() {
       // 这里演示的验证码是后端地址直接是图片的形式, 如果后端返回base64格式请参考登录页面
-      this.v = new Date().getTime();
+      this.v = new Date().getTime()
     },
     /* 显示发送短信验证码弹窗 */
     showImgCodeCheck() {
       if (!this.form.phone) {
-        return this.$message.error('请输入手机号码');
+        return this.$message.error('请输入手机号码')
       }
-      this.imgCode = '';
-      this.changeImgCode();
-      this.showImgCode = true;
+      this.imgCode = ''
+      this.changeImgCode()
+      this.showImgCode = true
     },
     /* 发送短信验证码 */
     sendCode() {
       if (!this.imgCode) {
-        return this.$message.error('请输入图形验证码');
+        return this.$message.error('请输入图形验证码')
       }
-      this.codeLoading = true;
+      this.codeLoading = true
       setTimeout(() => {
-        this.$message({type: 'success', message: '短信验证码发送成功, 请注意查收!'});
-        this.showImgCode = false;
-        this.codeLoading = false;
-      }, 1000);
+        this.$message({ type: 'success', message: '短信验证码发送成功, 请注意查收!' })
+        this.showImgCode = false
+        this.codeLoading = false
+      }, 1000)
     }
   }
 }

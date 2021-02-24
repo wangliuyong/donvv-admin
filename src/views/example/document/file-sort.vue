@@ -151,117 +151,117 @@ export default {
     // 选中案卷的卷内文件
     data1() {
       if (!this.current) {
-        return [];
+        return []
       }
-      return this.data.filter(d => d.piece_no === this.current.piece_no);
+      return this.data.filter(d => d.piece_no === this.current.piece_no)
     },
     // 未归档的卷内文件
     data2() {
-      return this.data.filter(d => !d.piece_no);
+      return this.data.filter(d => !d.piece_no)
     }
   },
   methods: {
     /* 弹窗被打开 */
     onOpened() {
-      this.query();
+      this.query()
       if (this.documents.length) {
-        this.$refs.docTable.setCurrentRow(this.documents[0]);
+        this.$refs.docTable.setCurrentRow(this.documents[0])
       }
     },
     /* 弹窗被关闭 */
     onClosed() {
-      this.data = [];
+      this.data = []
     },
     /* 查询所选案卷的卷内文件 */
     query() {
-      this.loading = true;
+      this.loading = true
       this.$http.get('https://cdn.eleadmin.com/20200610/archive.json').then(res => {
-        this.loading = false;
+        this.loading = false
         if (res.data.code === 0) {
-          this.data = res.data.data;
+          this.data = res.data.data
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        this.loading = false;
-        this.$message.error(e.message);
-      });
+        this.loading = false
+        this.$message.error(e.message)
+      })
     },
     /* 上移 */
     moveUp() {
       if (!this.selection1.length) {
-        return this.$message.error('请选择一条数据');
+        return this.$message.error('请选择一条数据')
       }
       if (this.selection1.length > 1) {
-        return this.$message.error('只能选择一条数据');
+        return this.$message.error('只能选择一条数据')
       }
       if (this.data1.indexOf(this.selection1[0]) === 0) {
-        return;
+        return
       }
-      let index = this.data.indexOf(this.selection1[0]);
-      let old = this.data[index - 1];
-      this.$set(this.data, index - 1, this.selection1[0]);
-      this.$set(this.data, index, old);
+      const index = this.data.indexOf(this.selection1[0])
+      const old = this.data[index - 1]
+      this.$set(this.data, index - 1, this.selection1[0])
+      this.$set(this.data, index, old)
       this.$nextTick(() => {
-        this.$refs.fileTable.toggleRowSelection(this.data[index - 1]);
-      });
+        this.$refs.fileTable.toggleRowSelection(this.data[index - 1])
+      })
     },
     /* 下移 */
     moveDown() {
       if (!this.selection1.length) {
-        return this.$message.error('请选择一条数据');
+        return this.$message.error('请选择一条数据')
       }
       if (this.selection1.length > 1) {
-        return this.$message.error('只能选择一条数据');
+        return this.$message.error('只能选择一条数据')
       }
       if (this.data1.indexOf(this.selection1[0]) === this.data1.length - 1) {
-        return;
+        return
       }
-      let index = this.data.indexOf(this.selection1[0]);
-      let old = this.data[index + 1];
-      this.$set(this.data, index + 1, this.selection1[0]);
-      this.$set(this.data, index, old);
+      const index = this.data.indexOf(this.selection1[0])
+      const old = this.data[index + 1]
+      this.$set(this.data, index + 1, this.selection1[0])
+      this.$set(this.data, index, old)
       this.$nextTick(() => {
-        this.$refs.fileTable.toggleRowSelection(this.data[index + 1]);
-      });
+        this.$refs.fileTable.toggleRowSelection(this.data[index + 1])
+      })
     },
     /* 调出 */
     moveOut() {
       if (!this.selection1.length) {
-        return this.$message.error('请至少选择一条数据');
+        return this.$message.error('请至少选择一条数据')
       }
       this.selection1.forEach(d => {
-        d.piece_no = '';
-      });
+        d.piece_no = ''
+      })
     },
     /* 调入 */
     moveIn() {
-      if (!this.current) return;
+      if (!this.current) return
       if (!this.selection2.length) {
-        return this.$message.error('请至少选择一条数据');
+        return this.$message.error('请至少选择一条数据')
       }
       this.selection2.forEach(d => {
-        d.piece_no = this.current.piece_no;
-      });
+        d.piece_no = this.current.piece_no
+      })
     },
     /* 保存 */
     save() {
-      let result = this.data.map(d => {
+      const result = this.data.map(d => {
         return {
           archive_no: d.archive_no,
           piece_no: d.piece_no
-        };
-      });
-      console.log(result);
-      this.updateVisible(false);
+        }
+      })
+      console.log(result)
+      this.updateVisible(false)
     },
     /* 关闭弹窗 */
     close() {
-      this.updateVisible(false);
+      this.updateVisible(false)
     },
     /* 更新visible */
     updateVisible(value) {
-      this.$emit('update:visible', value);
+      this.$emit('update:visible', value)
     }
   }
 }

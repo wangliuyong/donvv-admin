@@ -121,9 +121,11 @@
           <el-date-picker
             v-model="saleSearch.datetime"
             type="daterange"
-            range-separator="至" size="small"
+            range-separator="至"
+size="small"
             start-placeholder="开始日期"
-            end-placeholder="结束日期" unlink-panels/>
+            end-placeholder="结束日期"
+unlink-panels/>
         </div>
       </div>
       <el-divider/>
@@ -180,12 +182,12 @@
 </template>
 
 <script>
-import EleChart from 'ele-admin/packages/ele-chart';
-import EleWordCloud from 'ele-admin/packages/ele-word-cloud';
+import EleChart from 'ele-admin/packages/ele-chart'
+import EleWordCloud from 'ele-admin/packages/ele-word-cloud'
 
 export default {
   name: 'DashboardAnalysis',
-  components: {EleChart, EleWordCloud},
+  components: { EleChart, EleWordCloud },
   data() {
     return {
       // 支付笔数
@@ -209,7 +211,7 @@ export default {
   computed: {
     // 访问量折线图配置
     visitChartOption() {
-      if (!this.payNumData.length) return {};
+      if (!this.payNumData.length) return {}
       return {
         color: '#975fe5',
         tooltip: {
@@ -250,7 +252,7 @@ export default {
             data: this.payNumData.map(d => d.value)
           }
         ]
-      };
+      }
     },
     // 支付笔数柱状图配置
     payNumChartOption() {
@@ -312,11 +314,11 @@ export default {
             data: this.saleroomData.map(d => d.value)
           }
         ]
-      };
+      }
     },
     // 最近1小时访问情况折线图配置
     visitHourChartOption() {
-      if (!this.visitHourData.length) return {};
+      if (!this.visitHourData.length) return {}
       return {
         tooltip: {
           trigger: 'axis'
@@ -363,146 +365,146 @@ export default {
     }
   },
   mounted() {
-    this.getPayNumData();
-    this.getSaleroomData();
-    this.getVisitHourData();
-    this.getWordCloudData();
+    this.getPayNumData()
+    this.getSaleroomData()
+    this.getVisitHourData()
+    this.getWordCloudData()
   },
   methods: {
     /* 获取支付笔数数据 */
     getPayNumData() {
       this.payNumData = [
-        {date: '2020-06-12', value: 7},
-        {date: '2020-06-13', value: 5},
-        {date: '2020-06-14', value: 4},
-        {date: '2020-06-15', value: 2},
-        {date: '2020-06-16', value: 4},
-        {date: '2020-06-17', value: 7},
-        {date: '2020-06-18', value: 5},
-        {date: '2020-06-19', value: 6},
-        {date: '2020-06-20', value: 5},
-        {date: '2020-06-21', value: 9},
-        {date: '2020-06-22', value: 6},
-        {date: '2020-06-23', value: 3},
-        {date: '2020-06-24', value: 1},
-        {date: '2020-06-25', value: 5},
-        {date: '2020-06-26', value: 3},
-        {date: '2020-06-27', value: 6},
-        {date: '2020-06-18', value: 5}
-      ];
+        { date: '2020-06-12', value: 7 },
+        { date: '2020-06-13', value: 5 },
+        { date: '2020-06-14', value: 4 },
+        { date: '2020-06-15', value: 2 },
+        { date: '2020-06-16', value: 4 },
+        { date: '2020-06-17', value: 7 },
+        { date: '2020-06-18', value: 5 },
+        { date: '2020-06-19', value: 6 },
+        { date: '2020-06-20', value: 5 },
+        { date: '2020-06-21', value: 9 },
+        { date: '2020-06-22', value: 6 },
+        { date: '2020-06-23', value: 3 },
+        { date: '2020-06-24', value: 1 },
+        { date: '2020-06-25', value: 5 },
+        { date: '2020-06-26', value: 3 },
+        { date: '2020-06-27', value: 6 },
+        { date: '2020-06-18', value: 5 }
+      ]
     },
     /* 获取销售量数据 */
     getSaleroomData() {
       if (this.saleSearch.type === 'saleroom') {
         this.saleroomData = [
-          {month: '1月', value: 816},
-          {month: '2月', value: 542},
-          {month: '3月', value: 914},
-          {month: '4月', value: 781},
-          {month: '5月', value: 355},
-          {month: '6月', value: 796},
-          {month: '7月', value: 714},
-          {month: '8月', value: 1195},
-          {month: '9月', value: 1055},
-          {month: '10月', value: 271},
-          {month: '11月', value: 384},
-          {month: '12月', value: 1098}
-        ];
+          { month: '1月', value: 816 },
+          { month: '2月', value: 542 },
+          { month: '3月', value: 914 },
+          { month: '4月', value: 781 },
+          { month: '5月', value: 355 },
+          { month: '6月', value: 796 },
+          { month: '7月', value: 714 },
+          { month: '8月', value: 1195 },
+          { month: '9月', value: 1055 },
+          { month: '10月', value: 271 },
+          { month: '11月', value: 384 },
+          { month: '12月', value: 1098 }
+        ]
       } else {
         this.saleroomData = [
-          {month: '1月', value: 1098},
-          {month: '2月', value: 384},
-          {month: '3月', value: 271},
-          {month: '4月', value: 1055},
-          {month: '5月', value: 1195},
-          {month: '6月', value: 714},
-          {month: '7月', value: 796},
-          {month: '8月', value: 355},
-          {month: '9月', value: 781},
-          {month: '10月', value: 914},
-          {month: '11月', value: 542},
-          {month: '12月', value: 816}
-        ];
+          { month: '1月', value: 1098 },
+          { month: '2月', value: 384 },
+          { month: '3月', value: 271 },
+          { month: '4月', value: 1055 },
+          { month: '5月', value: 1195 },
+          { month: '6月', value: 714 },
+          { month: '7月', value: 796 },
+          { month: '8月', value: 355 },
+          { month: '9月', value: 781 },
+          { month: '10月', value: 914 },
+          { month: '11月', value: 542 },
+          { month: '12月', value: 816 }
+        ]
       }
       this.saleroomRankData = [
-        {name: '工专路 1 号店', value: '323,234'},
-        {name: '工专路 2 号店', value: '323,234'},
-        {name: '工专路 3 号店', value: '323,234'},
-        {name: '工专路 4 号店', value: '323,234'},
-        {name: '工专路 5 号店', value: '323,234'},
-        {name: '工专路 6 号店', value: '323,234'},
-        {name: '工专路 7 号店', value: '323,234'}
-      ];
+        { name: '工专路 1 号店', value: '323,234' },
+        { name: '工专路 2 号店', value: '323,234' },
+        { name: '工专路 3 号店', value: '323,234' },
+        { name: '工专路 4 号店', value: '323,234' },
+        { name: '工专路 5 号店', value: '323,234' },
+        { name: '工专路 6 号店', value: '323,234' },
+        { name: '工专路 7 号店', value: '323,234' }
+      ]
     },
     /* 获取最近1小时访问情况数据 */
     getVisitHourData() {
       this.visitHourData = [
-        {time: '16:00', visits: 15, views: 45},
-        {time: '16:05', visits: 39, views: 169},
-        {time: '16:10', visits: 152, views: 400},
-        {time: '16:15', visits: 94, views: 285},
-        {time: '16:20', visits: 102, views: 316},
-        {time: '16:25', visits: 86, views: 148},
-        {time: '16:30', visits: 39, views: 150},
-        {time: '16:35', visits: 38, views: 234},
-        {time: '16:40', visits: 95, views: 158},
-        {time: '16:45', visits: 30, views: 100},
-        {time: '16:50', visits: 86, views: 266}
-      ];
+        { time: '16:00', visits: 15, views: 45 },
+        { time: '16:05', visits: 39, views: 169 },
+        { time: '16:10', visits: 152, views: 400 },
+        { time: '16:15', visits: 94, views: 285 },
+        { time: '16:20', visits: 102, views: 316 },
+        { time: '16:25', visits: 86, views: 148 },
+        { time: '16:30', visits: 39, views: 150 },
+        { time: '16:35', visits: 38, views: 234 },
+        { time: '16:40', visits: 95, views: 158 },
+        { time: '16:45', visits: 30, views: 100 },
+        { time: '16:50', visits: 86, views: 266 }
+      ]
     },
     /* 获取词云数据 */
     getWordCloudData() {
       this.hotSearchData = [
-        {name: "软妹子", value: 23},
-        {name: "汪星人", value: 23},
-        {name: "长腿欧巴", value: 23},
-        {name: "萝莉", value: 22},
-        {name: "辣~", value: 22},
-        {name: "K歌", value: 22},
-        {name: "大长腿", value: 21},
-        {name: "川妹子", value: 21},
-        {name: "女神", value: 21},
-        {name: "米粉", value: 20},
-        {name: "专注设计", value: 20},
-        {name: "逛街", value: 20},
-        {name: "黑长直", value: 20},
-        {name: "海纳百川", value: 19},
-        {name: "萌萌哒", value: 19},
-        {name: "坚持", value: 19},
-        {name: "话唠", value: 19},
-        {name: "果粉", value: 18},
-        {name: "喵星人", value: 18},
-        {name: "花粉", value: 18},
-        {name: "衬衫控", value: 18},
-        {name: "宅男", value: 17},
-        {name: "小清新", value: 17},
-        {name: "眼镜男", value: 17},
-        {name: "琼瑶", value: 17},
-        {name: "穷游党", value: 16},
-        {name: "铲屎官", value: 16},
-        {name: "正太", value: 16},
-        {name: "中二病", value: 16},
-        {name: "夜猫子", value: 15},
-        {name: "逗比", value: 15},
-        {name: "腹黑", value: 15},
-        {name: "吃鸡", value: 15},
-        {name: "为了联盟", value: 14},
-        {name: "背包客", value: 14},
-        {name: "民谣", value: 14},
-        {name: "为了部落", value: 14},
-        {name: "懒癌患者", value: 13},
-        {name: "追剧", value: 13},
-        {name: "IT民工", value: 13},
-        {name: "CNB成员", value: 13},
-        {name: "选择困难", value: 12},
-        {name: "锤粉", value: 12},
-        {name: "欧皇", value: 12},
-        {name: "仙气十足", value: 12}
-      ];
+        { name: '软妹子', value: 23 },
+        { name: '汪星人', value: 23 },
+        { name: '长腿欧巴', value: 23 },
+        { name: '萝莉', value: 22 },
+        { name: '辣~', value: 22 },
+        { name: 'K歌', value: 22 },
+        { name: '大长腿', value: 21 },
+        { name: '川妹子', value: 21 },
+        { name: '女神', value: 21 },
+        { name: '米粉', value: 20 },
+        { name: '专注设计', value: 20 },
+        { name: '逛街', value: 20 },
+        { name: '黑长直', value: 20 },
+        { name: '海纳百川', value: 19 },
+        { name: '萌萌哒', value: 19 },
+        { name: '坚持', value: 19 },
+        { name: '话唠', value: 19 },
+        { name: '果粉', value: 18 },
+        { name: '喵星人', value: 18 },
+        { name: '花粉', value: 18 },
+        { name: '衬衫控', value: 18 },
+        { name: '宅男', value: 17 },
+        { name: '小清新', value: 17 },
+        { name: '眼镜男', value: 17 },
+        { name: '琼瑶', value: 17 },
+        { name: '穷游党', value: 16 },
+        { name: '铲屎官', value: 16 },
+        { name: '正太', value: 16 },
+        { name: '中二病', value: 16 },
+        { name: '夜猫子', value: 15 },
+        { name: '逗比', value: 15 },
+        { name: '腹黑', value: 15 },
+        { name: '吃鸡', value: 15 },
+        { name: '为了联盟', value: 14 },
+        { name: '背包客', value: 14 },
+        { name: '民谣', value: 14 },
+        { name: '为了部落', value: 14 },
+        { name: '懒癌患者', value: 13 },
+        { name: '追剧', value: 13 },
+        { name: 'IT民工', value: 13 },
+        { name: 'CNB成员', value: 13 },
+        { name: '选择困难', value: 12 },
+        { name: '锤粉', value: 12 },
+        { name: '欧皇', value: 12 },
+        { name: '仙气十足', value: 12 }
+      ]
     },
     /* 销售量tab选择改变事件 */
     onSaleTypeChange() {
-      this.getSaleroomData();
+      this.getSaleroomData()
     }
   }
 }

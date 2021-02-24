@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import Xgplayer from 'xgplayer-vue';
+import Xgplayer from 'xgplayer-vue'
 
 export default {
   name: 'ExtensionPlayer',
-  components: {Xgplayer},
+  components: { Xgplayer },
   data() {
     return {
       // 视频播放器一配置
@@ -274,46 +274,46 @@ export default {
   methods: {
     /* 播放器一渲染完成 */
     onPlayer1(e) {
-      this.player1 = e;
+      this.player1 = e
       this.player1.on('play', () => {
-        this.ready1 = true;
-      });
+        this.ready1 = true
+      })
     },
     /* 播放 */
     play() {
       if (this.player1.paused) {
-        this.player1.play();
+        this.player1.play()
       }
     },
     /* 暂停 */
     pause() {
       if (!this.player1.paused) {
-        this.player1.pause();
+        this.player1.pause()
       }
     },
     /* 重新播放 */
     replay() {
-      this.player1.replay();
+      this.player1.replay()
     },
     /* 切换视频源 */
     changeSrc() {
-      this.player1.src = 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_TheatricalTeaser_WeAreOverwatch_zhCN.mp4';
+      this.player1.src = 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_TheatricalTeaser_WeAreOverwatch_zhCN.mp4'
       if (this.player1.paused) {
-        this.player1.play();
+        this.player1.play()
       }
     },
     /* 播放器二渲染完成 */
     onPlayer2(e) {
-      this.player2 = e;
+      this.player2 = e
       this.player2.on('play', () => {
-        this.ready2 = true;
-      });
+        this.ready2 = true
+      })
     },
     /* 发射弹幕 */
     shoot() {
       if (!this.dmText) {
-        this.$message.error('请输入弹幕内容');
-        return;
+        this.$message.error('请输入弹幕内容')
+        return
       }
       this.player2.danmu.sendComment({
         id: new Date().getTime(),
@@ -326,8 +326,8 @@ export default {
           fontSize: '20px',
           border: 'solid 1px #fa1f41'
         }
-      });
-      this.dmText = '';
+      })
+      this.dmText = ''
     }
   }
 }

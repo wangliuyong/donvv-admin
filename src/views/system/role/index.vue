@@ -111,12 +111,12 @@
 </template>
 
 <script>
-import RoleEdit from './role-edit';
-import RoleAuth from './role-auth';
+import RoleEdit from './role-edit'
+import RoleAuth from './role-auth'
 
 export default {
   name: 'SystemRole',
-  components: {RoleEdit, RoleAuth},
+  components: { RoleEdit, RoleAuth },
   data() {
     return {
       // 表格数据接口
@@ -166,7 +166,7 @@ export default {
           showOverflowTooltip: true,
           minWidth: 110,
           formatter: (row, column, cellValue) => {
-            return this.$util.toDateString(cellValue);
+            return this.$util.toDateString(cellValue)
           }
         },
         {
@@ -193,67 +193,67 @@ export default {
   methods: {
     /* 刷新表格 */
     reload() {
-      this.$refs.table.reload({page: 1});
+      this.$refs.table.reload({ page: 1 })
     },
     /* 重置搜索 */
     reset() {
-      this.where = {};
+      this.where = {}
       this.$nextTick(() => {
-        this.reload();
-      });
+        this.reload()
+      })
     },
     /* 显示编辑 */
     openEdit(row) {
-      this.current = row;
-      this.showEdit = true;
+      this.current = row
+      this.showEdit = true
     },
     /* 显示分配权限 */
     openAuth(row) {
-      this.current = row;
-      this.showAuth = true;
+      this.current = row
+      this.showAuth = true
     },
     /* 删除 */
     remove(row) {
-      const loading = this.$loading({lock: true});
+      const loading = this.$loading({ lock: true })
       this.$http.delete('/sys/role/' + row.roleId).then(res => {
-        loading.close();
+        loading.close()
         if (res.data.code === 0) {
-          this.$message({type: 'success', message: res.data.msg});
-          this.reload();
+          this.$message({ type: 'success', message: res.data.msg })
+          this.reload()
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        loading.close();
-        this.$message.error(e.message);
-      });
+        loading.close()
+        this.$message.error(e.message)
+      })
     },
     /* 批量删除 */
     removeBatch() {
       if (!this.selection.length) {
-        this.$message.error('请至少选择一条数据');
-        return;
+        this.$message.error('请至少选择一条数据')
+        return
       }
       this.$confirm('确定要删除选中的角色吗?', '提示', {
         type: 'warning'
       }).then(() => {
-        const loading = this.$loading({lock: true});
+        const loading = this.$loading({ lock: true })
         this.$http.delete('/sys/role/batch', {
           data: this.selection.map(d => d.roleId)
         }).then(res => {
-          loading.close();
+          loading.close()
           if (res.data.code === 0) {
-            this.$message({type: 'success', message: res.data.msg});
-            this.reload();
+            this.$message({ type: 'success', message: res.data.msg })
+            this.reload()
           } else {
-            this.$message.error(res.data.msg);
+            this.$message.error(res.data.msg)
           }
         }).catch(e => {
-          loading.close();
-          this.$message.error(e.message);
-        });
+          loading.close()
+          this.$message.error(e.message)
+        })
       }).catch(() => {
-      });
+      })
     }
   }
 }

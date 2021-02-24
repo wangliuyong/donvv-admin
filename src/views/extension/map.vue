@@ -73,12 +73,12 @@
 </template>
 
 <script>
-import AMapLoader from '@amap/amap-jsapi-loader';
-import EleMapPicker from 'ele-admin/packages/ele-map-picker';
+import AMapLoader from '@amap/amap-jsapi-loader'
+import EleMapPicker from 'ele-admin/packages/ele-map-picker'
 
 export default {
   name: 'ExtensionMap',
-  components: {EleMapPicker},
+  components: { EleMapPicker },
   data() {
     return {
       // 表单数据
@@ -113,18 +113,18 @@ export default {
     }
   },
   mounted() {
-    this.renderLocationMap();
-    this.renderTrackMap();
+    this.renderLocationMap()
+    this.renderTrackMap()
   },
   methods: {
     /* 地图选择后回调 */
     onChoose(location) {
-      this.showMapPicker = false;
-      this.showMapPicker2 = false;
-      this.form.address = location.name + ' ' + location.address;
-      this.form.jinweidu = [location.lng, location.lat].join(',');
-      this.form.location = location.city.province + '/' + location.city.city + '/' + location.city.district;
-      console.log(location);
+      this.showMapPicker = false
+      this.showMapPicker2 = false
+      this.form.address = location.name + ' ' + location.address
+      this.form.jinweidu = [location.lng, location.lat].join(',')
+      this.form.location = location.city.province + '/' + location.city.city + '/' + location.city.district
+      console.log(location)
     },
     /* 渲染官网底部地图 */
     renderLocationMap() {
@@ -134,14 +134,14 @@ export default {
         'plugins': ['AMap.InfoWindow', 'AMap.Marker']
       }).then((AMap) => {
         // 渲染地图
-        let map = new AMap.Map(this.$refs.locationMap, {
+        const map = new AMap.Map(this.$refs.locationMap, {
           // 初缩放级别
           zoom: 13,
           // 初始中心点
           center: [114.346084, 30.511215 + 0.005]
-        });
+        })
         // 创建信息窗体
-        let infoWindow = new AMap.InfoWindow({
+        const infoWindow = new AMap.InfoWindow({
           content: `
             <div style="color: #333;">
                 <div style="padding: 5px;font-size: 16px;">武汉易云智科技有限公司</div>
@@ -154,25 +154,25 @@ export default {
                 </a>
             </div>
           `
-        });
-        infoWindow.open(map, [114.346084, 30.511215]);
-        let icon = new AMap.Icon({
+        })
+        infoWindow.open(map, [114.346084, 30.511215])
+        const icon = new AMap.Icon({
           size: new AMap.Size(25, 34),
           image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
           imageSize: new AMap.Size(25, 34)
-        });
-        let marker = new AMap.Marker({
+        })
+        const marker = new AMap.Marker({
           icon: icon,
           position: [114.346084, 30.511215],
           offset: new AMap.Pixel(-12, -28)
-        });
-        marker.setMap(map);
+        })
+        marker.setMap(map)
         marker.on('click', () => {
-          infoWindow.open(map);
-        });
+          infoWindow.open(map)
+        })
       }).catch(e => {
-        console.error(e);
-      });
+        console.error(e)
+      })
     },
     /* 渲染轨迹回放地图 */
     renderTrackMap() {
@@ -182,65 +182,65 @@ export default {
         'plugins': ['AMap.MoveAnimation', 'AMap.Marker', 'AMap.Polyline']
       }).then((AMap) => {
         // 渲染地图
-        let map = new AMap.Map(this.$refs.trackMap, {
+        const map = new AMap.Map(this.$refs.trackMap, {
           zoom: 17,
-          center: [116.478935, 39.997761],
-        });
+          center: [116.478935, 39.997761]
+        })
 
         // 创建小车marker
         this.carMarker = new AMap.Marker({
           map: map,
           position: [116.478935, 39.997761],
           icon: 'https://a.amap.com/jsapi_demos/static/demo-center-v2/car.png',
-          offset: new AMap.Pixel(-13, -26),
-        });
+          offset: new AMap.Pixel(-13, -26)
+        })
 
         // 绘制轨迹
         new AMap.Polyline({
           map: map,
           path: this.lineData,
           showDir: true,
-          strokeColor: '#28F',  // 线颜色
-          strokeOpacity: 1,     // 线透明度
-          strokeWeight: 6,      // 线宽
+          strokeColor: '#28F', // 线颜色
+          strokeOpacity: 1, // 线透明度
+          strokeWeight: 6 // 线宽
           // strokeStyle: 'solid'  // 线样式
-        });
+        })
 
         // 通过的轨迹
-        let passedPolyline = new AMap.Polyline({
+        const passedPolyline = new AMap.Polyline({
           map: map,
           showDir: true,
-          strokeColor: '#4B5',  // 线颜色
-          strokeOpacity: 1,     // 线透明度
-          strokeWeight: 6,      // 线宽
-        });
+          strokeColor: '#4B5', // 线颜色
+          strokeOpacity: 1, // 线透明度
+          strokeWeight: 6 // 线宽
+        })
 
         // 小车移动回调
-        this.carMarker.on('moving', function (e) {
-          passedPolyline.setPath(e.passedPath);
-        });
+        this.carMarker.on('moving', function(e) {
+          passedPolyline.setPath(e.passedPath)
+        })
 
         // 地图自适应
-        map.setFitView();
+        map.setFitView()
       }).catch(e => {
-        console.error(e);
-      });
+        console.error(e)
+      })
     },
     /* 开始轨迹回放动画 */
     startTrackAnim() {
-      this.carMarker.stopMove();
+      this.carMarker.stopMove()
       this.carMarker.moveAlong(this.lineData, {
         duration: 200,
-        autoRotation: true,
-      });
+        autoRotation: true
+      })
     },
     /* 暂停轨迹回放动画 */
     pauseTrackAnim() {
-      this.carMarker.pauseMove();
+      this.carMarker.pauseMove()
     },
     /* 继续开始轨迹回放动画 */
     resumeTrackAnim() {
-      this.carMarker.resumeMove();
+      this.carMarker.resumeMove()
     }
   }
 }

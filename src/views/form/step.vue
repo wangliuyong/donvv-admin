@@ -187,28 +187,28 @@ export default {
       // 步骤一表单验证规则
       rules1: {
         account: [
-          {required: true, message: '请选择付款账户', trigger: 'blur'}
+          { required: true, message: '请选择付款账户', trigger: 'blur' }
         ],
         receiver: [
-          {required: true, message: '请输入收款账户', trigger: 'blur'}
+          { required: true, message: '请输入收款账户', trigger: 'blur' }
         ],
         name: [
-          {required: true, message: '请输入收款人姓名', trigger: 'blur'}
+          { required: true, message: '请输入收款人姓名', trigger: 'blur' }
         ],
         amount: [
-          {required: true, message: '请输入转账金额', trigger: 'blur'}
+          { required: true, message: '请输入转账金额', trigger: 'blur' }
         ]
       },
       // 步骤一表单提交状态
       loading1: false,
       // 步骤二表单数据
       form2: {
-        password: '123456',
+        password: '123456'
       },
       // 步骤二表单验证规则
       rules2: {
         password: [
-          {required: true, message: '请输入支付密码', trigger: 'blur'}
+          { required: true, message: '请输入支付密码', trigger: 'blur' }
         ]
       },
       // 步骤二表单提交状态
@@ -220,29 +220,29 @@ export default {
     submit1() {
       this.$refs['form1'].validate((valid) => {
         if (valid) {
-          this.loading1 = true;
+          this.loading1 = true
           setTimeout(() => {
-            this.loading1 = false;
-            this.active = 1;
-          }, 300);
+            this.loading1 = false
+            this.active = 1
+          }, 300)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     // 步骤二表单提交
     submit2() {
       this.$refs['form2'].validate((valid) => {
         if (valid) {
-          this.loading2 = true;
+          this.loading2 = true
           setTimeout(() => {
-            this.loading2 = false;
-            this.active = 2;
-          }, 300);
+            this.loading2 = false
+            this.active = 2
+          }, 300)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     }
   }
 }

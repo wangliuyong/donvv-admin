@@ -129,7 +129,8 @@
       @closed="form={}"
       :destroy-on-close="true"
       :lock-scroll="false">
-      <el-form ref="editForm"
+      <el-form
+ref="editForm"
                :model="form"
                :rules="rules"
                label-width="82px">
@@ -198,7 +199,8 @@
           <el-form-item label="开始时间:">
             <el-date-picker
               v-model="searchForm.time"
-              type="datetime" placeholder="请选择开始时间"
+              type="datetime"
+placeholder="请选择开始时间"
               format="yyyy-MM-dd HH:mm"
               value-format="yyyy-MM-dd HH:mm"
               class="ele-fluid"/>
@@ -294,7 +296,7 @@ export default {
         state: 0
       },
       // 分页参数
-      page: {page: 1, limit: 5},
+      page: { page: 1, limit: 5 },
       // 数据总数
       count: 100,
       // 是否显示编辑弹窗
@@ -304,13 +306,13 @@ export default {
       // 编辑弹窗表单验证规则
       rules: {
         title: [
-          {required: true, message: '请输入任务名称', trigger: 'blur'}
+          { required: true, message: '请输入任务名称', trigger: 'blur' }
         ],
         time: [
-          {required: true, message: '请选择开始时间', trigger: 'blur'}
+          { required: true, message: '请选择开始时间', trigger: 'blur' }
         ],
         user: [
-          {required: true, message: '请选择负责人', trigger: 'blur'}
+          { required: true, message: '请选择负责人', trigger: 'blur' }
         ]
       },
       // 编辑表单加载状态
@@ -324,40 +326,40 @@ export default {
   methods: {
     /* 查询数据 */
     query() {
-      this.loading = true;
+      this.loading = true
       setTimeout(() => {
-        this.loading = false;
-      }, 300);
+        this.loading = false
+      }, 300)
     },
     /* 显示编辑弹窗 */
     edit(item) {
-      this.form = Object.assign({}, item);
-      this.showEdit = true;
+      this.form = Object.assign({}, item)
+      this.showEdit = true
     },
     /* 保存编辑 */
     save() {
       this.$refs['editForm'].validate((valid) => {
         if (valid) {
-          this.editLoading = true;
+          this.editLoading = true
           setTimeout(() => {
-            this.editLoading = false;
-            this.showEdit = false;
-            this.$message({type: 'success', message: '保存成功'});
+            this.editLoading = false
+            this.showEdit = false
+            this.$message({ type: 'success', message: '保存成功' })
             if (this.form.id) {
               // 保存修改
-              Object.assign(this.data.filter(d => d.id === this.form.id)[0], this.form);
+              Object.assign(this.data.filter(d => d.id === this.form.id)[0], this.form)
             } else {
               // 保存添加
               this.data.push(Object.assign({
                 id: new Date().getTime(),
                 cover: 'https://cdn.eleadmin.com/20200610/RZ8FQmZfHkcffMlTBCJllBFjEhEsObVo.jpg'
-              }, this.form));
+              }, this.form))
             }
-          }, 300);
+          }, 300)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     /* 下拉菜单点击事件 */
     dropClick(command, item) {
@@ -366,11 +368,11 @@ export default {
         this.$confirm('确定删除该任务吗？', '删除任务', {
           type: 'warning'
         }).then(() => {
-          this.data.splice(this.data.findIndex(d => d.id === item.id), 1);
-          this.$message({type: 'success', message: '删除成功'});
-        }).catch(() => 0);
+          this.data.splice(this.data.findIndex(d => d.id === item.id), 1)
+          this.$message({ type: 'success', message: '删除成功' })
+        }).catch(() => 0)
       } else if (command === 'share') {
-        this.$message('点击了分享');
+        this.$message('点击了分享')
       }
     }
   }

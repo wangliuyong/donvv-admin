@@ -22,7 +22,8 @@
             <el-date-picker
               v-model="form.datetime"
               type="daterange"
-              unlink-panels range-separator="至"
+              unlink-panels
+range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               class="ele-fluid"/>
@@ -121,19 +122,19 @@ export default {
       // 表单验证规则
       rules: {
         title: [
-          {required: true, message: '请输入标题', trigger: 'blur'}
+          { required: true, message: '请输入标题', trigger: 'blur' }
         ],
         datetime: [
-          {required: true, message: '请选择起止日期', trigger: 'blur'}
+          { required: true, message: '请选择起止日期', trigger: 'blur' }
         ],
         goal: [
-          {required: true, message: '请输入目标描述', trigger: 'blur'}
+          { required: true, message: '请输入目标描述', trigger: 'blur' }
         ],
         standard: [
-          {required: true, message: '请输入衡量标准', trigger: 'blur'}
+          { required: true, message: '请输入衡量标准', trigger: 'blur' }
         ],
         address: [
-          {required: true, message: '请选择地点', trigger: 'blur'}
+          { required: true, message: '请选择地点', trigger: 'blur' }
         ]
       },
       // 邀评人数据
@@ -171,21 +172,21 @@ export default {
     submit() {
       this.$refs['demoForm'].validate((valid) => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           setTimeout(() => {
-            this.loading = false;
-            this.$message({type: 'success', message: '提交成功'});
-          }, 1500);
+            this.loading = false
+            this.$message({ type: 'success', message: '提交成功' })
+          }, 1500)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     /* 关闭当前页面 */
     closeThis() {
       this.$store.dispatch('user/tabRemove', this.$route.fullPath).then(last => {
-        this.$router.push(last === -1 ? '/' : this.$store.state.user.tabs[last].path);
-      });
+        this.$router.push(last === -1 ? '/' : this.$store.state.user.tabs[last].path)
+      })
     }
   }
 }

@@ -119,11 +119,11 @@
 </template>
 
 <script>
-import MenuEdit from './menu-edit';
+import MenuEdit from './menu-edit'
 
 export default {
   name: 'SystemMenu',
-  components: {MenuEdit},
+  components: { MenuEdit },
   data() {
     return {
       // 表格数据接口
@@ -163,9 +163,9 @@ export default {
           showOverflowTooltip: true,
           minWidth: 60,
           formatter: (row, column, cellValue) => {
-            if(cellValue == 1) {
+            if (cellValue === 1) {
               return '菜单'
-            } else{
+            } else {
               return '页面'
             }
           }
@@ -175,8 +175,8 @@ export default {
           label: '权限别名',
           align: 'center',
           showOverflowTooltip: true,
-          width: 110,
-          
+          width: 110
+
         },
         {
           prop: 'sort',
@@ -206,7 +206,7 @@ export default {
           align: 'center',
           resizable: false,
           slot: 'action',
-          fixed:"right"
+          fixed: 'right'
         }
       ],
       // 表格搜索条件
@@ -233,19 +233,19 @@ export default {
         data: this.$util.toTreeData(data, 'menuId', 'parentId'),
         code: 0
       }
-      this.menuList = res.data;
-      return res;
+      this.menuList = res.data
+      return res
     },
     /* 刷新表格 */
     reload() {
-      this.$refs.table.reload();
+      this.$refs.table.reload()
     },
     /* 重置搜索 */
     reset() {
-      this.where = {};
+      this.where = {}
       this.$nextTick(() => {
-        this.reload();
-      });
+        this.reload()
+      })
     },
     /* 显示编辑 */
     openEdit(row, parentId) {
@@ -253,40 +253,40 @@ export default {
         menuType: 0,
         hide: 0,
         parentId: parentId
-      }, row);
-      this.showEdit = true;
+      }, row)
+      this.showEdit = true
     },
     /* 删除 */
     remove(row) {
       if (row.children && row.children.length > 0) {
-        this.$message.error('请先删除子节点');
-        return;
+        this.$message.error('请先删除子节点')
+        return
       }
-      const loading = this.$loading({lock: true});
+      const loading = this.$loading({ lock: true })
       this.$http.delete('/sys/menu/' + row.menuId).then(res => {
-        loading.close();
+        loading.close()
         if (res.data.code === 0) {
-          this.$message({type: 'success', message: res.data.msg});
-          this.reload();
+          this.$message({ type: 'success', message: res.data.msg })
+          this.reload()
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        loading.close();
-        this.$message.error(e.message);
-      });
+        loading.close()
+        this.$message.error(e.message)
+      })
     },
     /* 展开全部 */
     expandAll() {
       this.$refs.table.data.forEach(d => {
-        this.$refs.table.toggleRowExpansion(d, true);
-      });
+        this.$refs.table.toggleRowExpansion(d, true)
+      })
     },
     /* 折叠全部 */
     foldAll() {
       this.$refs.table.data.forEach(d => {
-        this.$refs.table.toggleRowExpansion(d, false);
-      });
+        this.$refs.table.toggleRowExpansion(d, false)
+      })
     }
   }
 }

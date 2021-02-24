@@ -63,10 +63,10 @@ export default {
       // 表单验证规则
       rules: {
         roleName: [
-          {required: true, message: '请输入角色名称', trigger: 'blur'}
+          { required: true, message: '请输入角色名称', trigger: 'blur' }
         ],
         roleCode: [
-          {required: true, message: '请输入角色标识', trigger: 'blur'}
+          { required: true, message: '请输入角色标识', trigger: 'blur' }
         ]
       },
       // 提交状态
@@ -78,11 +78,11 @@ export default {
   watch: {
     data() {
       if (this.data) {
-        this.form = Object.assign({}, this.data);
-        this.isUpdate = true;
+        this.form = Object.assign({}, this.data)
+        this.isUpdate = true
       } else {
-        this.form = {};
-        this.isUpdate = false;
+        this.form = {}
+        this.isUpdate = false
       }
     }
   },
@@ -91,31 +91,31 @@ export default {
     save() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           this.$http[this.isUpdate ? 'put' : 'post']('/sys/role', this.form).then(res => {
-            this.loading = false;
+            this.loading = false
             if (res.data.code === 0) {
-              this.$message({type: 'success', message: res.data.msg});
+              this.$message({ type: 'success', message: res.data.msg })
               if (!this.isUpdate) {
-                this.form = {};
+                this.form = {}
               }
-              this.updateVisible(false);
-              this.$emit('done');
+              this.updateVisible(false)
+              this.$emit('done')
             } else {
-              this.$message.error(res.data.msg);
+              this.$message.error(res.data.msg)
             }
           }).catch(e => {
-            this.loading = false;
-            this.$message.error(e.message);
-          });
+            this.loading = false
+            this.$message.error(e.message)
+          })
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     /* 更新visible */
     updateVisible(value) {
-      this.$emit('update:visible', value);
+      this.$emit('update:visible', value)
     }
   }
 }

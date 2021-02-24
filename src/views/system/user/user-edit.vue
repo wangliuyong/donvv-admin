@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import validate from 'ele-admin/packages/validate';
+import validate from 'ele-admin/packages/validate'
 
 export default {
   name: 'UserEdit',
@@ -125,22 +125,22 @@ export default {
       // 表单验证规则
       rules: {
         username: [
-          {required: true, message: '请输入用户账号', trigger: 'blur'}
+          { required: true, message: '请输入用户账号', trigger: 'blur' }
         ],
         nickname: [
-          {required: true, message: '请输入用户名', trigger: 'blur'}
+          { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         sex: [
-          {required: true, message: '请选择性别', trigger: 'blur'}
+          { required: true, message: '请选择性别', trigger: 'blur' }
         ],
         roleIds: [
-          {required: true, message: '请选择角色', trigger: 'blur'}
+          { required: true, message: '请选择角色', trigger: 'blur' }
         ],
         password: [
-          {required: true, message: '请输入登录密码', trigger: 'blur'}
+          { required: true, message: '请输入登录密码', trigger: 'blur' }
         ],
         phone: [
-          {pattern: validate.phone, message: '手机号格式不正确', trigger: 'blur'}
+          { pattern: validate.phone, message: '手机号格式不正确', trigger: 'blur' }
         ]
       },
       // 提交状态
@@ -156,59 +156,59 @@ export default {
       if (this.data) {
         this.form = Object.assign({}, this.data, {
           roleIds: this.data.roles.map(d => d.roleId)
-        });
-        this.isUpdate = true;
+        })
+        this.isUpdate = true
       } else {
-        this.form = {};
-        this.isUpdate = false;
+        this.form = {}
+        this.isUpdate = false
       }
     }
   },
   mounted() {
-    this.queryRoles();  // 查询角色列表
+    this.queryRoles() // 查询角色列表
   },
   methods: {
     /* 保存编辑 */
     save() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           this.$http[this.isUpdate ? 'put' : 'post']('/sys/user', this.form).then(res => {
-            this.loading = false;
+            this.loading = false
             if (res.data.code === 0) {
-              this.$message({type: 'success', message: res.data.msg});
+              this.$message({ type: 'success', message: res.data.msg })
               if (!this.isUpdate) {
-                this.form = {};
+                this.form = {}
               }
-              this.updateVisible(false);
-              this.$emit('done');
+              this.updateVisible(false)
+              this.$emit('done')
             } else {
-              this.$message.error(res.data.msg);
+              this.$message.error(res.data.msg)
             }
           }).catch(e => {
-            this.loading = false;
-            this.$message.error(e.message);
-          });
+            this.loading = false
+            this.$message.error(e.message)
+          })
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     /* 更新visible */
     updateVisible(value) {
-      this.$emit('update:visible', value);
+      this.$emit('update:visible', value)
     },
     /* 查询角色列表 */
     queryRoles() {
       this.$http.get('/sys/role').then(res => {
         if (res.data.code === 0) {
-          this.roleList = res.data.data;
+          this.roleList = res.data.data
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        this.$message.error(e.message);
-      });
+        this.$message.error(e.message)
+      })
     }
   }
 }

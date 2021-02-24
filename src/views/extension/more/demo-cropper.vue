@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import EleCropperDialog from 'ele-admin/packages/ele-cropper-dialog';
+import EleCropperDialog from 'ele-admin/packages/ele-cropper-dialog'
 
 export default {
   name: 'DemoCropper',
-  components: {EleCropperDialog},
+  components: { EleCropperDialog },
   data() {
     return {
       // 是否显示图片裁剪
@@ -35,15 +35,15 @@ export default {
       // 裁剪比例
       aspectRatio: 1,
       // 裁剪后的数据
-      cropResult: null,
-    };
+      cropResult: null
+    }
   },
   methods: {
     /* 图片裁剪完成事件 */
     onCrop(data) {
-      this.cropResult = data;
-      this.showCropper = false;
-    },
+      this.cropResult = data
+      this.showCropper = false
+    }
   }
 }
 </script>

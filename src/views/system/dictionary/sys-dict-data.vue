@@ -87,11 +87,11 @@
 </template>
 
 <script>
-import SysDictDataEdit from './sys-dict-data-edit';
+import SysDictDataEdit from './sys-dict-data-edit'
 
 export default {
   name: 'SysDictData',
-  components: {SysDictDataEdit},
+  components: { SysDictDataEdit },
   props: {
     // 字典id
     dictId: Number,
@@ -140,7 +140,7 @@ export default {
           showOverflowTooltip: true,
           minWidth: 110,
           formatter: (row, column, cellValue) => {
-            return this.$util.toDateString(cellValue);
+            return this.$util.toDateString(cellValue)
           }
         },
         {
@@ -165,35 +165,35 @@ export default {
   methods: {
     /* 刷新表格 */
     reload() {
-      this.$refs.table.reload({page: 1});
+      this.$refs.table.reload({ page: 1 })
     },
     /* 显示编辑 */
     openEdit(row) {
-      this.current = row;
-      this.showEdit = true;
+      this.current = row
+      this.showEdit = true
     },
     /* 删除 */
     remove(row) {
-      const loading = this.$loading({lock: true});
+      const loading = this.$loading({ lock: true })
       this.$http.delete('/sys/dictdata/' + row.dictDataId).then(res => {
-        loading.close();
+        loading.close()
         if (res.data.code === 0) {
-          this.$message({type: 'success', message: res.data.msg});
-          this.reload();
+          this.$message({ type: 'success', message: res.data.msg })
+          this.reload()
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        loading.close();
-        this.$message.error(e.message);
-      });
+        loading.close()
+        this.$message.error(e.message)
+      })
     }
   },
   watch: {
     // 监听字典id变化
     dictId() {
-      this.where.dictId = this.dictId;
-      this.reload();
+      this.where.dictId = this.dictId
+      this.reload()
     }
   }
 }

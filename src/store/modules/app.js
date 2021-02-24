@@ -1,6 +1,6 @@
-import { uuid } from '@/utils/uuid';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import { uuid } from '@/utils/uuid'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 const state = {
   urlConfig: {
     mode: 1,
@@ -78,7 +78,7 @@ const actions = {
             file: `http://${res.data}/api5/admin/1.0/`,
             lucene: `http://${res.data}/api6/admin/1.0/`,
             content: `http://${res.data}/api7/admin/1.0/`,
-  
+
             upload: `http://${res.data}/admin/1/upload/upload`,
             uploadPart: `http://${res.data}/admin/1/upload/uploadByWeb`,
             mergeChunks: `http://${res.data}/admin/1/upload/merge-chunks`
@@ -88,10 +88,8 @@ const actions = {
         } else {
           reject(res)
         }
-        
       })
     })
-    
   },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')

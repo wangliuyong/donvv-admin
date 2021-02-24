@@ -23,8 +23,8 @@ export default {
     classes() {
       return [
         'ele-exception ele-text-center',
-        {'ele-exception-dark': this.$store.state.theme.darkMode}
-      ];
+        { 'ele-exception-dark': this.$store.state.theme.darkMode }
+      ]
     }
   }
 }

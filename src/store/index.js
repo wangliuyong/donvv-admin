@@ -1,14 +1,14 @@
 /**
  * vuex状态管理
  */
-import Vue from 'vue';
-import Vuex from 'vuex';
-import getters from './getters';
-import app from './modules/app';
-import theme from './modules/theme';
-import user from './modules/user';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import getters from './getters'
+import app from './modules/app'
+import theme from './modules/theme'
+import user from './modules/user'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {},
@@ -20,4 +20,4 @@ export default new Vuex.Store({
     app
   },
   getters
-});
+})

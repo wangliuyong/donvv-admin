@@ -1,33 +1,32 @@
 /**
  * axios配置
  */
-import router from '@/router';
-import store from '@/store';
-import axios from 'axios';
-import { MessageBox } from 'element-ui';
-import Vue from 'vue';
-import VueAxios from 'vue-axios';
-import setting from './setting';
+import router from '@/router'
+import store from '@/store'
+import axios from 'axios'
+import { MessageBox } from 'element-ui'
+import Vue from 'vue'
+import VueAxios from 'vue-axios'
+import setting from './setting'
 
-Vue.use(VueAxios, axios);
+Vue.use(VueAxios, axios)
 
 // 设置统一url
-axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
+axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL
 
 // 请求拦截器
 axios.interceptors.request.use((config) => {
-  
   config.headers.Application = 'workTable'
-  
+
   // 添加token到header
   if (store.state.user.token) {
-    config.headers[setting.tokenHeaderName] = store.state.user.token;
+    config.headers[setting.tokenHeaderName] = store.state.user.token
   }
 
   // system
   if (config.url.indexOf('system/') === 0) {
     const urlConfig = store.getters.urlConfig
-    
+
     config.baseURL = urlConfig.system
 
     config.url = config.url.replace('system/', '')
@@ -63,10 +62,9 @@ axios.interceptors.request.use((config) => {
     config.url = config.url.replace('file/', '')
   }
   return config
-
-}, function (error) {
-  return Promise.reject(error);
-});
+}, function(error) {
+  return Promise.reject(error)
+})
 
 // 响应拦截器
 axios.interceptors.response.use((res) => {
@@ -74,33 +72,32 @@ axios.interceptors.response.use((res) => {
   if (res.data.status === 401) {
     if (res.config.url === setting.menuUrl) {
       store.dispatch('user/setToken').then(() => {
-        router.push('/login');
-      });
+        router.push('/login')
+      })
     } else {
       MessageBox.alert('登录状态已过期, 请退出重新登录!', '系统提示', {
         confirmButtonText: '重新登录',
         callback: action => {
           if (action === 'confirm') {
             store.dispatch('user/setToken').then(() => {
-              location.replace('/');
-            });
+              location.replace('/')
+            })
           }
         },
         beforeClose: () => {
-          MessageBox.close();
+          MessageBox.close()
         }
-      });
+      })
     }
-    return Promise.reject(new Error(res.data.msg));
+    return Promise.reject(new Error(res.data.msg))
   }
   // token自动续期
-  let access_token = res.headers[setting.tokenHeaderName];
+  const access_token = res.headers[setting.tokenHeaderName]
   if (access_token) {
-    store.dispatch('user/setToken', access_token);
+    store.dispatch('user/setToken', access_token)
   }
 
-  
-  return res.data;
+  return res.data
 }, (error) => {
-  return Promise.reject(error);
-});
+  return Promise.reject(error)
+})

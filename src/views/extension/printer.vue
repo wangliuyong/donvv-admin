@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import printer from 'ele-admin/packages/printer';
+import printer from 'ele-admin/packages/printer'
 
 export default {
   name: 'ExtensionPrinter',
@@ -49,7 +49,7 @@ export default {
           city: '杭州',
           zone: '西湖区',
           street: '西溪街道',
-          address: '西溪花园30栋1单元',
+          address: '西溪花园30栋1单元'
         },
         {
           key: 2,
@@ -59,7 +59,7 @@ export default {
           city: '苏州',
           zone: '姑苏区',
           street: '丝绸路',
-          address: '天墅之城9幢2单元',
+          address: '天墅之城9幢2单元'
         },
         {
           key: 3,
@@ -69,7 +69,7 @@ export default {
           city: '南昌',
           zone: '青山湖区',
           street: '艾溪湖办事处',
-          address: '中兴和园1幢3单元',
+          address: '中兴和园1幢3单元'
         },
         {
           key: 4,
@@ -79,7 +79,7 @@ export default {
           city: '泉州',
           zone: '丰泽区',
           street: '南洋街道',
-          address: '南洋村6幢1单元',
+          address: '南洋村6幢1单元'
         },
         {
           key: 5,
@@ -89,7 +89,7 @@ export default {
           city: '武汉',
           zone: '武昌区',
           street: '武昌大道',
-          address: '两湖花园16幢2单元',
+          address: '两湖花园16幢2单元'
         },
         {
           key: 6,
@@ -99,7 +99,7 @@ export default {
           city: '黄山',
           zone: '黄山区',
           street: '汤口镇',
-          address: '温泉村21号',
+          address: '温泉村21号'
         }
       ]
     }
@@ -107,14 +107,14 @@ export default {
   methods: {
     /* 打印当前页面 */
     print(options) {
-      printer.print(options);
+      printer.print(options)
     },
     /* 打印任意内容 */
     printHtml(blank) {
       printer.printHtml({
         html: '<h1>Hello! Welcome To EleAdmin!</h1>',
         blank: blank
-      });
+      })
     },
     /* 打印设置页眉页脚 */
     printAddHeader() {
@@ -143,13 +143,13 @@ export default {
             <span>我是页脚</span>
             <span style="float: right;">我是页脚右侧</span>
           </div>`
-      });
+      })
     },
     /* 打印图片 */
     printImage() {
       printer.printHtml({
         html: '<img src="https://cdn.eleadmin.com/20200610/LrCTN2j94lo9N7wEql7cBr1Ux4rHMvmZ.jpg" style="width: 100%;"/>'
-      });
+      })
     },
     /* 分页打印 */
     printPage(blank) {
@@ -163,7 +163,7 @@ export default {
         ],
         style: '<style>*{color: red;}</style>',
         blank: blank
-      });
+      })
     },
     /* 分页打印设置页眉页脚 */
     printPageAddHeader() {
@@ -199,35 +199,35 @@ export default {
                 font-size: 12px;
             }
           </style>`
-      });
+      })
     },
     /* 打印数据表格 */
     printDataTable() {
-      let html = printer.makeTable(this.users, [
+      const html = printer.makeTable(this.users, [
         [
-          {field: 'username', width: 150, rowspan: 2, title: '联系人'},
-          {align: 'center', colspan: 3, title: '地址'},
-          {field: 'amount', width: 120, rowspan: 2, title: '金额', align: 'center'}
+          { field: 'username', width: 150, rowspan: 2, title: '联系人' },
+          { align: 'center', colspan: 3, title: '地址' },
+          { field: 'amount', width: 120, rowspan: 2, title: '金额', align: 'center' }
         ],
         [
-          {field: 'province', width: 120, title: '省'},
-          {field: 'city', width: 120, title: '市'},
+          { field: 'province', width: 120, title: '省' },
+          { field: 'city', width: 120, title: '市' },
           {
             width: 200, title: '区', templet: (d) => {
-              return `<span style="color:red;">${d.zone}</span>`;
+              return `<span style="color:red;">${d.zone}</span>`
             }
           }
         ]
-      ]);
-      printer.printHtml({html: '<p>提供数据和cols配置自动生成复杂表格，非常的方便</p>' + html});
+      ])
+      printer.printHtml({ html: '<p>提供数据和cols配置自动生成复杂表格，非常的方便</p>' + html })
     },
     /* 打印pdf */
     printPdf() {
-      printer.printPdf({url: 'https://cdn.eleadmin.com/20200610/20200708224450.pdf'});
+      printer.printPdf({ url: 'https://cdn.eleadmin.com/20200610/20200708224450.pdf' })
     },
     /* 打印条码 */
     printQrCode() {
-      let html = `
+      const html = `
         <div class="code-group">
           <div class="code-group-title">EasyWeb授权凭证</div>
           <div class="code-group-body">
@@ -273,12 +273,12 @@ export default {
             top: 90px;
           }
         </style>
-        `;
-      printer.printHtml({html: html});
+        `
+      printer.printHtml({ html: html })
     },
     /* 打印自定义表格 */
     printTable() {
-      let html = `
+      const html = `
         <h2 style="text-align: center;color: #333;">软工xxxx班课程表</h2>
         <table class="ele-printer-table">
           <colgroup>
@@ -341,8 +341,8 @@ export default {
               height: 100px;
           }
         </style>
-        `;
-      printer.printHtml({html: html, horizontal: true});
+        `
+      printer.printHtml({ html: html, horizontal: true })
     }
   }
 }

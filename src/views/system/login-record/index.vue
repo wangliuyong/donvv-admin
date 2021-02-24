@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import XLSX from 'xlsx';
+import XLSX from 'xlsx'
 
 export default {
   name: 'SystemLoginRecord',
@@ -157,7 +157,7 @@ export default {
           showOverflowTooltip: true,
           minWidth: 110,
           formatter: (row, column, cellValue) => {
-            return this.$util.toDateString(cellValue);
+            return this.$util.toDateString(cellValue)
           }
         }
       ],
@@ -171,28 +171,28 @@ export default {
           {
             text: '最近一周',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
             }
           },
           {
             text: '最近一个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
             }
           },
           {
             text: '最近三个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
             }
           }
         ]
@@ -202,32 +202,32 @@ export default {
   methods: {
     /* 刷新表格 */
     reload() {
-      this.$refs.table.reload({page: 1});
+      this.$refs.table.reload({ page: 1 })
     },
     /* 重置搜索 */
     reset() {
-      this.where = {};
-      this.daterange = null;
+      this.where = {}
+      this.daterange = null
       this.$nextTick(() => {
-        this.reload();
-      });
+        this.reload()
+      })
     },
     /* 日期选择改变回调 */
     onDateRangeChoose() {
       if (this.daterange && this.daterange.length === 2) {
-        this.where.createTimeStart = this.daterange[0];
-        this.where.createTimeEnd = this.daterange[1];
+        this.where.createTimeStart = this.daterange[0]
+        this.where.createTimeEnd = this.daterange[1]
       } else {
-        this.where.createTimeStart = null;
-        this.where.createTimeEnd = null;
+        this.where.createTimeStart = null
+        this.where.createTimeEnd = null
       }
     },
     /* 导出数据 */
     exportData() {
-      let array = [['账号', '用户名', 'IP地址', '设备型号', '操作系统', '浏览器', '操作类型', '备注', '登录时间']];
-      const loading = this.$loading({lock: true});
+      const array = [['账号', '用户名', 'IP地址', '设备型号', '操作系统', '浏览器', '操作类型', '备注', '登录时间']]
+      const loading = this.$loading({ lock: true })
       this.$http.get('/sys/loginRecord/page?page=1&limit=2000').then(res => {
-        loading.close();
+        loading.close()
         if (res.data.code === 0) {
           res.data.data.forEach(d => {
             array.push([
@@ -240,16 +240,16 @@ export default {
               ['登录成功', '登录失败', '退出登录', '刷新TOKEN'][d.operType],
               d.comments,
               this.$util.toDateString(d.createTime)
-            ]);
-          });
-          this.$util.exportSheet(XLSX, array, '登录日志');
+            ])
+          })
+          this.$util.exportSheet(XLSX, array, '登录日志')
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        loading.close();
-        this.$message.error(e.message);
-      });
+        loading.close()
+        this.$message.error(e.message)
+      })
     }
   }
 }

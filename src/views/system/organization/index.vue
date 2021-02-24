@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import OrgUserList from './org-user-list';
-import OrgEdit from './org-edit';
+import OrgUserList from './org-user-list'
+import OrgEdit from './org-edit'
 
 export default {
   name: 'SystemOrganization',
-  components: {OrgUserList, OrgEdit},
+  components: { OrgUserList, OrgEdit },
   data() {
     return {
       // 加载状态
@@ -85,63 +85,63 @@ export default {
     }
   },
   mounted() {
-    this.query();
+    this.query()
   },
   methods: {
     /* 查询 */
     query() {
-      this.loading = true;
+      this.loading = true
       this.$http.get('/sys/organization').then(res => {
-        this.loading = false;
+        this.loading = false
         if (res.data.code === 0) {
-          this.data = this.$util.toTreeData(res.data.data, 'organizationId', 'parentId');
+          this.data = this.$util.toTreeData(res.data.data, 'organizationId', 'parentId')
           this.$nextTick(() => {
-            this.onNodeClick(this.data[0]);
-          });
+            this.onNodeClick(this.data[0])
+          })
         } else {
-          this.$message.error(res.data.msg || '获取数据失败');
+          this.$message.error(res.data.msg || '获取数据失败')
         }
       }).catch(e => {
-        this.loading = false;
-        this.$message.error(e.message);
-      });
+        this.loading = false
+        this.$message.error(e.message)
+      })
     },
     /* 选择数据 */
     onNodeClick(row) {
       if (row != null) {
-        this.current = row;
-        this.$refs.tree.setCurrentKey(row.organizationId);
+        this.current = row
+        this.$refs.tree.setCurrentKey(row.organizationId)
       } else {
-        this.current = null;
+        this.current = null
       }
     },
     /* 显示编辑 */
     openEdit(item) {
       this.editData = Object.assign({}, {
         parentId: this.current.parentId
-      }, item);
-      this.showEdit = true;
+      }, item)
+      this.showEdit = true
     },
     /* 删除 */
     remove() {
       this.$confirm('确定要删除选中的机构吗?', '提示', {
         type: 'warning'
       }).then(() => {
-        const loading = this.$loading({lock: true});
+        const loading = this.$loading({ lock: true })
         this.$http.delete('/sys/organization/' + this.current.organizationId).then(res => {
-          loading.close();
+          loading.close()
           if (res.data.code === 0) {
-            this.$message({type: 'success', message: res.data.msg});
-            this.query();
+            this.$message({ type: 'success', message: res.data.msg })
+            this.query()
           } else {
-            this.$message.error(res.data.msg);
+            this.$message.error(res.data.msg)
           }
         }).catch(e => {
-          loading.close();
-          this.$message.error(e.message);
-        });
+          loading.close()
+          this.$message.error(e.message)
+        })
       }).catch(() => {
-      });
+      })
     }
   }
 }

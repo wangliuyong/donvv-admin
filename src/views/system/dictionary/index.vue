@@ -67,12 +67,12 @@
 </template>
 
 <script>
-import SysDictData from './sys-dict-data';
-import SysDictEdit from './sys-dict-edit';
+import SysDictData from './sys-dict-data'
+import SysDictEdit from './sys-dict-edit'
 
 export default {
   name: 'SystemDictionary',
-  components: {SysDictData, SysDictEdit},
+  components: { SysDictData, SysDictEdit },
   data() {
     return {
       // 表格数据接口
@@ -104,47 +104,47 @@ export default {
     // 表格固定高度
     tbHeight() {
       if (this.$store.state.theme.screenWidth < 992) {
-        return;
+        return
       }
-      return 'calc(100vh - 260px)';
+      return 'calc(100vh - 260px)'
     }
   },
   methods: {
     /* 表格渲染完成回调 */
     done(res) {
       if (res.data.length > 0) {
-        this.$refs.table.setCurrentRow(res.data[0]);
+        this.$refs.table.setCurrentRow(res.data[0])
       }
     },
     /* 刷新表格 */
     reload() {
-      this.$refs.table.reload();
+      this.$refs.table.reload()
     },
     /* 显示编辑 */
     openEdit(row) {
-      this.editData = row;
-      this.showEdit = true;
+      this.editData = row
+      this.showEdit = true
     },
     /* 删除 */
     remove() {
       this.$confirm('确定要删除选中的字典吗?', '提示', {
         type: 'warning'
       }).then(() => {
-        const loading = this.$loading({lock: true});
+        const loading = this.$loading({ lock: true })
         this.$http.delete('/sys/dict/' + this.current.dictId).then(res => {
-          loading.close();
+          loading.close()
           if (res.data.code === 0) {
-            this.$message({type: 'success', message: res.data.msg});
-            this.reload();
+            this.$message({ type: 'success', message: res.data.msg })
+            this.reload()
           } else {
-            this.$message.error(res.data.msg);
+            this.$message.error(res.data.msg)
           }
         }).catch(e => {
-          loading.close();
-          this.$message.error(e.message);
-        });
+          loading.close()
+          this.$message.error(e.message)
+        })
       }).catch(() => {
-      });
+      })
     }
   }
 }

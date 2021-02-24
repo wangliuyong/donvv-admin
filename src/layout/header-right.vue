@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import EleNotice from './notice';
+import EleNotice from './notice'
 
 export default {
   name: 'EleHeaderRight',
-  components: {EleNotice},
+  components: { EleNotice },
   props: {
     // 是否显示打开设置抽屉按钮
     showSetting: {
@@ -61,49 +61,49 @@ export default {
   computed: {
     // 当前登录用户信息
     loginUser() {
-      return this.$store.state.user.user;
+      return this.$store.state.user.user
     }
   },
   data() {
     return {
       // 是否全屏状态
       isFullscreen: false
-    };
+    }
   },
   methods: {
     /* 个人信息下拉菜单点击 */
     onUserDropClick(command) {
       if (command === 'user') {
         if (this.$route.fullPath !== '/user/info') {
-          this.$router.push('/user/info');
+          this.$router.push('/user/info')
         }
       } else if (command === 'password') {
-        this.$emit('item-click', 'password');
+        this.$emit('item-click', 'password')
       } else if (command === 'logout') {
         // 退出登录
         this.$confirm(
           '确定要退出登录吗?',
           '提示',
-          {type: 'warning'}
+          { type: 'warning' }
         ).then(() => {
           // 清除缓存的token
           this.$store.dispatch('user/setToken').then(() => {
-            location.replace('/');
-          });
+            location.replace('/')
+          })
         }).catch(() => {
-        });
+        })
       }
     },
     /* 打开设置抽屉 */
     openSetting() {
-      this.$emit('item-click', 'setting');
+      this.$emit('item-click', 'setting')
     },
     /* 全屏切换 */
     toggleFullscreen() {
       try {
-        this.isFullscreen = this.$util.toggleFullscreen();
+        this.isFullscreen = this.$util.toggleFullscreen()
       } catch (e) {
-        this.$message.error('您的浏览器不支持全屏模式');
+        this.$message.error('您的浏览器不支持全屏模式')
       }
     }
   }

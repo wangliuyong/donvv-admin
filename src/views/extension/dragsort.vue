@@ -8,7 +8,8 @@
               v-model="list"
               handle=".sort-handle"
               animation="300">
-              <div class="demo-drag-list-item ele-cell"
+              <div
+class="demo-drag-list-item ele-cell"
                    v-for="item in list"
                    :key="item.id">
                 <div class="ele-cell-content">{{ item.name }}</div>
@@ -28,7 +29,8 @@
                   handle=".sort-handle"
                   group="project1"
                   animation="300">
-                  <div class="demo-drag-list-item ele-cell"
+                  <div
+class="demo-drag-list-item ele-cell"
                        v-for="item in list1"
                        :key="item.id">
                     <div class="ele-cell-content">{{ item.name }}</div>
@@ -44,7 +46,8 @@
                   handle=".sort-handle"
                   group="project1"
                   animation="300">
-                  <div class="demo-drag-list-item ele-cell"
+                  <div
+class="demo-drag-list-item ele-cell"
                        v-for="item in list2"
                        :key="item.id">
                     <div class="ele-cell-content">{{ item.name }}</div>
@@ -115,54 +118,54 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
+import draggable from 'vuedraggable'
 
 export default {
   name: 'ExtensionDragSort',
-  components: {draggable},
+  components: { draggable },
   data() {
     return {
       list: [
-        {id: 1, name: '项目0000001'},
-        {id: 2, name: '项目0000002'},
-        {id: 3, name: '项目0000003'},
-        {id: 4, name: '项目0000004'},
-        {id: 5, name: '项目0000005'}
+        { id: 1, name: '项目0000001' },
+        { id: 2, name: '项目0000002' },
+        { id: 3, name: '项目0000003' },
+        { id: 4, name: '项目0000004' },
+        { id: 5, name: '项目0000005' }
       ],
       list1: [
-        {id: 1, name: '项目0000001'},
-        {id: 2, name: '项目0000002'},
-        {id: 3, name: '项目0000003'},
-        {id: 4, name: '项目0000004'},
-        {id: 5, name: '项目0000005'}
+        { id: 1, name: '项目0000001' },
+        { id: 2, name: '项目0000002' },
+        { id: 3, name: '项目0000003' },
+        { id: 4, name: '项目0000004' },
+        { id: 5, name: '项目0000005' }
       ],
       list2: [
-        {id: 6, name: '项目0000006'},
-        {id: 7, name: '项目0000007'},
-        {id: 8, name: '项目0000008'},
-        {id: 9, name: '项目0000009'},
-        {id: 10, name: '项目0000010'}
+        { id: 6, name: '项目0000006' },
+        { id: 7, name: '项目0000007' },
+        { id: 8, name: '项目0000008' },
+        { id: 9, name: '项目0000009' },
+        { id: 10, name: '项目0000010' }
       ],
       grid: [
-        {id: 1, name: '项目0000001'},
-        {id: 2, name: '项目0000002'},
-        {id: 3, name: '项目0000003'},
-        {id: 4, name: '项目0000004'},
-        {id: 5, name: '项目0000005'}
+        { id: 1, name: '项目0000001' },
+        { id: 2, name: '项目0000002' },
+        { id: 3, name: '项目0000003' },
+        { id: 4, name: '项目0000004' },
+        { id: 5, name: '项目0000005' }
       ],
       grid1: [
-        {id: 1, name: '项目0000001'},
-        {id: 2, name: '项目0000002'},
-        {id: 3, name: '项目0000003'},
-        {id: 4, name: '项目0000004'},
-        {id: 5, name: '项目0000005'}
+        { id: 1, name: '项目0000001' },
+        { id: 2, name: '项目0000002' },
+        { id: 3, name: '项目0000003' },
+        { id: 4, name: '项目0000004' },
+        { id: 5, name: '项目0000005' }
       ],
       grid2: [
-        {id: 6, name: '项目0000006'},
-        {id: 7, name: '项目0000007'},
-        {id: 8, name: '项目0000008'},
-        {id: 9, name: '项目0000009'},
-        {id: 10, name: '项目0000010'}
+        { id: 6, name: '项目0000006' },
+        { id: 7, name: '项目0000007' },
+        { id: 8, name: '项目0000008' },
+        { id: 9, name: '项目0000009' },
+        { id: 10, name: '项目0000010' }
       ]
     }
   }

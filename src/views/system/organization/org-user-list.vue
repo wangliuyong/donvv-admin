@@ -106,11 +106,11 @@
 </template>
 
 <script>
-import OrgUserEdit from './org-user-edit';
+import OrgUserEdit from './org-user-edit'
 
 export default {
   name: 'OrgUserList',
-  components: {OrgUserEdit},
+  components: { OrgUserEdit },
   props: {
     // 机构id
     organizationId: Number,
@@ -173,7 +173,7 @@ export default {
           showOverflowTooltip: true,
           minWidth: 110,
           formatter: (row, column, cellValue) => {
-            return this.$util.toDateString(cellValue);
+            return this.$util.toDateString(cellValue)
           }
         },
         {
@@ -207,53 +207,53 @@ export default {
   methods: {
     /* 刷新表格 */
     reload() {
-      this.$refs.table.reload({page: 1});
+      this.$refs.table.reload({ page: 1 })
     },
     /* 显示编辑 */
     openEdit(row) {
-      this.current = row;
-      this.showEdit = true;
+      this.current = row
+      this.showEdit = true
     },
     /* 删除 */
     remove(row) {
-      const loading = this.$loading({lock: true});
+      const loading = this.$loading({ lock: true })
       this.$http.delete('/sys/user/' + row.userId).then(res => {
-        loading.close();
+        loading.close()
         if (res.data.code === 0) {
-          this.$message({type: 'success', message: res.data.msg});
-          this.reload();
+          this.$message({ type: 'success', message: res.data.msg })
+          this.reload()
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        loading.close();
-        this.$message.error(e.message);
-      });
+        loading.close()
+        this.$message.error(e.message)
+      })
     },
     /* 更改状态 */
     editState(row) {
-      const loading = this.$loading({lock: true});
-      let params = new FormData();
-      params.append('state', row.state);
+      const loading = this.$loading({ lock: true })
+      const params = new FormData()
+      params.append('state', row.state)
       this.$http.put('/sys/user/state/' + row.userId, params).then(res => {
-        loading.close();
+        loading.close()
         if (res.data.code === 0) {
-          this.$message({type: 'success', message: res.data.msg});
+          this.$message({ type: 'success', message: res.data.msg })
         } else {
-          row.state = !row.state ? 1 : 0;
-          this.$message.error(res.data.msg);
+          row.state = !row.state ? 1 : 0
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        loading.close();
-        this.$message.error(e.message);
-      });
+        loading.close()
+        this.$message.error(e.message)
+      })
     }
   },
   watch: {
     // 监听机构id变化
     organizationId() {
-      this.where.organizationId = this.organizationId;
-      this.reload();
+      this.where.organizationId = this.organizationId
+      this.reload()
     }
   }
 }

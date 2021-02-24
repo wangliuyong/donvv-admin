@@ -25,7 +25,7 @@ import VueCountUp from 'vue-countup-v2'
 
 export default {
   name: 'DemoCountUp',
-  components: {VueCountUp},
+  components: { VueCountUp },
   data() {
     return {
       // countUp值
@@ -40,28 +40,28 @@ export default {
         suffix: ''
       },
       // countUp实例
-      countUpIns: null,
-    };
+      countUpIns: null
+    }
   },
   methods: {
     /* countUp渲染完成 */
     onCountUpReady(instance) {
-      this.countUpIns = instance;
+      this.countUpIns = instance
     },
     /* countUp重新开始 */
     startCountUp() {
       if (!this.countUpIns) {
-        return;
+        return
       }
-      this.countUpIns.reset();
-      this.countUpIns.start();
+      this.countUpIns.reset()
+      this.countUpIns.start()
     },
     /* countUp更新 */
     updateCountUp() {
       if (!this.countUpIns) {
-        return;
+        return
       }
-      this.countUpIns.update(1000 + Math.round(Math.random() * 9000));
+      this.countUpIns.update(1000 + Math.round(Math.random() * 9000))
     }
   }
 }

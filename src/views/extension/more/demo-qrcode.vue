@@ -19,10 +19,10 @@ import VueQr from 'vue-qr'
 
 export default {
   name: 'DemoQrcode',
-  components: {VueQr},
+  components: { VueQr },
   data() {
     return {
-      text: 'https://eleadmin.com'  // 二维码内容
+      text: 'https://eleadmin.com' // 二维码内容
     }
   }
 }

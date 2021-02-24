@@ -238,12 +238,12 @@
 </template>
 
 <script>
-import VueCountUp from 'vue-countup-v2';
-import EleChart from 'ele-admin/packages/ele-chart';
+import VueCountUp from 'vue-countup-v2'
+import EleChart from 'ele-admin/packages/ele-chart'
 
 export default {
   name: 'DashboardMonitor',
-  components: {VueCountUp, EleChart},
+  components: { VueCountUp, EleChart },
   data() {
     return {
       // 访问人数
@@ -290,14 +290,14 @@ export default {
   computed: {
     // 在线人数倒计时文字
     updateTimeText() {
-      return this.updateTime + ' 秒后更新';
+      return this.updateTime + ' 秒后更新'
     },
     // 用户分布地图配置
     userCountMapOption() {
       if (!this.chinaMapData) {
-        return {};
+        return {}
       }
-      let data = this.userCountData.map(d => d.value).sort((a, b) => (a - b));
+      const data = this.userCountData.map(d => d.value).sort((a, b) => (a - b))
       return {
         tooltip: {
           trigger: 'item'
@@ -320,15 +320,15 @@ export default {
             data: this.userCountData
           }
         ]
-      };
+      }
     },
     // 用户分布柱状图配置
     userCountChartOption() {
-      let data = this.userCountData
+      const data = this.userCountData
         .filter(d => d.value > 0)
         .sort((a, b) => {
-          return a.value - b.value;
-        });
+          return a.value - b.value
+        })
       return {
         tooltip: {
           trigger: 'axis',
@@ -367,7 +367,7 @@ export default {
             data: data.map(d => d.value)
           }
         ]
-      };
+      }
     },
     // 浏览器分布饼图配置
     browserChartOption() {
@@ -393,85 +393,85 @@ export default {
             data: this.browserCountData
           }
         ]
-      };
+      }
     }
   },
   mounted() {
-    this.doUpdateOnlineNum();
-    this.getChinaMapData();
-    this.getUserCountData();
-    this.getBrowserCountData();
+    this.doUpdateOnlineNum()
+    this.getChinaMapData()
+    this.getUserCountData()
+    this.getBrowserCountData()
   },
   methods: {
     /* 在线人数更新倒计时 */
     doUpdateOnlineNum() {
-      this.currentTime = this.$util.toDateString(new Date(), 'HH:mm:ss');
+      this.currentTime = this.$util.toDateString(new Date(), 'HH:mm:ss')
       this.onlineNumTimer = setInterval(() => {
-        this.currentTime = this.$util.toDateString(new Date(), 'HH:mm:ss');
+        this.currentTime = this.$util.toDateString(new Date(), 'HH:mm:ss')
         if (this.updateTime === 1) {
-          this.updateTime = 5;
+          this.updateTime = 5
           if (this.onlineNumAnimIns) {
-            this.onlineNumAnimIns.update(100 + Math.round(Math.random() * 900));
+            this.onlineNumAnimIns.update(100 + Math.round(Math.random() * 900))
           }
         } else {
-          this.updateTime--;
+          this.updateTime--
         }
-      }, 1000);
+      }, 1000)
     },
     /* 获取中国地图数据并注册地图 */
     getChinaMapData() {
       this.$http.get('https://cdn.eleadmin.com/20200610/china-provinces.geo.json').then(res => {
-        EleChart.registerMap('china', res.data);
-        this.chinaMapData = res.data;
+        EleChart.registerMap('china', res.data)
+        this.chinaMapData = res.data
       }).catch(e => {
-        this.$message.error(e.message);
-      });
+        this.$message.error(e.message)
+      })
     },
     /* 获取用户分布数据 */
     getUserCountData() {
       this.userCountData = [
-        {name: "贵州", value: 570},
-        {name: "云南", value: 8890},
-        {name: "重庆", value: 10010},
-        {name: "吉林", value: 5056},
-        {name: "山西", value: 2123},
-        {name: "天津", value: 9130},
-        {name: "江西", value: 10170},
-        {name: "广西", value: 6172},
-        {name: "陕西", value: 9251},
-        {name: "黑龙江", value: 5125},
-        {name: "安徽", value: 9530},
-        {name: "北京", value: 51919},
-        {name: "福建", value: 3756},
-        {name: "上海", value: 59190},
-        {name: "湖北", value: 37109},
-        {name: "湖南", value: 8966},
-        {name: "四川", value: 31020},
-        {name: "辽宁", value: 7222},
-        {name: "河北", value: 3451},
-        {name: "河南", value: 9693},
-        {name: "浙江", value: 62310},
-        {name: "山东", value: 39231},
-        {name: "江苏", value: 35911},
-        {name: "广东", value: 55891}
-      ];
+        { name: '贵州', value: 570 },
+        { name: '云南', value: 8890 },
+        { name: '重庆', value: 10010 },
+        { name: '吉林', value: 5056 },
+        { name: '山西', value: 2123 },
+        { name: '天津', value: 9130 },
+        { name: '江西', value: 10170 },
+        { name: '广西', value: 6172 },
+        { name: '陕西', value: 9251 },
+        { name: '黑龙江', value: 5125 },
+        { name: '安徽', value: 9530 },
+        { name: '北京', value: 51919 },
+        { name: '福建', value: 3756 },
+        { name: '上海', value: 59190 },
+        { name: '湖北', value: 37109 },
+        { name: '湖南', value: 8966 },
+        { name: '四川', value: 31020 },
+        { name: '辽宁', value: 7222 },
+        { name: '河北', value: 3451 },
+        { name: '河南', value: 9693 },
+        { name: '浙江', value: 62310 },
+        { name: '山东', value: 39231 },
+        { name: '江苏', value: 35911 },
+        { name: '广东', value: 55891 }
+      ]
     },
     /* 获取用户浏览器分布数据 */
     getBrowserCountData() {
       this.browserCountData = [
-        {name: 'Chrome', value: 9052},
-        {name: 'Safari', value: 535},
-        {name: 'Firefox', value: 1610},
-        {name: 'Edge', value: 2800},
-        {name: 'IE', value: 3200},
-        {name: 'Other', value: 1700}
-      ];
+        { name: 'Chrome', value: 9052 },
+        { name: 'Safari', value: 535 },
+        { name: 'Firefox', value: 1610 },
+        { name: 'Edge', value: 2800 },
+        { name: 'IE', value: 3200 },
+        { name: 'Other', value: 1700 }
+      ]
     }
   },
   beforeDestroy() {
     // 销毁定时器
     if (this.onlineNumTimer) {
-      clearInterval(this.onlineNumTimer);
+      clearInterval(this.onlineNumTimer)
     }
   }
 }

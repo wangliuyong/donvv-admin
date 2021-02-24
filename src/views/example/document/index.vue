@@ -30,7 +30,7 @@ import FileSort from './file-sort'
 
 export default {
   name: 'ExampleDocument',
-  components: {FileSort},
+  components: { FileSort },
   data() {
     return {
       // 列表接口地址
@@ -107,15 +107,15 @@ export default {
     /* 打开卷内文件调整弹窗 */
     openFileSortDialog() {
       if (this.selection.length < 2) {
-        return this.$message.error('请至少选择两条数据');
+        return this.$message.error('请至少选择两条数据')
       }
       // 实际项目用这一行
-      /*this.fileSortChoose = this.selection.map(d => {
+      /* this.fileSortChoose = this.selection.map(d => {
         return Object.assign({}, d);
       });*/
       // 演示强制选前三个演示
-      this.fileSortChoose = this.$refs.table.data.slice(0, 3);
-      this.showFileSort = true;
+      this.fileSortChoose = this.$refs.table.data.slice(0, 3)
+      this.showFileSort = true
     }
   }
 }

@@ -1,7 +1,7 @@
 export default {
   data() {
     return {
-     
+
     }
   },
   created() {
@@ -14,7 +14,7 @@ export default {
     }
   },
   methods: {
-    async initApp(){
+    async initApp() {
       // const domainConfig = await this.$http.get('api1/admin/1.0/domain?domain=' + process.env.VUE_APP_Branch)
       // if (domainConfig.isSucceed) {
       //   const urlConfig = {

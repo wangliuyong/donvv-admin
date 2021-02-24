@@ -232,7 +232,7 @@ export default {
           minWidth: 135,
           showOverflowTooltip: true,
           formatter(row, column, cellValue) {
-            return cellValue + ' 万';
+            return cellValue + ' 万'
           }
         },
         {
@@ -261,7 +261,7 @@ export default {
             }
           ],
           filterMethod: (value, row) => {
-            return row.state === value;
+            return row.state === value
           }
         },
         {
@@ -271,7 +271,7 @@ export default {
           minWidth: 135,
           showOverflowTooltip: true,
           formatter: (row, column, cellValue) => {
-            return this.$util.toDateString(cellValue);
+            return this.$util.toDateString(cellValue)
           }
         },
         {
@@ -292,7 +292,7 @@ export default {
       // 编辑表单验证规则
       rules: {
         name: [
-          {required: true, message: '请输入规则名称', trigger: 'blur'}
+          { required: true, message: '请输入规则名称', trigger: 'blur' }
         ]
       },
       // 是否显示编辑表单弹窗
@@ -306,47 +306,48 @@ export default {
   computed: {
     // 计算服务总调用次数
     sumTimes() {
-      let sum = 0;
-      this.selection.forEach(d => sum += d.callTimes);
-      return sum;
+      let sum = 0
+      // eslint-disable-next-line no-return-assign
+      this.selection.forEach(d => sum += d.callTimes)
+      return sum
     }
   },
   methods: {
     /* 清空选择 */
     clearChoose() {
-      this.$refs.table.clearSelection();
+      this.$refs.table.clearSelection()
     },
     /* 刷新表格 */
     reload() {
-      this.$refs.table.reload();
+      this.$refs.table.reload()
     },
     /* 保存编辑 */
     save() {
       this.$refs['editForm'].validate((valid) => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           setTimeout(() => {
-            this.loading = false;
-            this.edit = false;
-            this.$message({type: 'success', message: '保存成功'});
-          }, 300);
+            this.loading = false
+            this.edit = false
+            this.$message({ type: 'success', message: '保存成功' })
+          }, 300)
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     /* 编辑 */
     openEdit(row) {
-      this.form = Object.assign({}, row);
-      this.edit = true;
+      this.form = Object.assign({}, row)
+      this.edit = true
     },
     /* 下拉按钮点击 */
     dropClick(command) {
       if (command === 'del') {
-        this.$message('点击了批量删除');
-        this.clearChoose();
+        this.$message('点击了批量删除')
+        this.clearChoose()
       } else if (command === 'check') {
-        this.$message('点击了批量审批');
+        this.$message('点击了批量审批')
       }
     }
   }

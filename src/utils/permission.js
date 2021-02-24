@@ -1,45 +1,45 @@
 /**
  * 权限(角色)控制组件
  */
-import store from '@/store';
+import store from '@/store'
 
 export default {
   install(Vue) {
     // 添加全局方法
-    Vue.prototype.$hasRole = this.hasRole;
-    Vue.prototype.$hasAnyRole = this.hasAnyRole;
-    Vue.prototype.$hasPermission = this.hasPermission;
-    Vue.prototype.$hasAnyPermission = this.hasAnyPermission;
+    Vue.prototype.$hasRole = this.hasRole
+    Vue.prototype.$hasAnyRole = this.hasAnyRole
+    Vue.prototype.$hasPermission = this.hasPermission
+    Vue.prototype.$hasAnyPermission = this.hasAnyPermission
 
     // 添加自定义指令
     Vue.directive('role', {
       bind: (el, binding) => {
         if (!this.hasRole(binding)) {
-          el.parentNode.removeChild(el);
+          el.parentNode.removeChild(el)
         }
       }
-    });
+    })
     Vue.directive('any-role', {
       bind: (el, binding) => {
         if (!this.hasAnyRole(binding)) {
-          el.parentNode.removeChild(el);
+          el.parentNode.removeChild(el)
         }
       }
-    });
+    })
     Vue.directive('permission', {
       bind: (el, binding) => {
         if (!this.hasPermission(binding)) {
-          el.parentNode.removeChild(el);
+          el.parentNode.removeChild(el)
         }
       }
-    });
+    })
     Vue.directive('any-permission', {
       bind: (el, binding) => {
         if (!this.hasAnyPermission(binding)) {
-          el.parentNode.removeChild(el);
+          el.parentNode.removeChild(el)
         }
       }
-    });
+    })
   },
   /**
    * 是否有某些角色
@@ -47,7 +47,7 @@ export default {
    * @returns {boolean}
    */
   hasRole(role) {
-    return this.arrayHas(store.state.user.roles, role);
+    return this.arrayHas(store.state.user.roles, role)
   },
   /**
    * 是否有任意角色
@@ -55,7 +55,7 @@ export default {
    * @returns {boolean}
    */
   hasAnyRole(role) {
-    return this.arrayHasAny(store.state.user.roles, role);
+    return this.arrayHasAny(store.state.user.roles, role)
   },
   /**
    * 是否有某些权限
@@ -63,7 +63,7 @@ export default {
    * @returns {boolean}
    */
   hasPermission(auth) {
-    return this.arrayHas(store.state.user.authorities, auth);
+    return this.arrayHas(store.state.user.authorities, auth)
   },
   /**
    * 是否有任意权限
@@ -71,7 +71,7 @@ export default {
    * @returns {boolean}
    */
   hasAnyPermission(auth) {
-    return this.arrayHasAny(store.state.user.authorities, auth);
+    return this.arrayHasAny(store.state.user.authorities, auth)
   },
   /**
    * 数组是否有某些值
@@ -81,20 +81,20 @@ export default {
    */
   arrayHas(array, obj) {
     if (!obj) {
-      return true;
+      return true
     }
     if (!array) {
-      return false;
+      return false
     }
     if (Array.isArray(obj)) {
       for (let i = 0; i < obj.length; i++) {
         if (array.indexOf(obj[i]) === -1) {
-          return false;
+          return false
         }
       }
-      return true;
+      return true
     }
-    return array.indexOf(obj) !== -1;
+    return array.indexOf(obj) !== -1
   },
   /**
    * 数组是否有任意值
@@ -104,19 +104,19 @@ export default {
    */
   arrayHasAny(array, obj) {
     if (!obj) {
-      return true;
+      return true
     }
     if (!array) {
-      return false;
+      return false
     }
     if (Array.isArray(obj)) {
       for (let i = 0; i < obj.length; i++) {
         if (array.indexOf(obj[i]) !== -1) {
-          return true;
+          return true
         }
       }
-      return false;
+      return false
     }
-    return array.indexOf(obj) !== -1;
+    return array.indexOf(obj) !== -1
   }
 }

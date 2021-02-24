@@ -339,79 +339,79 @@ export default {
   computed: {
     // 小屏幕水平导航
     mode() {
-      return this.$store.state.theme.screenWidth < 768 ? 'horizontal' : 'vertical';
+      return this.$store.state.theme.screenWidth < 768 ? 'horizontal' : 'vertical'
     },
     // 全部未读数量
     allUnReadNum() {
-      return this.allData.filter(d => d.state === 0).length;
+      return this.allData.filter(d => d.state === 0).length
     },
     // 通知未读数量
     unReadNum1() {
-      return this.allData.filter(d => d.state === 0 && d.type === 1).length;
+      return this.allData.filter(d => d.state === 0 && d.type === 1).length
     },
     // 私信未读数量
     unReadNum2() {
-      return this.allData.filter(d => d.state === 0 && d.type === 2).length;
+      return this.allData.filter(d => d.state === 0 && d.type === 2).length
     },
     // 代办未读数量
     unReadNum3() {
-      return this.allData.filter(d => d.state === 0 && d.type === 3).length;
+      return this.allData.filter(d => d.state === 0 && d.type === 3).length
     }
   },
   mounted() {
-    this.query();
+    this.query()
   },
   methods: {
     /* 查询数据 */
     query(index) {
-      this.active = index || '0';
+      this.active = index || '0'
       if (this.active === '0') {
-        this.data = this.allData;
+        this.data = this.allData
       } else {
-        this.data = this.allData.filter(d => String(d.type) === this.active);
+        this.data = this.allData.filter(d => String(d.type) === this.active)
       }
     },
     /* 查看 */
     view(row) {
-      console.log(row);
-      this.$message('点击了查看');
+      console.log(row)
+      this.$message('点击了查看')
     },
     /* 删除 */
     remove(row) {
       if (row) {
         // 单个删除
-        this.data.splice(this.data.indexOf(row), 1);
-        this.$message({type: 'success', message: '删除成功'});
+        this.data.splice(this.data.indexOf(row), 1)
+        this.$message({ type: 'success', message: '删除成功' })
       } else {
         // 批量删除
         if (this.choose.length === 0) {
-          return this.$message.error('请至少选择一条数据');
+          return this.$message.error('请至少选择一条数据')
         }
         this.$confirm('确定要删除选中的消息吗?', '提示', {
           type: 'warning'
         }).then(() => {
           this.choose.forEach(d => {
-            this.data.splice(this.data.indexOf(d), 1);
-          });
-          this.$message({type: 'success', message: '删除成功'});
+            this.data.splice(this.data.indexOf(d), 1)
+          })
+          this.$message({ type: 'success', message: '删除成功' })
         }).catch(() => {
-        });
+        })
       }
     },
     /* 标记已读 */
     read() {
       if (this.choose.length === 0) {
-        return this.$message.error('请至少选择一条数据');
+        return this.$message.error('请至少选择一条数据')
       }
       this.choose.forEach(d => {
-        this.data[this.data.indexOf(d)].state = 1;
-      });
+        this.data[this.data.indexOf(d)].state = 1
+      })
     },
     /* 全部标记已读 */
     readAll() {
       this.data.forEach(d => {
-        d.state = 1;
-      });
+        d.state = 1
+      })
     }
   }
 }

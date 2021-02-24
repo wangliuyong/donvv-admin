@@ -32,7 +32,7 @@ export default {
   computed: {
     active: {
       get() {
-        return this.$route.path;
+        return this.$route.path
       },
       set() {
       }
@@ -42,7 +42,7 @@ export default {
     /* 切换tab */
     tabChange(tab) {
       if (this.$route.path !== tab.name) {
-        this.$router.push(tab.name);
+        this.$router.push(tab.name)
       }
     }
   }

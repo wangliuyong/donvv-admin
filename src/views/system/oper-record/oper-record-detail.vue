@@ -108,7 +108,7 @@ export default {
   methods: {
     /* 更新visible */
     updateVisible(value) {
-      this.$emit('update:visible', value);
+      this.$emit('update:visible', value)
     }
   }
 }

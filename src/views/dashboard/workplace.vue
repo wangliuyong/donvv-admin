@@ -475,7 +475,7 @@ export default {
   computed: {
     // 当前登录用户信息
     loginUser() {
-      return this.$store.state.user.user;
+      return this.$store.state.user.user
     }
   }
 }

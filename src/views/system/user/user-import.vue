@@ -49,27 +49,27 @@ export default {
   methods: {
     /* 上传 */
     beforeUpload(file) {
-      this.loading = true;
-      let formData = new FormData();
-      formData.append('file', file);
+      this.loading = true
+      const formData = new FormData()
+      formData.append('file', file)
       this.$http.post('/sys/user/import', formData).then(res => {
-        this.loading = false;
+        this.loading = false
         if (res.data.code === 0) {
-          this.$message({type: 'success', message: res.data.msg});
-          this.updateVisible(false);
-          this.$emit('done');
+          this.$message({ type: 'success', message: res.data.msg })
+          this.updateVisible(false)
+          this.$emit('done')
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        this.loading = false;
-        this.$message.error(e.message);
-      });
-      return false;
+        this.loading = false
+        this.$message.error(e.message)
+      })
+      return false
     },
     /* 更新visible */
     updateVisible(value) {
-      this.$emit('update:visible', value);
+      this.$emit('update:visible', value)
     }
   }
 }

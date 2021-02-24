@@ -76,11 +76,11 @@
 </template>
 
 <script>
-import EleIconPicker from 'ele-admin/packages/ele-icon-picker';
+import EleIconPicker from 'ele-admin/packages/ele-icon-picker'
 
 export default {
   name: 'ExtensionIcon',
-  components: {EleIconPicker},
+  components: { EleIconPicker },
   data() {
     return {
       // 图标数据
@@ -95,60 +95,60 @@ export default {
     // 搜索后的结果
     result() {
       if (!this.keywords) {
-        return this.data;
+        return this.data
       }
-      let result = [];
+      const result = []
       this.data.forEach(item => {
         result.push({
           title: item.title,
           icons: item.icons.filter(d => d.indexOf(this.keywords) !== -1)
-        });
-      });
-      return result;
+        })
+      })
+      return result
     },
     // 标签页选中位置
     active: {
       get() {
         if (!this.result || this.result.length === 0) {
-          return null;
+          return null
         }
         for (let i = 0; i < this.result.length; i++) {
           if (this.result[i].icons.length !== 0) {
-            return this.result[i].title;
+            return this.result[i].title
           }
         }
-        return null;
+        return null
       },
       set() {
       }
     },
     // 计算总个数
     total() {
-      let num = {el: 0, ele: 0};
+      const num = { el: 0, ele: 0 }
       this.data.forEach(item => {
         item.icons.forEach(d => {
           if (d.indexOf('el-icon-_') === 0) {
-            num.ele++;
+            num.ele++
           } else {
-            num.el++;
+            num.el++
           }
-        });
-      });
-      num.all = num.el + num.ele;
-      return num;
+        })
+      })
+      num.all = num.el + num.ele
+      return num
     },
     // 提示文本
     tipTitle() {
-      return `新增 ${this.total.ele} 个图标 + Element UI ${this.total.el} 个图标, 共计 ${this.total.all} 个图标`;
+      return `新增 ${this.total.ele} 个图标 + Element UI ${this.total.el} 个图标, 共计 ${this.total.all} 个图标`
     }
   },
   methods: {
     /* 复制图标 */
     onCopy() {
-      this.$message({type: 'success', message: '复制成功'});
+      this.$message({ type: 'success', message: '复制成功' })
     },
     onError() {
-      this.$message.error('复制失败');
+      this.$message.error('复制失败')
     }
   }
 }

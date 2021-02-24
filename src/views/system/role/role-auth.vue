@@ -53,64 +53,64 @@ export default {
   computed: {
     // 权限树选中数据
     checked() {
-      let checked = [];
+      const checked = []
       this.$util.eachTreeData(this.authData, d => {
         if (d.checked && (!d.children || !d.children.length)) {
-          checked.push(d.menuId);
+          checked.push(d.menuId)
         }
-      });
-      return checked;
+      })
+      return checked
     }
   },
   watch: {
     visible() {
       if (this.visible) {
-        this.query();
+        this.query()
       }
     }
   },
   methods: {
     /* 查询权限数据 */
     query() {
-      this.authData = [];
-      if (!this.data) return;
-      this.authLoading = true;
+      this.authData = []
+      if (!this.data) return
+      this.authLoading = true
       this.$http.get('/sys/role/menu', {
         params: {
           roleId: this.data.roleId
         }
       }).then(res => {
-        this.authLoading = false;
+        this.authLoading = false
         if (res.data.code === 0) {
-          this.authData = this.$util.toTreeData(res.data.data, 'menuId', 'parentId');
+          this.authData = this.$util.toTreeData(res.data.data, 'menuId', 'parentId')
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        this.authLoading = false;
-        this.$message.error(e.message);
-      });
+        this.authLoading = false
+        this.$message.error(e.message)
+      })
     },
     /* 保存权限分配 */
     save() {
-      this.loading = true;
-      let ids = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys());
+      this.loading = true
+      const ids = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys())
       this.$http.put('/sys/role/menu/' + this.data.roleId, ids).then(res => {
-        this.loading = false;
+        this.loading = false
         if (res.data.code === 0) {
-          this.$message({type: 'success', message: res.data.msg});
-          this.updateVisible(false);
+          this.$message({ type: 'success', message: res.data.msg })
+          this.updateVisible(false)
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        this.loading = false;
-        this.$message.error(e.message);
-      });
+        this.loading = false
+        this.$message.error(e.message)
+      })
     },
     /* 更新visible */
     updateVisible(value) {
-      this.$emit('update:visible', value);
+      this.$emit('update:visible', value)
     }
   }
 }

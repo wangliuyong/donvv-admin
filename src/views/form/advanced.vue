@@ -276,47 +276,47 @@ export default {
       // 表单验证规则
       rules: {
         name: [
-          {required: true, message: '请输入仓库名', trigger: 'blur'}
+          { required: true, message: '请输入仓库名', trigger: 'blur' }
         ],
         url: [
-          {required: true, message: '请输入仓库域名', trigger: 'blur'}
+          { required: true, message: '请输入仓库域名', trigger: 'blur' }
         ],
         datetime: [
-          {required: true, message: '请选择生效日期', trigger: 'blur'}
+          { required: true, message: '请选择生效日期', trigger: 'blur' }
         ],
         administrator: [
-          {required: true, message: '请选择仓库管理员', trigger: 'blur'}
+          { required: true, message: '请选择仓库管理员', trigger: 'blur' }
         ],
         approver: [
-          {required: true, message: '请选择审批人', trigger: 'blur'}
+          { required: true, message: '请选择审批人', trigger: 'blur' }
         ],
         type: [
-          {required: true, message: '请选择仓库类型', trigger: 'blur'}
+          { required: true, message: '请选择仓库类型', trigger: 'blur' }
         ],
         task: [
-          {required: true, message: '请输入任务名', trigger: 'blur'}
+          { required: true, message: '请输入任务名', trigger: 'blur' }
         ],
         description: [
-          {required: true, message: '请输入任务表述', trigger: 'blur'}
+          { required: true, message: '请输入任务表述', trigger: 'blur' }
         ],
         executor: [
-          {required: true, message: '请选择执行人', trigger: 'blur'}
+          { required: true, message: '请选择执行人', trigger: 'blur' }
         ],
         officer: [
-          {required: true, message: '请选择责任人', trigger: 'blur'}
+          { required: true, message: '请选择责任人', trigger: 'blur' }
         ],
         reminder: [
-          {required: true, message: '请选择提醒时间', trigger: 'blur'}
+          { required: true, message: '请选择提醒时间', trigger: 'blur' }
         ],
         taskType: [
-          {required: true, message: '请选择任务类型', trigger: 'blur'}
+          { required: true, message: '请选择任务类型', trigger: 'blur' }
         ]
       },
       // 已添加成员
       list: [
-        {name: 'John Brown', number: '00001', department: '研发部'},
-        {name: 'Jim Green', number: '00002', department: '产品部'},
-        {name: 'Joe Black', number: '00003', department: '产品部'}
+        { name: 'John Brown', number: '00001', department: '研发部' },
+        { name: 'Jim Green', number: '00002', department: '产品部' },
+        { name: 'Joe Black', number: '00003', department: '产品部' }
       ],
       // 表单验证信息
       validMsg: '',
@@ -331,62 +331,62 @@ export default {
     submit() {
       this.$refs['demoForm'].validate((valid, obj) => {
         if (valid) {
-          this.validMsg = '';
-          this.loading = true;
+          this.validMsg = ''
+          this.loading = true
           setTimeout(() => {
-            this.loading = false;
-            this.$message({type: 'success', message: '提交成功'});
-          }, 1500);
+            this.loading = false
+            this.$message({ type: 'success', message: '提交成功' })
+          }, 1500)
         } else {
-          this.validMsg = ` 共有校验 ${Object.keys(obj).length} 项不通过`;
-          return false;
+          this.validMsg = ` 共有校验 ${Object.keys(obj).length} 项不通过`
+          return false
         }
-      });
+      })
     },
     /* 添加一行 */
     addRow() {
       if (this.list[this.list.length - 1].__is_add) {
-        return;
+        return
       }
-      this.list.push({__is_add: true});
-      this.editRow = {};
-      this.editIndex = this.list.length - 1;
+      this.list.push({ __is_add: true })
+      this.editRow = {}
+      this.editIndex = this.list.length - 1
     },
     /* 修改行 */
     onEdit(row, index) {
-      this.editIndex = index;
-      this.editRow = Object.assign({}, row);
+      this.editIndex = index
+      this.editRow = Object.assign({}, row)
     },
     /* 删除行 */
     onRemove(row, index) {
-      console.log(row);
-      this.list.splice(index, 1);
+      console.log(row)
+      this.list.splice(index, 1)
       // 如果需要请求接口删除可以在这里写
     },
     /* 保存编辑 */
     onSave(row, index) {
       if (!this.editRow.name) {
-        return this.$message.error('请输入用户');
+        return this.$message.error('请输入用户')
       }
       if (!this.editRow.number) {
-        return this.$message.error('请输入工号');
+        return this.$message.error('请输入工号')
       }
       if (!this.editRow.department) {
-        return this.$message.error('请选择部门');
+        return this.$message.error('请选择部门')
       }
-      this.list[index] = Object.assign({}, this.editRow, {__is_add: false});
-      this.editIndex = null;
-      this.editRow = {};
+      this.list[index] = Object.assign({}, this.editRow, { __is_add: false })
+      this.editIndex = null
+      this.editRow = {}
       // 如果需要请求接口保存可以在这里写
     },
     /* 取消编辑 */
     onCancel(row, index) {
-      console.log(row);
+      console.log(row)
       if (row.__is_add) {
-        this.list.splice(index, 1);
+        this.list.splice(index, 1)
       }
-      this.editIndex = null;
-      this.editRow = {};
+      this.editIndex = null
+      this.editRow = {}
     }
   }
 }

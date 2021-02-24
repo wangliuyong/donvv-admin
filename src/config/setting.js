@@ -18,9 +18,9 @@ export default {
   userUrl: '/main/user',
   // 自定义解析接口用户信息
   parseUser: (res) => {
-    res.data.roles = res.data.roles.map(d => d.roleCode);
-    res.data.authorities = res.data.authorities.map(d => d.authority);
-    return res;
+    res.data.roles = res.data.roles.map(d => d.roleCode)
+    res.data.authorities = res.data.authorities.map(d => d.authority)
+    return res
   },
   // token传递的header名称
   tokenHeaderName: 'Authorization',

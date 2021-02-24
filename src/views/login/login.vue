@@ -107,17 +107,17 @@ export default {
       // 表单验证规则
       rules: {
         identity: [
-          {required: true, message: '请输入账号', trigger: 'blur'}
+          { required: true, message: '请输入账号', trigger: 'blur' }
         ],
         password: [
-          {required: true, message: '请输入密码', trigger: 'blur'}
-        ],
-      },
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
+      }
     }
   },
   mounted() {
     if (this.$store.state.user.token) {
-      this.goHome();
+      this.goHome()
     }
     // this.changeCode();
   },
@@ -126,33 +126,33 @@ export default {
     async doSubmit() {
       this.$refs['loginForm'].validate((valid) => {
         if (!valid) {
-          return false;
+          return false
         }
-        this.loading = true;
+        this.loading = true
 
         this.$http.post('system/account/loginWorkTable', this.form).then((res) => {
-          this.loading = false;
+          this.loading = false
           if (res.isSucceed) {
-            this.$message({type: 'success', message: '登录成功'});
+            this.$message({ type: 'success', message: '登录成功' })
             this.$store.dispatch('user/setToken', {
               token: 'Bearer ' + res.data,
               remember: this.form.remember
             }).then(() => {
-              this.goHome();
-            });
+              this.goHome()
+            })
           } else {
-            this.$message.error(res.msg);
+            this.$message.error(res.msg)
           }
-        });
-      });
+        })
+      })
     },
     /* 跳转到首页 */
     goHome() {
       if (this.$route.query && this.$route.query.from) {
-        this.$router.push(String(this.$route.query.from));
+        this.$router.push(String(this.$route.query.from))
       } else {
         this.$router.push('index').catch(() => {
-        });
+        })
       }
     }
   }

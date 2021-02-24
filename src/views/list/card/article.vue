@@ -165,15 +165,15 @@ export default {
   },
   computed: {
     previewList() {
-      return this.data.map(item => item.cover);
+      return this.data.map(item => item.cover)
     }
   },
   methods: {
     query() {
-      this.loading = true;
+      this.loading = true
       setTimeout(() => {
-        this.loading = false;
-      }, 300);
+        this.loading = false
+      }, 300)
     }
   }
 }

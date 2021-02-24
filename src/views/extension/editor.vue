@@ -52,33 +52,33 @@
 </template>
 
 <script>
-import TinymceEditor from '@/components/TinymceEditor';
+import TinymceEditor from '@/components/TinymceEditor'
 
 export default {
   name: 'ExtensionEditor',
-  components: {TinymceEditor},
+  components: { TinymceEditor },
   data() {
     // 自定义文件上传(这里使用把选择的文件转成blob演示)
-    let file_picker_callback = (callback, value, meta) => {
-      let input = document.createElement('input');
-      input.setAttribute('type', 'file');
+    const file_picker_callback = (callback, value, meta) => {
+      const input = document.createElement('input')
+      input.setAttribute('type', 'file')
       // 设定文件可选类型
       if (meta.filetype === 'image') {
-        input.setAttribute('accept', 'image/*');
+        input.setAttribute('accept', 'image/*')
       } else if (meta.filetype === 'media') {
-        input.setAttribute('accept', 'video/*');
+        input.setAttribute('accept', 'video/*')
       }
       input.onchange = () => {
-        let file = input.files[0];
-        let reader = new FileReader();
+        const file = input.files[0]
+        const reader = new FileReader()
         reader.onload = (e) => {
-          let blob = new Blob([e.target.result], {type: file.type});
-          callback(URL.createObjectURL(blob));
-        };
-        reader.readAsArrayBuffer(file);
+          const blob = new Blob([e.target.result], { type: file.type })
+          callback(URL.createObjectURL(blob))
+        }
+        reader.readAsArrayBuffer(file)
       }
-      input.click();
-    };
+      input.click()
+    }
     return {
       option1: {
         height: 520,
@@ -105,7 +105,7 @@ export default {
         '   <div style="font-size: 28px;margin-bottom: 10px;">EASY WEB 后台管理模板</div>',
         '   <div style="font-size: 18px">基于Layui的一套通用型后台管理模板，拥有众多原创组件及模板页面</div>',
         '</div><br/>'
-      ].join('');
+      ].join('')
     }
   }
 }

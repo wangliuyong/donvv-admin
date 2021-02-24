@@ -1,14 +1,14 @@
 /**
  * 主题状态管理 license by http://eleadmin.com
  */
-import setting from '@/config/setting';
+import setting from '@/config/setting'
 
 // 获取本地缓存配置
-let cache = {};
+let cache = {}
 try {
-  cache = JSON.parse(localStorage.getItem(setting.themeStoreName) || '{}');
+  cache = JSON.parse(localStorage.getItem(setting.themeStoreName) || '{}')
 } catch (e) {
-  console.error(e);
+  console.error(e)
 }
 
 // 获取缓存的主题配置和缓存的主题css
@@ -18,23 +18,23 @@ const cacheTheme = getCache(cache, [
   'fixedHeader', 'fixedSidebar', 'fixedBody',
   'showTabs', 'logoAutoSize', 'colorfulIcon',
   'sideUniqueOpen', 'weakMode', 'darkMode'
-], setting);
+], setting)
 
 // 恢复色弱模式
 if (cacheTheme.weakMode) {
-  document.body.classList.add('ele-admin-weak');
+  document.body.classList.add('ele-admin-weak')
 }
 
 // 恢复主题色
-window.onload = function () {
+window.onload = function() {
   changeTheme(cacheTheme.color, cacheTheme.darkMode).catch(e => {
-    console.error(e);
-  });
+    console.error(e)
+  })
 }
 
 // 获取屏幕宽度
-const screenWidth = document.documentElement.clientWidth || document.body.clientWidth,
-  screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+const screenWidth = document.documentElement.clientWidth || document.body.clientWidth
+  const screenHeight = document.documentElement.clientHeight || document.body.clientHeight
 
 export default {
   namespaced: true,
@@ -78,21 +78,21 @@ export default {
   },
   mutations: {
     SET: (state, obj) => {
-      console.log(36366,obj);
-      state[obj.key] = obj.value;
+      console.log(36366, obj)
+      state[obj.key] = obj.value
       // 开关色弱模式
-      if ('weakMode' === obj.key) {
+      if (obj.key === 'weakMode') {
         if (obj.value) {
-          document.body.classList.add('ele-admin-weak');
+          document.body.classList.add('ele-admin-weak')
         } else {
-          document.body.classList.remove('ele-admin-weak');
+          document.body.classList.remove('ele-admin-weak')
         }
       }
       // 缓存修改的配置
       if (['collapse', 'screenWidth', 'screenHeight'].indexOf(obj.key) === -1) {
-        let temp = JSON.parse(localStorage.getItem(setting.themeStoreName) || '{}');
-        temp[obj.key] = obj.value;
-        localStorage.setItem(setting.themeStoreName, JSON.stringify(temp));
+        const temp = JSON.parse(localStorage.getItem(setting.themeStoreName) || '{}')
+        temp[obj.key] = obj.value
+        localStorage.setItem(setting.themeStoreName, JSON.stringify(temp))
       }
     }
   },
@@ -102,8 +102,8 @@ export default {
      * @param commit
      * @param obj
      */
-    set({commit}, obj) {
-      commit('SET', obj);
+    set({ commit }, obj) {
+      commit('SET', obj)
     },
     /**
      * 切换配置(boolean类型的配置)
@@ -111,22 +111,22 @@ export default {
      * @param state
      * @param key
      */
-    toggle({commit, state}, key) {
-      commit('SET', {key: key, value: !state[key]});
+    toggle({ commit, state }, key) {
+      commit('SET', { key: key, value: !state[key] })
     },
     /**
      * 更新屏幕尺寸
      * @param commit
      * @param state
      */
-    updateScreen({commit, state}) {
-      const w = document.documentElement.clientWidth || document.body.clientWidth,
-        h = document.documentElement.clientHeight || document.body.clientHeight;
+    updateScreen({ commit, state }) {
+      const w = document.documentElement.clientWidth || document.body.clientWidth
+        const h = document.documentElement.clientHeight || document.body.clientHeight
       if (w !== state.screenWidth) {
-        commit('SET', {key: 'screenWidth', value: w});
+        commit('SET', { key: 'screenWidth', value: w })
       }
       if (h !== state.screenHeight) {
-        commit('SET', {key: 'screenHeight', value: h});
+        commit('SET', { key: 'screenHeight', value: h })
       }
     },
     /**
@@ -136,15 +136,15 @@ export default {
      * @param color
      * @returns {Promise<>}
      */
-    setColor({commit, state}, color) {
+    setColor({ commit, state }, color) {
       return new Promise((resolve, reject) => {
         changeTheme(color, state.darkMode).then(() => {
-          commit('SET', {key: 'color', value: color});
-          return resolve();
+          commit('SET', { key: 'color', value: color })
+          return resolve()
         }).catch(e => {
-          reject(e);
-        });
-      });
+          reject(e)
+        })
+      })
     }
   }
 }
@@ -157,16 +157,16 @@ export default {
  */
 function getCache(cache, k, v) {
   if (Array.isArray(k)) {
-    let obj = {};
+    const obj = {}
     k.forEach(t => {
-      obj[t] = (cache[t] === null || cache[t] === undefined) ? v[t] : cache[t];
-    });
-    return obj;
+      obj[t] = (cache[t] === null || cache[t] === undefined) ? v[t] : cache[t]
+    })
+    return obj
   } else {
     if (cache[k] === null || cache[k] === undefined) {
-      return v;
+      return v
     }
-    return cache[k];
+    return cache[k]
   }
 }
 
@@ -177,125 +177,125 @@ function getCache(cache, k, v) {
  * @returns {Promise<>}
  */
 function changeTheme(color, darkMode) {
-  const version = process.env.VUE_APP_VERSION;
+  const version = process.env.VUE_APP_VERSION
   // 对应的css文件名
-  let colorCss;
+  let colorCss
   if (darkMode) {
     if (color) {
-      colorCss = color + '-dark';
+      colorCss = color + '-dark'
     } else {
-      colorCss = 'dark';
+      colorCss = 'dark'
     }
   } else {
-    colorCss = color;
+    colorCss = color
   }
   // 获取缓存的主题css
-  let themeCache = {},
-    cacheStoreName = setting.themeStoreName + '-cache';
+  let themeCache = {}
+    const cacheStoreName = setting.themeStoreName + '-cache'
   if (window.eleThemeCache) {
-    themeCache = window.eleThemeCache;
+    themeCache = window.eleThemeCache
   } else {
     try {
-      const localCache = JSON.parse(localStorage.getItem(cacheStoreName) || '{}');
+      const localCache = JSON.parse(localStorage.getItem(cacheStoreName) || '{}')
       if (localCache && version === localCache.version && localCache.cache) {
-        themeCache = localCache.cache;
-        window.eleThemeCache = themeCache;
+        themeCache = localCache.cache
+        window.eleThemeCache = themeCache
       }
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   }
   // 加载主题css
   return new Promise((resolve, reject) => {
     // 恢复默认主题
     if (!colorCss) {
-      removeTheme();
-      return resolve();
+      removeTheme()
+      return resolve()
     }
     // 主题css已经缓存过
     if (themeCache[colorCss]) {
-      removeTheme();  // 移除上次的主题
-      let elem = document.createElement('style');
-      elem.id = `ele-theme-${colorCss}`;
-      elem.setAttribute('type', 'text/css');
-      elem.innerHTML = themeCache[colorCss];
-      document.head.appendChild(elem);
-      return resolve();
+      removeTheme() // 移除上次的主题
+      const elem = document.createElement('style')
+      elem.id = `ele-theme-${colorCss}`
+      elem.setAttribute('type', 'text/css')
+      elem.innerHTML = themeCache[colorCss]
+      document.head.appendChild(elem)
+      return resolve()
     }
     // 主题css的js模块已被加载过
-    const oldElem = document.head.querySelector(`#ele-theme-${colorCss}-js`);
+    const oldElem = document.head.querySelector(`#ele-theme-${colorCss}-js`)
     if (oldElem) {
-      removeTheme();  // 移除上次的主题
-      let elem = document.createElement('link');
-      elem.id = `ele-theme-${colorCss}`;
-      elem.setAttribute('type', 'text/css');
-      elem.setAttribute('rel', 'stylesheet');
-      elem.setAttribute('href', oldElem.getAttribute('ele-css'));
-      document.head.appendChild(elem);
-      return resolve();
+      removeTheme() // 移除上次的主题
+      const elem = document.createElement('link')
+      elem.id = `ele-theme-${colorCss}`
+      elem.setAttribute('type', 'text/css')
+      elem.setAttribute('rel', 'stylesheet')
+      elem.setAttribute('href', oldElem.getAttribute('ele-css'))
+      document.head.appendChild(elem)
+      return resolve()
     }
     // 把head下面相关元素标记为非主题元素
-    const nid = ':not([id^="ele-theme-"])', sel = `style${nid},link${nid},script${nid}`;
+    const nid = ':not([id^="ele-theme-"])'; const sel = `style${nid},link${nid},script${nid}`
     document.head.querySelectorAll(sel).forEach(elem => {
       if (!elem.getAttribute('ele-theme')) {
-        elem.setAttribute('ele-theme', 'no');
+        elem.setAttribute('ele-theme', 'no')
       }
-    });
+    })
     // 加载主题css模块
     import(`@/styles/theme/${colorCss}.scss`).then(() => {
-      removeTheme();  // 移除上次的主题
+      removeTheme() // 移除上次的主题
       // 获取import之后的主题标签
-      let elem = document.head.querySelectorAll('style:not([ele-theme="no"])');
-      elem = elem.length ? elem[elem.length - 1] : null;
+      let elem = document.head.querySelectorAll('style:not([ele-theme="no"])')
+      elem = elem.length ? elem[elem.length - 1] : null
       if (!elem) {
         // 可能是style标签也可能是link标签
-        elem = document.head.querySelectorAll('link:not([ele-theme="no"])');
-        elem = elem.length ? elem[elem.length - 1] : null;
+        elem = document.head.querySelectorAll('link:not([ele-theme="no"])')
+        elem = elem.length ? elem[elem.length - 1] : null
         if (!elem) {
-          return reject(new Error('theme element not found.'));
+          return reject(new Error('theme element not found.'))
         }
         // 再找到对应的主题js模块的标签
-        const href = elem.getAttribute('href'),
-          uuid = href.substring(href.indexOf('chunk-'), href.indexOf('.')),
-          qs = `script[src^="/js/${uuid}"]:not([ele-theme="no"])`;
-        let node = document.head.querySelectorAll(qs);
+        const href = elem.getAttribute('href')
+          const uuid = href.substring(href.indexOf('chunk-'), href.indexOf('.'))
+          const qs = `script[src^="/js/${uuid}"]:not([ele-theme="no"])`
+        const node = document.head.querySelectorAll(qs)
         if (node.length) {
-          node[node.length - 1].id = `ele-theme-${colorCss}-js`;
+          node[node.length - 1].id = `ele-theme-${colorCss}-js`
           // 记录css地址
-          node[node.length - 1].setAttribute('ele-css', href);
+          node[node.length - 1].setAttribute('ele-css', href)
         }
       }
-      elem.id = `ele-theme-${colorCss}`;
+      elem.id = `ele-theme-${colorCss}`
       // 缓存主题css
       if (elem.innerHTML) {
-        let cache = {};
-        cache[colorCss] = elem.innerHTML;
+        const cache = {}
+        cache[colorCss] = elem.innerHTML
         try {
           localStorage.setItem(cacheStoreName, JSON.stringify({
             version: version,
             cache: cache
-          }));
+          }))
         } catch (e) {
-          console.error(e);
+          console.error(e)
         }
         if (!window.eleThemeCache) {
-          window.eleThemeCache = {};
+          window.eleThemeCache = {}
         }
-        window.eleThemeCache[colorCss] = cache[colorCss];
+        window.eleThemeCache[colorCss] = cache[colorCss]
       }
-      return resolve();
+      return resolve()
     }).catch(e => {
-      reject(e);
-    });
-  });
+      reject(e)
+    })
+  })
 }
 
 /**
  * 移除主题
  */
 function removeTheme() {
-  const sel = 'style[id^="ele-theme-"],link[id^="ele-theme-"]';
+  const sel = 'style[id^="ele-theme-"],link[id^="ele-theme-"]'
   document.head.querySelectorAll(sel).forEach(elem => {
-    elem.parentNode.removeChild(elem);
-  });
+    elem.parentNode.removeChild(elem)
+  })
 }

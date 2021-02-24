@@ -129,7 +129,8 @@
           <template slot="tool" slot-scope="{item}">
             <i
               class="el-icon-view ele-file-list-item-tool ele-text-primary"
-              @click.stop="view(item)" title="查看"></i>
+              @click.stop="view(item)"
+title="查看"></i>
             <i
               class="el-icon-share ele-file-list-item-tool ele-text-primary"
               title="分享"></i>
@@ -157,11 +158,11 @@
 </template>
 
 <script>
-import EleFileList from 'ele-admin/packages/ele-file-list';
+import EleFileList from 'ele-admin/packages/ele-file-list'
 
 export default {
   name: 'ExtensionFile',
-  components: {EleFileList},
+  components: { EleFileList },
   data() {
     return {
       // 加载状态
@@ -181,24 +182,24 @@ export default {
       // 排序字段
       sort: '',
       // 排序方式
-      order: '',
+      order: ''
     }
   },
   computed: {
     // 图片预览列表
     previewList() {
-      return this.data.filter(d => d.thumbnail).map(d => d.url);
+      return this.data.filter(d => d.thumbnail).map(d => d.url)
     }
   },
   mounted() {
-    this.query();
+    this.query()
   },
   methods: {
     /* 查询文件列表 */
     query() {
-      this.checked = [];
-      this.data = [];
-      this.loading = true;
+      this.checked = []
+      this.data = []
+      this.loading = true
       this.$http.get('/file/list', {
         params: {
           directory: this.directory.join('/'),
@@ -206,121 +207,121 @@ export default {
           order: this.order
         }
       }).then(res => {
-        this.loading = false;
+        this.loading = false
         if (res.data.code === 0) {
           res.data.data.forEach(d => {
             // 文件地址加baseURL
             if (d.url) {
-              d.url = process.env.VUE_APP_API_BASE_URL + '/' + d.url;
+              d.url = process.env.VUE_APP_API_BASE_URL + '/' + d.url
             }
             if (d.thumbnail) {
-              d.thumbnail = process.env.VUE_APP_API_BASE_URL + '/' + d.thumbnail;
+              d.thumbnail = process.env.VUE_APP_API_BASE_URL + '/' + d.thumbnail
             }
             // 文件大小格式化
             if (d.isDirectory) {
-              d.length = '-';
+              d.length = '-'
             } else {
-              d.length = this.getFileSize(d.length);
+              d.length = this.getFileSize(d.length)
             }
             // 修改时间格式化
             if (d.updateTime) {
-              d.updateTime = this.$util.toDateString(d.updateTime);
+              d.updateTime = this.$util.toDateString(d.updateTime)
             }
-          });
-          this.data = res.data.data;
+          })
+          this.data = res.data.data
         } else {
-          this.$message.error(res.data.msg);
+          this.$message.error(res.data.msg)
         }
       }).catch(e => {
-        this.loading = false;
-        this.$message.error(e.message);
+        this.loading = false
+        this.$message.error(e.message)
       })
     },
     /* item点击事件 */
     onItemClick(item) {
-      if (item.isDirectory) {  // 文件夹
-        this.directory.push(item.name);
-        this.query();
+      if (item.isDirectory) { // 文件夹
+        this.directory.push(item.name)
+        this.query()
       } else if (item.thumbnail) {
-        this.currentImage = item.url;
+        this.currentImage = item.url
         this.$nextTick(() => {
           if (this.$refs.previewImage) {
-            this.$refs.previewImage.showViewer = true;
+            this.$refs.previewImage.showViewer = true
           }
-        });
+        })
       } else if (this.checked.indexOf(item) !== -1) {
-        this.checked.splice(this.checked.indexOf(item), 1);
+        this.checked.splice(this.checked.indexOf(item), 1)
       } else {
-        this.checked.push(item);
+        this.checked.push(item)
       }
     },
     /* 返回上级 */
     back() {
-      this.directory.splice(this.directory.length - 1, 1);
-      this.query();
+      this.directory.splice(this.directory.length - 1, 1)
+      this.query()
     },
     /* 全部文件 */
     listAll() {
       if (!this.directory.length) {
-        return;
+        return
       }
-      this.directory = [];
-      this.query();
+      this.directory = []
+      this.query()
     },
     /* 回到指定目录 */
     listDir(index) {
       if (index === this.directory.length - 1) {
-        return;
+        return
       }
-      this.directory.splice(index, this.directory.length - index);
-      this.query();
+      this.directory.splice(index, this.directory.length - index)
+      this.query()
     },
     /* 文件大小格式化 */
     getFileSize(value) {
       if (value < 1024) {
-        return value + 'B';
+        return value + 'B'
       } else if (value < 1024 * 1024) {
-        return (value / 1024).toFixed(1) + 'KB';
+        return (value / 1024).toFixed(1) + 'KB'
       } else if (value < 1024 * 1024 * 1024) {
-        return (value / 1024 / 1024).toFixed(1) + 'M';
+        return (value / 1024 / 1024).toFixed(1) + 'M'
       } else {
-        return (value / 1024 / 1024 / 1024).toFixed(1) + 'G';
+        return (value / 1024 / 1024 / 1024).toFixed(1) + 'G'
       }
     },
     /* 排序方式切换 */
     onSortClick(command) {
       if (this.sort === command) {
-        this.order = {'asc': 'desc', 'desc': 'asc'}[this.order];
+        this.order = { 'asc': 'desc', 'desc': 'asc' }[this.order]
       } else {
-        this.order = 'asc';
-        this.sort = command;
+        this.order = 'asc'
+        this.sort = command
       }
-      this.query();
+      this.query()
     },
     /* 文件列表排序方式改变 */
     onSortChange(obj) {
-      this.order = obj.order;
-      this.sort = obj.sort;
-      this.query();
+      this.order = obj.order
+      this.sort = obj.sort
+      this.query()
     },
     /* 查看文件 */
     view(item) {
       if (item.isDirectory) {
-        this.onItemClick(item);
-        return;
+        this.onItemClick(item)
+        return
       }
       if (item.url) {
-        window.open(item.url);
+        window.open(item.url)
       }
     },
     /* 文件上传成功 */
     uploadSuccess(res) {
       if (res.code === 0) {
-        this.$message({type: 'success', message: res.msg});
-        this.directory = [res.dir.replace(/\//, '')];
-        this.query();
+        this.$message({ type: 'success', message: res.msg })
+        this.directory = [res.dir.replace(/\//, '')]
+        this.query()
       } else {
-        this.$message.error(res.msg);
+        this.$message.error(res.msg)
       }
     }
   }

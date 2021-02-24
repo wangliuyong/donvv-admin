@@ -221,53 +221,53 @@ export default {
           desc: '需要在 2020-07-25 11:03 前完成'
         }
       ]
-    };
+    }
   },
   computed: {
     // 通知标题
     noticeLabel() {
       if (this.notice.length) {
-        return `通知(${this.notice.length})`;
+        return `通知(${this.notice.length})`
       }
-      return '通知';
+      return '通知'
     },
     // 私信标题
     messageLabel() {
       if (this.message.length) {
-        return `私信(${this.message.length})`;
+        return `私信(${this.message.length})`
       }
-      return '私信';
+      return '私信'
     },
     // 待办标题
     todoLabel() {
       if (this.todo.length) {
-        return `待办(${this.todo.length})`;
+        return `待办(${this.todo.length})`
       }
-      return '待办';
+      return '待办'
     },
     // 所有消息数量
     allNum() {
-      return this.notice.length + this.message.length + this.todo.length;
+      return this.notice.length + this.message.length + this.todo.length
     }
   },
   methods: {
     /* 清空消息 */
     clear(type) {
       if (type === 1) {
-        this.notice = [];
+        this.notice = []
       } else if (type === 2) {
-        this.message = [];
+        this.message = []
       } else if (type === 3) {
-        this.todo = [];
+        this.todo = []
       }
     },
     /* 查看更多 */
     more(type) {
-      console.log(type);
+      console.log(type)
       if (this.$route.path !== '/user/message') {
-        this.$router.push('/user/message');
+        this.$router.push('/user/message')
       }
-      this.show = false;
+      this.show = false
     }
   }
 }
@@ -346,7 +346,6 @@ export default {
   background-color: #60B2FC;
   border-radius: 50%;
   text-align: center;
-
 
   &.el-icon-s-check {
     background-color: #F5686F;
