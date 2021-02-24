@@ -120,7 +120,6 @@
 
 <script>
 import MenuEdit from './menu-edit';
-import { menueClass } from '@/utils/menuPermission';
 
 export default {
   name: 'SystemMenu',
@@ -141,61 +140,64 @@ export default {
         },
         {
           prop: 'title',
-          label: '菜单名称',
+          label: '权限名称',
           showOverflowTooltip: true,
           minWidth: 110,
           slot: 'title'
         },
         {
           prop: 'path',
-          label: '路由地址',
+          label: '路径',
           showOverflowTooltip: true,
           minWidth: 110
         },
         {
           prop: 'component',
-          label: '组件路径',
+          label: '权限编号',
           showOverflowTooltip: true,
-          minWidth: 110
+          minWidth: 90
         },
         {
-          prop: 'authority',
-          label: '权限标识',
+          prop: 'type',
+          label: '权限类型',
           showOverflowTooltip: true,
-          minWidth: 110
+          minWidth: 60,
+          formatter: (row, column, cellValue) => {
+            if(cellValue == 1) {
+              return '菜单'
+            } else{
+              return '页面'
+            }
+          }
         },
         {
-          prop: 'sortNumber',
+          prop: 'alias',
+          label: '权限别名',
+          align: 'center',
+          showOverflowTooltip: true,
+          width: 110,
+          
+        },
+        {
+          prop: 'sort',
           label: '排序',
           align: 'center',
-          showOverflowTooltip: true,
-          width: 60
+          showOverflowTooltip: true
         },
         {
-          prop: 'hide',
-          label: '隐藏',
-          align: 'center',
-          showOverflowTooltip: true,
+          prop: 'isEnabled',
+          label: '是否启用',
           width: 60,
+          showOverflowTooltip: true,
           formatter: (row, column, cellValue) => {
-            return ['否', '是'][cellValue];
+            return cellValue ? '是' : '否'
           }
         },
         {
-          prop: 'menuType',
-          label: '类型',
+          prop: 'remark',
+          label: '备注',
           align: 'center',
-          showOverflowTooltip: true,
-          slot: 'menuType'
-        },
-        {
-          prop: 'createTime',
-          label: '创建时间',
-          showOverflowTooltip: true,
-          minWidth: 110,
-          formatter: (row, column, cellValue) => {
-            return this.$util.toDateString(cellValue);
-          }
+          showOverflowTooltip: true
         },
         {
           columnKey: 'action',
