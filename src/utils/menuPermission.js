@@ -75,6 +75,7 @@ export const menueClass  = (permission) => {
           if(item1.children){
             if(!item1.children.find(menuItem => menuItem.code === item2.code)){
               item1.children.push(item2)
+              item1.children = item1.children.sort((a,b) => a.sort -b.sort)
             }
           } else {
             item1.children = []
@@ -83,5 +84,5 @@ export const menueClass  = (permission) => {
       })
     })
  }
-  return menuList.filter(item => item.pcode === '0')
+  return menuList.filter(item => item.pcode === '0').sort((a,b) => a.sort -b.sort)
 }

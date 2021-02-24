@@ -15,7 +15,7 @@
       <el-dropdown @command="onUserDropClick">
         <div class="ele-admin-header-avatar">
           <el-avatar :src="loginUser.avatar"/>
-          <span>{{ loginUser.nickname }}</span>
+          <span>{{ loginUser.nickname || '管理员' }}</span>
           <i class="el-icon-arrow-down"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
