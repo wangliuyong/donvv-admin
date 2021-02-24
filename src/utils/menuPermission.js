@@ -66,6 +66,8 @@ export const generateMenus = function(router, permission, path = '') {
 export const menueClass  = (permission) => {
   permission.map((item) => {
     item.component = item.path
+    item.menuId = item.code
+    item.parentId = item.pcode
   })
   let menuList = permission
   for (let i = 1; i <= 6; i++) { 

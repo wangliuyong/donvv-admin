@@ -10,6 +10,7 @@ import router from './router';
 import store from './store';
 import './styles/index.scss';
 
+
 Vue.config.productionTip = false;
 Vue.prototype.$setting = setting;
 Vue.use(EleAdmin, {size: 'medium'});

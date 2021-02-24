@@ -33,6 +33,8 @@
     "vue-router": "^3.5.1",
     "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2",
+    "vxe-table": "^3.1.6",
+    "xe-utils": "^3.1.8",
     "xgplayer-vue": "^1.1.5",
     "xlsx": "^0.16.9"
   },

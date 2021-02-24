@@ -141,11 +141,13 @@ export default {
           
           console.log(menueClass(res.data));
 
+          res.data.map((item) => {
+            item.component = item.path
+            item.menuId = item.code
+            item.parentId = item.pcode
+          })
           let result = setting.parseMenu ? setting.parseMenu(res.data) : res.data;
-          
           let menus = menueClass(res.data), home = null;
-
-
           if (!menus) {
             return reject(new Error(result.msg));
           }

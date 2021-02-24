@@ -120,6 +120,7 @@
 
 <script>
 import MenuEdit from './menu-edit';
+import { menueClass } from '@/utils/menuPermission';
 
 export default {
   name: 'SystemMenu',
@@ -148,6 +149,12 @@ export default {
         {
           prop: 'path',
           label: '路由地址',
+          showOverflowTooltip: true,
+          minWidth: 110
+        },
+        {
+          prop: 'component',
+          label: '组件路径',
           showOverflowTooltip: true,
           minWidth: 110
         },
@@ -215,14 +222,17 @@ export default {
   methods: {
     /* 解析接口返回数据 */
     parseData(data) {
-
-
-
-      res = this.$util.toTreeData(data, 'uid', 'pcode')
-   
-      this.menuList = data
-
-      return data;
+      data.map((item) => {
+        item.component = item.path
+        item.menuId = item.code
+        item.parentId = item.pcode
+      })
+      const res = {
+        data: this.$util.toTreeData(data, 'menuId', 'parentId'),
+        code: 0
+      }
+      this.menuList = res.data;
+      return res;
     },
     /* 刷新表格 */
     reload() {
