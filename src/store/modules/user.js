@@ -2,7 +2,6 @@
  * 登录状态管理
  */
 import setting from '@/config/setting';
-import { menueClass } from '@/utils/menuPermission';
 import axios from 'axios';
 import { util } from 'ele-admin';
 import { Base64 } from 'js-base64';
@@ -138,16 +137,15 @@ export default {
           return resolve({menus: menus});
         }      
         axios.get(setting.menuUrl).then(res => {
-          
-          console.log(menueClass(res.data));
-
           res.data.map((item) => {
             item.component = item.path
             item.menuId = item.code
             item.parentId = item.pcode
           })
           let result = setting.parseMenu ? setting.parseMenu(res.data) : res.data;
-          let menus = menueClass(res.data), home = null;
+          let menus = util.toTreeData(res.data, 'menuId', 'parentId'), home = null;
+
+          
           if (!menus) {
             return reject(new Error(result.msg));
           }
