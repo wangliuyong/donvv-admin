@@ -95,7 +95,12 @@ function menuToRoutes(menus) {
   if (!menus) {
     return [];
   }
-  let routes = [];
+  let routes = [{
+    path: 'index',
+    name: 'index',
+    meta: {title: '主页'},
+    component: () => import('@/views/index/index'),
+  }]
   
   menus.forEach(item => {
     const path = item.path;
