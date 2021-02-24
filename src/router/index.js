@@ -49,6 +49,7 @@ router.beforeEach(async(to, from, next) => {
     if (!store.state.user.menus) {
       // 获取动态路由
       store.dispatch('user/getMenus').then(({ menus, home, permission }) => {
+        // 存储到权限
         store.dispatch('permission/permission', permission)
         if (menus) {
           router.addRoute({
