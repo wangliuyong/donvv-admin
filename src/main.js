@@ -5,6 +5,7 @@ import Vue from 'vue'
 import VueClipboard from 'vue-clipboard2'
 import App from './App.vue'
 import './config/axios'
+import directive from './config/directive'
 import setting from './config/setting'
 import router from './router'
 import store from './store'
@@ -17,6 +18,9 @@ Vue.use(permission)
 Vue.use(VueClipboard)
 
 new Vue({
+  created() {
+    directive()
+  },
   router,
   store,
   render: h => h(App)
