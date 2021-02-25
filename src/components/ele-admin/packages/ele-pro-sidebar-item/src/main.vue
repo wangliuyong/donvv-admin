@@ -14,6 +14,7 @@
         v-if="!child.meta.hide"
         :key="child.path"
         :item="child"
+        :index="child.path"
         :pop-class="popClass"/>
     </template>
   </el-submenu>

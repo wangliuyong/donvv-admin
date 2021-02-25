@@ -1,6 +1,6 @@
 /** ele admin license by http://eleadmin.com */
-import NProgress from 'nprogress';
 import ElementUI from 'element-ui';
+import NProgress from 'nprogress';
 import EleAvatarList from './ele-avatar-list';
 import EleDataTable from './ele-data-table';
 import EleDot from './ele-dot';
@@ -87,7 +87,7 @@ export {
   EleTagsInput,
   EleToolbar,
   util
-}
+};
 
 export default {
   install

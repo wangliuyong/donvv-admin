@@ -74,19 +74,22 @@ export default {
     },
     // 侧边栏选中
     active() {
-      if (!this.showActive) {
-        return null;
-      }
-      const current = this.$route;
 
-      console.log(4545454, current);
-      if (current.meta && current.meta.uid) {
-        return current.meta.uid;
-      }
+      return this.$route.path
+      // console.log(!this.showActive, this.$route);
+      // if (!this.showActive) {
+      //   return null;
+      // }
+      // const current = this.$route;
 
-      console.log(66667,current.path);
+      // console.log(4545454, current);
+      // if (current.meta && current.meta.uid) {
+      //   return current.meta.uid;
+      // }
 
-      return current.path;
+      // console.log(66667,current.path);
+
+      // return current.path;
     }
   },
   methods: {
