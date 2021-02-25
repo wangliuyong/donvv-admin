@@ -22,7 +22,7 @@
               <el-option v-for="item in systems" :key="item.code" :label="item.name" :value="item.code" />
             </el-select>
           </el-form-item>
-          <el-form-item label="上级权限:">
+          <el-form-item v-if="data.type < 3" label="上级权限:">
             <treeselect
                 v-model="form.pCode"
                 :options="menuList"
@@ -161,6 +161,7 @@ export default {
     },
     /* 保存编辑 */
     save() {
+      console.log(this.data)
       this.$refs['form'].validate((valid) => {
         if (valid) {
           this.loading = true

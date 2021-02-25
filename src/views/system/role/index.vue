@@ -50,6 +50,7 @@
       <ele-pro-table
         ref="table"
         :datasource="url"
+        method="POST"
         :columns="columns"
         :where="where"
         :selection.sync="selection">
@@ -120,7 +121,7 @@ export default {
   data() {
     return {
       // 表格数据接口
-      url: '/sys/role/page',
+      url: 'system/Role/Search',
       // 表格列配置
       columns: [
         {

@@ -147,6 +147,12 @@ export default {
           slot: 'title'
         },
         {
+          prop: 'systemName',
+          label: '所属模块',
+          showOverflowTooltip: true,
+          minWidth: 110
+        },
+        {
           prop: 'url',
           label: '路径',
           showOverflowTooltip: true,
@@ -228,15 +234,17 @@ export default {
       data.rows.map((item) => {
         item.component = item.path
         item.menuId = item.code
+        item.title = item.name
         item.parentId = item.pCode
+        if (!item.children.length) {
+          item.children = null
+        }
       })
       const res = {
         data: this.$util.toTreeData(data.rows, 'menuId', 'parentId'),
         code: 0
       }
-
-      console.log(6666, res)
-      this.menuList = res.data
+      this.menuList = this.$util.toTreeData(data.rows.filter(item => item.type < 3), 'menuId', 'parentId')
       return res
     },
     /* 刷新表格 */
