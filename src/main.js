@@ -1,6 +1,6 @@
 /** 主入口js */
-import EleAdmin from '@/components/ele-admin'
 import permission from '@/utils/permission'
+import EleAdmin from 'ele-admin'
 import Vue from 'vue'
 import VueClipboard from 'vue-clipboard2'
 import App from './App.vue'
