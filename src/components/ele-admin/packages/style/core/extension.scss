@@ -1,0 +1,652 @@
+/** element ui 组件样式重写 license by http://eleadmin.com */
+@import 'var';
+
+/* 数据表格 */
+.el-table {
+  .caret-wrapper {
+    height: 16px;
+  }
+
+  .sort-caret.ascending {
+    top: -4px;
+  }
+
+  .sort-caret.descending {
+    bottom: -2px;
+  }
+
+  thead {
+    color: $--color-text-primary;
+  }
+
+  th {
+    background: $--background-color-base;
+  }
+
+  &.ele-table-default-head th {
+    background: none;
+  }
+
+  .cell.el-tooltip {
+    min-width: auto;
+  }
+}
+
+.el-table--border.el-loading-parent--relative {
+  border-color: $--border-color-lighter;
+}
+
+.el-table--border .el-loading-mask {
+  right: 1px;
+  bottom: 1px;
+}
+
+.el-table__body tr.current-row:hover > td {
+  background: $--table-current-row-background-color;
+}
+
+.el-table__expand-icon .el-icon-arrow-right {
+  font-weight: bold;
+}
+
+.el-table__column-filter-trigger {
+  line-height: 16px;
+}
+
+.el-table__column-filter-trigger i {
+  font-weight: bold;
+}
+
+.el-table-column--selection .cell {
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
+
+/* 分页 */
+.el-pagination {
+  font-weight: normal;
+  text-align: center;
+}
+
+.el-table + .el-pagination {
+  margin-top: 15px;
+}
+
+.el-pagination.ele-pagination-circle {
+  .el-pager li,
+  .btn-prev,
+  .btn-next {
+    border-radius: 50%;
+    min-width: 28px;
+    margin-left: 0;
+    margin-right: 0;
+
+    &:not(.active) {
+      background: none;
+    }
+  }
+}
+
+/* 弹窗 */
+.el-dialog {
+  border-radius: 4px;
+  max-width: calc(100vw - 30px);
+}
+
+.el-dialog__header {
+  padding-top: 14px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid $--border-color-lighter;
+}
+
+.el-dialog__title {
+  font-size: 16px;
+}
+
+.el-dialog__headerbtn {
+  font-size: 18px;
+  top: 16px;
+}
+
+.el-dialog__body {
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.el-dialog__footer {
+  padding-bottom: 12px;
+  border-top: 1px solid $--border-color-extra-light;
+}
+
+.el-dialog:not(.ele-dialog-form) .el-dialog__body .el-form .el-form-item:last-child {
+  margin-bottom: 0;
+}
+
+.ele-dialog-form .el-dialog__body {
+  padding-bottom: 0;
+}
+
+/* 抽屉 */
+.el-drawer__header {
+  color: $--color-text-regular;
+  font-size: 15px;
+  margin-bottom: 0;
+  padding: 13px 16px;
+  border-bottom: 1px solid $--border-color-extra-light;
+
+  & > :first-child {
+    display: block;
+  }
+}
+
+.el-drawer__close-btn {
+  padding: 0;
+  font-size: 18px;
+  color: $--color-text-secondary;
+}
+
+.el-drawer__body {
+  overflow: auto;
+}
+
+/* MessageBox */
+.el-message-box {
+  padding-bottom: 15px;
+  max-width: calc(100vw - 30px);
+}
+
+.el-message-box__title {
+  font-size: 16px;
+}
+
+.el-message-box__status {
+  font-size: 20px !important;
+}
+
+.el-message-box__status + .el-message-box__message {
+  padding-left: 30px;
+}
+
+/* 气泡确认框 */
+.el-popconfirm__main {
+  margin: 12px 0;
+}
+
+/* 卡片 */
+.el-card {
+  border: none;
+  color: $--color-text-regular;
+}
+
+.ele-card-border {
+  border: 1px solid $--border-color-lighter;
+}
+
+.el-card__header {
+  font-size: 15px;
+  padding: 13px 20px;
+  color: $--color-text-primary;
+  border-color: $--border-color-lighter;
+}
+
+.el-card__body {
+  padding: 15px;
+}
+
+.el-card + .el-card {
+  margin-top: 15px;
+}
+
+/* 圆形和圆角徽章 */
+.ele-tag-round {
+  width: 32px;
+  padding-left: 0;
+  padding-right: 0;
+  border-radius: 50%;
+  text-align: center;
+
+  &.el-tag--medium {
+    width: 28px;
+  }
+
+  &.el-tag--small {
+    width: 24px;
+  }
+
+  &.el-tag--mini {
+    width: 20px;
+  }
+}
+
+.ele-tag-radius {
+  border-radius: 32px;
+
+  &.el-tag--medium {
+    border-radius: 28px;
+  }
+
+  &.el-tag--small {
+    border-radius: 24px;
+  }
+
+  &.el-tag--mini {
+    border-radius: 20px;
+  }
+}
+
+/* 分隔线 */
+.el-divider {
+  margin: 0;
+
+  &.el-divider--horizontal {
+    background: $--border-color-lighter;
+  }
+
+  &.ele-divider-base {
+    background: $--border-color-base;
+  }
+
+  &.ele-divider-light {
+    background: $--border-color-light;
+  }
+
+  &.ele-divider-extra-light {
+    background: $--border-color-extra-light;
+  }
+
+  &.ele-divider-dashed {
+    background: linear-gradient(to right, $--border-color-base, $--border-color-base 8px, transparent 8px, transparent);
+    background-size: 16px 100% !important;
+
+    &.el-divider--horizontal {
+      background: linear-gradient(to right, $--border-color-lighter, $--border-color-lighter 8px, transparent 8px, transparent);
+    }
+
+    &.ele-divider-base {
+      background: linear-gradient(to right, $--border-color-base, $--border-color-base 8px, transparent 8px, transparent);
+    }
+
+    &.ele-divider-light {
+      background: linear-gradient(to right, $--border-color-light, $--border-color-light 8px, transparent 8px, transparent);
+    }
+
+    &.ele-divider-extra-light {
+      background: linear-gradient(to right, $--border-color-extra-light, $--border-color-extra-light 8px, transparent 8px, transparent);
+    }
+  }
+}
+
+/** 警告 */
+.el-alert__content {
+  padding: 0;
+}
+
+.el-alert {
+  .el-alert__description {
+    margin: 0;
+  }
+
+  .el-icon-info.ele-text-info,
+  .el-icon-error.ele-text-danger,
+  .el-icon-warning.ele-text-warning,
+  .el-icon-success.ele-text-success {
+    font-size: 14px;
+    margin-right: 8px;
+  }
+
+  .ele-text {
+    font-size: 14px;
+    color: $--color-text-primary;
+  }
+
+  .el-link {
+    vertical-align: baseline;
+  }
+}
+
+.el-alert__icon {
+  margin-right: 8px;
+}
+
+.el-alert__title + .el-alert__description {
+  margin-top: 8px;
+}
+
+/* 警告边框风格 */
+.ele-alert-border.is-light {
+  .el-alert__title {
+    color: $--color-text-primary;
+    font-size: $--font-size-base;
+
+    &.is-bold {
+      font-weight: normal;
+    }
+  }
+
+  &.is-big .el-alert__title {
+    font-size: $--font-size-medium;
+  }
+
+  .el-alert__description {
+    color: $--color-text-regular;
+  }
+
+  .el-alert__closebtn {
+    color: $--color-text-secondary;
+  }
+
+  &.el-alert--success {
+    border: 1px solid $--color-success-light;
+
+    .el-alert__icon.is-big:before {
+      content: "\e720";
+    }
+  }
+
+  &.el-alert--warning {
+    border: 1px solid $--color-warning-light;
+
+    .el-alert__icon.is-big:before {
+      content: "\e6c9";
+    }
+  }
+
+  &.el-alert--error {
+    border: 1px solid $--color-danger-light;
+
+    .el-alert__icon.is-big:before {
+      content: "\e78d";
+    }
+  }
+
+  &.el-alert--info {
+    border: 1px solid rgba($--color-primary, .3);
+    background: rgba($--color-primary, .1);
+
+    .el-alert__icon {
+      color: $--color-primary;
+
+      &.is-big:before {
+        content: "\e6bf";
+        font-family: "ele-icon" !important;
+      }
+    }
+
+    .ele-text-info {
+      color: $--color-primary;
+    }
+  }
+}
+
+/* 步骤条 */
+.el-step {
+  flex-grow: 1;
+}
+
+.el-step__line {
+  background: $--border-color-light;
+}
+
+.el-step__line-inner {
+  border-right: none;
+  border-bottom: none;
+  transition-delay: 0ms !important;
+}
+
+.el-step.is-horizontal {
+  .el-step__line {
+    height: 1px;
+  }
+
+  .el-step__line-inner {
+    border-left: none;
+  }
+}
+
+.el-step.is-vertical {
+  .el-step__line {
+    width: 1px;
+  }
+
+  .el-step__line-inner {
+    border-top: none;
+  }
+}
+
+.el-step__icon.is-text {
+  border-width: 1px;
+  border-color: $--border-color-base;
+}
+
+.el-step__icon-inner,
+.el-step__title.is-process {
+  font-weight: 500;
+}
+
+.el-step__head.is-process {
+  color: $--color-primary;
+
+  .el-step__icon.is-text {
+    color: #FFF;
+    border-color: $--color-primary;
+    background: $--color-primary;
+  }
+}
+
+.el-step__head.is-finish {
+  .el-step__icon.is-text {
+    color: $--color-primary;
+    border-color: $--color-primary;
+  }
+
+  .el-step__line-inner {
+    border-width: 1px !important;
+  }
+
+  .el-step__icon.is-text .el-step__icon-inner {
+    font-size: 0;
+
+    &:before {
+      content: "\e6da";
+      font-size: 14px;
+      font-family: element-icons !important;
+      speak: none;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+}
+
+.el-step.is-horizontal .el-step__head.is-finish .el-step__line-inner {
+  width: 100% !important;
+}
+
+.el-step.is-vertical .el-step__head.is-finish .el-step__line-inner {
+  height: 100% !important;
+}
+
+.el-step__title.is-finish,
+.el-step__description.is-finish {
+  color: $--color-text-secondary;
+}
+
+.el-step.is-vertical .el-step__description {
+  padding-bottom: 8px;
+}
+
+.el-step__head.is-error .el-step__icon.is-text {
+  border-color: $--color-danger;
+}
+
+/* 步骤条水平风格 */
+.ele-steps-horizontal {
+  .el-step {
+    display: flex;
+
+    .el-step__head {
+      width: auto;
+      position: static;
+      padding: 4px 8px 0 0;
+
+      .el-step__line {
+        left: 40px;
+        right: 8px;
+        top: 15px;
+      }
+    }
+
+    .el-step__main {
+      /*flex: 1;*/
+      flex-grow: 1;
+      position: relative;
+
+      .el-step__title {
+        line-height: 32px;
+        background: $--color-white;
+        display: inline-block;
+        padding-right: 8px;
+      }
+
+      .el-step__description {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .el-step__icon.is-icon {
+    width: 32px;
+  }
+}
+
+/* InputNumber */
+.el-input-number.ele-text-left .el-input__inner {
+  text-align: left;
+}
+
+.el-input-number.ele-text-right .el-input__inner {
+  text-align: right;
+}
+
+/* Timeline */
+.ele-timeline {
+  .el-timeline-item__tail {
+    top: 2px;
+    border-left-width: 1px;
+  }
+
+  .el-timeline-item__node--normal {
+    left: 0;
+    top: 2px;
+    width: 9px;
+    height: 9px;
+  }
+
+  .el-timeline-item__node--primary {
+    top: 4px;
+    left: 2px;
+    width: 5px;
+    height: 5px;
+    background: $--color-white;
+    box-shadow: 0 0 0 3px $--color-primary;
+  }
+
+  .el-timeline-item__content {
+    color: $--color-text-regular;
+  }
+}
+
+/* badge */
+.el-badge__content {
+  height: 16px;
+  line-height: 16px;
+  padding: 0 5px;
+  border: none;
+}
+
+.ele-badge-static {
+  line-height: 0;
+
+  .el-badge__content {
+    position: static;
+    transform: none;
+  }
+}
+
+/* Message */
+.el-message {
+  min-width: inherit;
+  padding: 12px 16px;
+
+  .el-message__icon {
+    font-size: 18px;
+  }
+
+  .el-message__content {
+    line-height: 18px;
+  }
+
+  &.el-message--info {
+    border-color: rgba($--color-text-secondary, .15);
+  }
+
+  &:not(.ele-message-border) {
+    background: $--color-white;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
+    border: none;
+
+    .el-message__content {
+      color: inherit;
+    }
+
+    .el-icon-info {
+      color: $--color-primary;
+    }
+  }
+
+  &.ele-message-loading .el-message__icon {
+    animation: rotating 1s linear infinite;
+
+    &:before {
+      content: "\e73d";
+      font-family: 'ele-icon' !important;
+    }
+  }
+}
+
+/* Notification */
+.el-notification {
+  border-radius: 4px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.el-notification__title {
+  font-weight: 500;
+}
+
+/* upload-dragger */
+body .el-upload-dragger {
+  background: none;
+  border-color: $--border-color-base;
+}
+
+/* el-avatar */
+.el-avatar > img {
+  width: 100%;
+}
+
+/* 小屏幕样式 */
+@media screen and (max-width: 768px) {
+  .el-pagination.ele-pagination,
+  .el-pagination.ele-pagination-circle {
+    .el-pagination__total,
+    .el-pagination__sizes,
+    .el-pagination__jump {
+      display: none;
+    }
+  }
+}
