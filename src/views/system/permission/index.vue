@@ -72,7 +72,7 @@
         </template>
         <!-- 标题列 -->
         <template slot="title" slot-scope="{row}">
-          <i :class="row.icon"></i> {{ row.title }}
+          <i :class="row.icon"></i> {{ row.name }}
         </template>
         <!-- 类型列 -->
         <template slot="menuType" slot-scope="{row}">
@@ -147,7 +147,7 @@ export default {
           slot: 'title'
         },
         {
-          prop: 'path',
+          prop: 'url',
           label: '路径',
           showOverflowTooltip: true,
           minWidth: 110
