@@ -111,20 +111,20 @@ export default {
     /* 获取当前用户信息 */
     getUserInfo() {
       if (setting.userUrl) {
-        this.$http.get(setting.userUrl).then(res => {
-          let result
-          if (setting.parseUser) {
-            result = setting.parseUser(res.data)
-          } else {
-            result = res.data
-          }
-          if (res.data.code === 0) {
-            const user = result.data
+        this.$http.post(setting.userUrl).then(res => {
+          // let result
+          // if (setting.parseUser) {
+          //   result = setting.parseUser(res.data)
+          // } else {
+          //   result = res.data
+          // }
+          if (res.isSucceed) {
+            const user = res.data
             this.$store.dispatch('user/setUser', user)
-            this.$store.dispatch('user/setRoles', user ? user.roles : null)
-            this.$store.dispatch('user/setAuthorities', user ? user.authorities : null)
+            // this.$store.dispatch('user/setRoles', user ? user.roles : null)
+            // this.$store.dispatch('user/setAuthorities', user ? user.authorities : null)
           } else {
-            this.$message.error(res.data.msg)
+            this.$message.error(res.msg)
           }
           // 在用户权限信息请求完成后再渲染主体部分, 以免权限控制指令不生效
           this.showContent = true

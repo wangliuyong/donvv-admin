@@ -17,6 +17,11 @@
         @submit.native.prevent>
       <el-row :gutter="15">
         <el-col :sm="12">
+          <el-form-item  label="系统应用" prop="pCode">
+            <el-select v-model="form.systemCode" placeholder="请选择应用" style="min-width:50%">
+              <el-option v-for="item in systems" :key="item.code" :label="item.name" :value="item.code" />
+            </el-select>
+          </el-form-item>
           <el-form-item label="上级权限:">
             <treeselect
                 v-model="form.pCode"
@@ -27,12 +32,11 @@
           </el-form-item>
 
            <el-form-item
-              label="权限类型:"
-              prop="type">
-            <el-input
-                v-model="form.type"
-                placeholder="权限类型"
-                clearable/>
+            label="权限类型:"
+            prop="type">
+            <el-select v-model="form.type" placeholder="权限类型">
+              <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id" />
+            </el-select>
           </el-form-item>
 
           <el-form-item
@@ -43,61 +47,30 @@
                 placeholder="请输入权限名称"
                 clearable/>
           </el-form-item>
-
-          <el-form-item label="是否启用" prop="isEnabled">
-            <el-switch v-model="form.isEnabled" active-text="是" inactive-text="否" />
-          </el-form-item>
-
-           <el-form-item label="排序号:" prop="sortNumber">
-            <el-input-number
-                v-model="form.sortNumber"
-                controls-position="right"
-                :min="0"
-                placeholder="请输入排序号"
-                class="ele-fluid ele-text-left"/>
-          </el-form-item>
-
-          <el-form-item label="权限图标:">
-            <ele-icon-picker
-                v-model="form.icon"
-                placeholder="请选择权限图标"/>
-          </el-form-item>
-
-          <el-form-item label="路由地址:">
-            <el-input
-                v-model="form.path"
-                placeholder="请输入路由地址"
-                clearable/>
-          </el-form-item>
-          <el-form-item label="组件路径:">
-            <el-input
-                v-model="form.component"
-                placeholder="请输入组件路径"
-                clearable/>
+          <el-form-item label="权限路径" prop="path">
+            <el-input v-model="form.path" placeholder="权限路径" />
           </el-form-item>
 
         </el-col>
 
         <el-col :sm="12">
-          <el-form-item label="权限标识:">
-            <el-input
-                v-model="form.authority"
-                placeholder="请输入权限标识"
-                clearable/>
+          <el-form-item label="权限图标:" prop="icon">
+            <ele-icon-picker
+                v-model="form.icon"
+                placeholder="请选择权限图标"/>
+          </el-form-item>
+          <el-form-item label="是否启用" prop="isEnabled">
+            <el-switch v-model="form.isEnabled" active-text="是" inactive-text="否" />
           </el-form-item>
 
-          <el-form-item label="权限类型:">
-            <el-radio-group v-model="form.menuType">
-              <el-radio :label="0">权限</el-radio>
-              <el-radio :label="1">按钮</el-radio>
-            </el-radio-group>
+          <el-form-item label="排序" prop="sort">
+            <el-input-number v-model="form.sort" controls-position="right" :min="1" :max="999" />
+            <span class="help-block">数字越小 排序越靠前</span>
           </el-form-item>
-          <el-form-item label="是否隐藏:">
-            <el-radio-group v-model="form.hide">
-              <el-radio :label="0">显示</el-radio>
-              <el-radio :label="1">隐藏</el-radio>
-            </el-radio-group>
+          <el-form-item label="备注" prop="name">
+            <el-input v-model="form.remark" type="textarea" :rows="2" placeholder="权限备注" />
           </el-form-item>
+
         </el-col>
       </el-row>
     </el-form>
@@ -132,6 +105,13 @@ export default {
   },
   data() {
     return {
+      systems: [],
+      types: [
+        { id: 1, name: '菜单', des: 'Menu' },
+        { id: 2, name: '页面', des: 'Page' },
+        { id: 3, name: '操作', des: 'Action' },
+        { id: 4, name: '元素', des: 'Element' }
+      ],
       // 表单数据
       form: Object.assign({}, this.data, {
         pCode: this.data ? (this.data.pCode === 0 ? null : this.data.pCode) : null
@@ -164,6 +144,12 @@ export default {
       }
     }
   },
+  async created() {
+    const result = await this.$http.get('system/Module/GetAll', { code: this.pid })
+    if (result && result.data) {
+      this.systems = result.data
+    }
+  },
   methods: {
     /* 下拉树格式化 */
     normalizer(d) {
@@ -178,9 +164,10 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           this.loading = true
-          this.$http[this.isUpdate ? 'put' : 'post']('/sys/menu',
+          this.$http[this.isUpdate ? 'put' : 'post']('system/Permission/Save',
               Object.assign({}, this.form, {
-                pCode: this.form.pCode || 0
+                pCode: this.form.pCode || 0,
+                url: this.form.path
               })
           ).then(res => {
             this.loading = false

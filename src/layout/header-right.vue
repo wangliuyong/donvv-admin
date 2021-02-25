@@ -13,9 +13,9 @@
     <!-- 用户信息 -->
     <div class="ele-admin-header-tool-item">
       <el-dropdown @command="onUserDropClick">
-        <div class="ele-admin-header-avatar">
+        <div class="ele-admin-header-avatar" v-if="loginUser">
           <el-avatar :src="loginUser.avatar"/>
-          <span>{{ loginUser.nickname || '管理员' }}</span>
+          <span>{{ loginUser.nickName }}</span>
           <i class="el-icon-arrow-down"></i>
         </div>
         <el-dropdown-menu slot="dropdown">

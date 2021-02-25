@@ -4,16 +4,15 @@
 import setting from '@/config/setting'
 import axios from 'axios'
 import { util } from 'ele-admin'
-import { Base64 } from 'js-base64'
 
 // 获取缓存的用户信息和token信息
-let loginUser = {}
+let loginUser = { }
   let loginToken = localStorage.getItem(setting.tokenStoreName)
 if (!loginToken) {
   loginToken = sessionStorage.getItem(setting.tokenStoreName)
 }
 try {
-  loginUser = JSON.parse(localStorage.getItem(setting.userStoreName) || '{}') || {}
+  loginUser = JSON.parse(localStorage.getItem(setting.userStoreName) || '{}') || { avatar: '', nickName: '' }
 } catch (e) {
   console.error(e)
 }
@@ -69,35 +68,20 @@ export default {
         commit('SET', { key: 'tabs', value: [] })
       }
       commit('SET', { key: 'token', value: token })
-      dispatch('setUser', token)
+      // dispatch('setUser', token)
     },
     /**
      * 缓存用户信息
      * @param commit
      * @param user {Object} 用户信息
      */
-    setUser({ commit, dispatch, state }, token) {
-      try {
-        const token = token || state.token
-        // 解析playload
-        const playload = token.split('.')[1]
-        if (!playload) throw new Error('token不合法')
-        const base64 = Base64.decode(playload)
-        const model = JSON.parse(base64)
-        if (!model || !model.exp) throw new Error('token不合法')
-        if (model.exp * 1000 <= new Date().getTime()) throw new Error('token已过期')
-
-        console.log(88888, model)
-
-        if (model) {
-          localStorage.setItem(setting.userStoreName, JSON.stringify(model))
-        } else {
-          localStorage.removeItem(setting.userStoreName)
-        }
-        commit('SET', { key: 'user', value: model })
-      } catch (error) {
-        dispatch('logout')
+    setUser({ commit }, user) {
+      if (user) {
+        localStorage.setItem(setting.userStoreName, JSON.stringify(user))
+      } else {
+        localStorage.removeItem(setting.userStoreName)
       }
+      commit('SET', { key: 'user', value: user })
     },
     /**
      * 设置用户权限
@@ -136,7 +120,7 @@ export default {
           return resolve({ menus: menus })
         }
         axios.get(setting.menuUrl).then(res => {
-          res.data.map((item) => {
+          res.data = res.data.filter((item) => {
             item.component = item.path
             item.menuId = item.code
             item.parentId = item.pcode
@@ -145,7 +129,10 @@ export default {
             if (item.pcode === '0') {
               item.path = null
             }
+            return item.type < 3
           })
+
+          console.log(4444, res.data)
           // dispatch('permission/permission', res.data)
           const result = setting.parseMenu ? setting.parseMenu(res.data) : res.data
           const menus = util.toTreeData(res.data, 'menuId', 'parentId'); let home = null

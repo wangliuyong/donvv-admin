@@ -41,6 +41,7 @@
       <!-- 数据表格 -->
       <ele-pro-table
         ref="table"
+        method="POST"
         :datasource="url"
         :columns="columns"
         :where="where"
@@ -127,7 +128,7 @@ export default {
   data() {
     return {
       // 表格数据接口
-      url: 'system/permission/GetPermission',
+      url: 'system/Permission/Search',
       // 表格列配置
       columns: [
         {

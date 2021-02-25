@@ -15,7 +15,7 @@ export default {
   // 直接指定菜单数据
   menus: null,
   // 用户信息接口
-  userUrl: '/main/user',
+  userUrl: 'system/user/info',
   // 自定义解析接口用户信息
   parseUser: (res) => {
     res.data.roles = res.data.roles.map(d => d.roleCode)
