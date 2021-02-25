@@ -121,19 +121,17 @@ export default {
         }
         axios.get(setting.menuUrl).then(res => {
           res.data = res.data.filter((item) => {
-            item.component = item.path
+            item.component = item.path.toLocaleLowerCase()
             item.menuId = item.code
             item.parentId = item.pcode
             item.checked = null
+            item.hide = 0
             item.open = null
             if (item.pcode === '0') {
               item.path = null
             }
             return item.type < 3
           })
-
-          console.log(4444, res.data)
-          // dispatch('permission/permission', res.data)
           const result = setting.parseMenu ? setting.parseMenu(res.data) : res.data
           const menus = util.toTreeData(res.data, 'menuId', 'parentId'); let home = null
 
@@ -145,7 +143,7 @@ export default {
               item = setting.parseMenuItem(item)
             }
             item.meta = Object.assign({
-              title: item.title,
+              title: item.title || item.name,
               icon: item.icon,
               hide: item.hide,
               uid: item.uid

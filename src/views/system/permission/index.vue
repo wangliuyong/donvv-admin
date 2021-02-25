@@ -225,15 +225,17 @@ export default {
   methods: {
     /* 解析接口返回数据 */
     parseData(data) {
-      data.map((item) => {
+      data.rows.map((item) => {
         item.component = item.path
         item.menuId = item.code
-        item.parentId = item.pcode
+        item.parentId = item.pCode
       })
       const res = {
-        data: this.$util.toTreeData(data, 'menuId', 'parentId'),
+        data: this.$util.toTreeData(data.rows, 'menuId', 'parentId'),
         code: 0
       }
+
+      console.log(6666, res)
       this.menuList = res.data
       return res
     },
