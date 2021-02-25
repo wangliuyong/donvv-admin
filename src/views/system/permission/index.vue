@@ -128,7 +128,7 @@ export default {
   data() {
     return {
       // 表格数据接口
-      url: 'system/Permission/Search',
+      url: 'system/Permission/SearchAll',
       // 表格列配置
       columns: [
         {

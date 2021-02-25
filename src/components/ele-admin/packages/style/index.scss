@@ -1,0 +1,9 @@
+/** ele admin 全局引入样式 license by http://eleadmin.com */
+@import "~nprogress/nprogress.css";
+
+$--font-path: "~element-ui/lib/theme-chalk/fonts" !default;
+@import "./icon.scss";
+@import "./themes/default.scss";
+@import "~element-ui/packages/theme-chalk/src/icon.scss";
+@import "~element-ui/packages/theme-chalk/src/common/transition.scss";
+@import "~element-ui/lib/theme-chalk/display.css";

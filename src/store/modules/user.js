@@ -167,6 +167,8 @@ export default {
                 const cp = item.children[0].path
                 item.path = cp.substring(0, cp.lastIndexOf('/'))
               }
+
+              console.log(5555, item)
             }
           })
           commit('SET', { key: 'menus', value: menus })

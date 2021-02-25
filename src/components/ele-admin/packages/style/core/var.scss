@@ -1,0 +1,39 @@
+/** ele admin variables license by http://eleadmin.com */
+
+// 框架布局最小z-index(多页签[最小]->「顶栏|侧栏」[+2|+3|+1]->移动端遮罩层[+3])
+$--layout-z-index: 99 !default;
+$--layout-body-background: #F0F2F5 !default; // 页面背景颜色
+
+// 侧边栏
+$--sidebar-width: 256px !default; // 侧边栏宽度
+$--sidebar-collapse-width: 60px !default; // 侧边栏折叠后宽度
+$--sidebar-background-dark: #191A23 !default; // 侧边栏暗色背景颜色
+$--sidebar-light-shadow: 1px 3px 3px rgba(0, 0, 0, .08) !default; // 侧栏亮色阴影
+$--sidebar-dark-shadow: 0 4px 4px rgba(0, 21, 41, .35) !default; // 侧栏暗色阴影
+$--sidebar-colorful-icon-width: 26px !default; // 侧边栏彩色图标宽度
+$--sidebar-colorful-icon-size: 14px !default; // 侧边栏彩色图标字体大小
+$--sidebar-transition-anim: .3s cubic-bezier(0.2, 0, 0, 1) 0s !default; // 侧边栏过渡动画
+$--sidebar-transition: width $--sidebar-transition-anim, left $--sidebar-transition-anim !default; // 侧边栏过渡动效
+
+// 顶栏
+$--header-height: 60px !default; // 顶栏高度
+$--header-light-shadow: 0 1px 4px rgba(0, 21, 41, .08) !default; // 顶栏亮色阴影
+$--shadow-head-dark: 0 1px 3px rgba(0, 0, 0, .08) !default; // 顶栏暗色阴影
+$--header-avatar-size: 28px !default; // 顶栏头像大小
+
+// logo
+$--logo-size: 30px !default; // logo大小
+$--logo-font-size: 20px !default; // logo文字大小
+$--logo-light-color: #303133 !default; // logo亮色文字颜色
+$--logo-dark-color: #f2f2f2 !default; // logo暗色文字颜色
+$--logo-light-shadow: 1px 2px 3px rgba(0, 0, 0, .08) !default; // logo亮色阴影
+$--logo-dark-shadow: 0 0px 4px rgba(0, 21, 41, .35) !default; // logo暗色阴影
+
+// 标签页
+$--tabs-height: 40px !default; // 页签高度
+$--tabs-card-padding: 8px !default; // 卡片式页签边距
+
+// 主体内容定宽
+$--body-limit-width: 1200px !default;
+
+@import "~element-ui/packages/theme-chalk/src/common/var.scss";

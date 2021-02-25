@@ -1,4 +1,5 @@
 public
 src/assets
+src/components/ele-admin
 dist
 node_modules
